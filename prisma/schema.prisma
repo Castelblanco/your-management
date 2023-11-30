@@ -18,8 +18,10 @@ model Users {
   email         String
   phone         String
   address       String
-  point_sale    Point_Sales @relation(fields: [point_sale_id], references: [id])
+  point_sale    Point_Sales @relation(fields: [point_sale_id], references: [id], onUpdate: Cascade)
   point_sale_id String
+  role          Users_Roles @relation(fields: [role_id], references: [id], onUpdate: Cascade)
+  role_id       String
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @default(now())
 }
@@ -29,9 +31,9 @@ model Point_Sales {
   name         String
   address      String
   budget       String
-  status       Status_Code @relation(fields: [status_id], references: [id])
+  status       Status_Code @relation(fields: [status_id], references: [id], onUpdate: Cascade)
   status_id    String
-  city_code    Citys       @relation(fields: [city_code_id], references: [id])
+  city_code    Citys       @relation(fields: [city_code_id], references: [id], onUpdate: Cascade)
   city_code_id String
   users        Users[]
 }
@@ -39,7 +41,7 @@ model Point_Sales {
 model Department {
   id        String      @id @unique
   name      String
-  status    Status_Code @relation(fields: [status_id], references: [id])
+  status    Status_Code @relation(fields: [status_id], references: [id], onUpdate: Cascade)
   status_id String
   citys     Citys[]
 }
@@ -47,7 +49,7 @@ model Department {
 model Citys {
   id            String        @id @unique
   name          String
-  department    Department    @relation(fields: [department_id], references: [id])
+  department    Department    @relation(fields: [department_id], references: [id], onUpdate: Cascade)
   department_id String
   status        String
   point_sales   Point_Sales[]
@@ -58,4 +60,10 @@ model Status_Code {
   name        String
   point_sales Point_Sales[]
   department  Department[]
+}
+
+model Users_Roles {
+  id    String  @id @unique
+  name  String
+  users Users[]
 }
