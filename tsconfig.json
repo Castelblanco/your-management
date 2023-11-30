@@ -27,6 +27,7 @@
             "@departaments/*": ["modules/departaments/*"],
             "@point_sales/*": ["modules/point_sales/*"],
             "@status_codes/*": ["modules/status_codes/*"],
+            "@user_roles/*": ["modules/user_roles/*"],
             "@users/*": ["modules/users/*"]
         }
     },
