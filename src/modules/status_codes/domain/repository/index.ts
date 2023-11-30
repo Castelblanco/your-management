@@ -7,5 +7,4 @@ export type TStatusCodeRepository = {
     updateOne: (status: TStatusCodeDOM) => Promise<TStatusCodeDOM>;
     deleteOne: (id: string) => Promise<void>;
     createMany: (status: TStatusCodeDOM[]) => Promise<number>;
-    updateMany: (status: TStatusCodeDOM[]) => Promise<number>;
 };

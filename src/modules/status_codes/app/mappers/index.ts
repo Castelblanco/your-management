@@ -1,19 +1,19 @@
 import { TMappers } from '@common/mappers_wrappers/mappers';
-import { StatusCodeApi, TStatusCodeApi } from '@status_codes/domain/dto';
+import { StatusCodeAPI, TStatusCodeAPI } from '@status_codes/domain/dto';
 import { StatusCodeDOM, TStatusCodeDOM } from '@status_codes/domain/entities';
 
 export class StatusCodeMappers
-    implements TMappers<TStatusCodeDOM, TStatusCodeApi>
+    implements TMappers<TStatusCodeDOM, TStatusCodeAPI>
 {
-    apiToDom = (item: TStatusCodeApi): TStatusCodeDOM => {
+    apiToDom = (item: TStatusCodeAPI): TStatusCodeDOM => {
         return new StatusCodeDOM({
             id: item.id,
             name: item.name,
         });
     };
 
-    domToApi = (item: TStatusCodeDOM): TStatusCodeApi => {
-        return new StatusCodeApi({
+    domToApi = (item: TStatusCodeDOM): TStatusCodeAPI => {
+        return new StatusCodeAPI({
             id: item.id,
             name: item.name,
         });

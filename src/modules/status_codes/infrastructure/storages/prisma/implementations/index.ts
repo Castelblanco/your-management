@@ -34,7 +34,7 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
 
             if (!status)
                 throw new ErrorResourceNotFound(
-                    `this status with id ${id}, not exist`
+                    `this status with id ${id}, not exist`,
                 );
 
             return this.wrappers.dalToDom(status);
@@ -83,17 +83,6 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
     createMany = async (status: TStatusCodeDOM[]): Promise<number> => {
         try {
             const { count } = await this.db.createMany({
-                data: status.map(this.wrappers.domToDal),
-            });
-            return count;
-        } catch (e) {
-            throw new StorageError(e);
-        }
-    };
-
-    updateMany = async (status: TStatusCodeDOM[]): Promise<number> => {
-        try {
-            const { count } = await this.db.updateMany({
                 data: status.map(this.wrappers.domToDal),
             });
             return count;

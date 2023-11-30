@@ -1,13 +1,13 @@
-export type TStatusCodeApi = {
+export type TStatusCodeAPI = {
     id: string;
     name: string;
 };
 
-export class StatusCodeApi implements TStatusCodeApi {
+export class StatusCodeAPI implements TStatusCodeAPI {
     id: string;
     name: string;
 
-    constructor(status: StatusCodeApi) {
+    constructor(status: TStatusCodeAPI) {
         this.id = status.id;
         this.name = status.name;
     }

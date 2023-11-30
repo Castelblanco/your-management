@@ -3,13 +3,11 @@ import { TStatusCodeRepository } from '@status_codes/domain/repository';
 
 type Dependencies = {
     repository: TStatusCodeRepository;
-    createId: () => string;
 };
 
-export const buildCreateOne = ({ repository, createId }: Dependencies) => {
+export const buildUpdateOne = ({ repository }: Dependencies) => {
     const services = async (status: TStatusCodeDOM) => {
-        status.id = createId();
-        return await repository.createOne(status);
+        return await repository.updateOne(status);
     };
 
     return services;
