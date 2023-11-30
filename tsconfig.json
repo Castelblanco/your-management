@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "lib": ["ESNext"],
+        "module": "esnext",
+        "target": "esnext",
+        "moduleResolution": "bundler",
+        "moduleDetection": "force",
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
+        "composite": true,
+        "strict": true,
+        "downlevelIteration": true,
+        "skipLibCheck": true,
+        "jsx": "react-jsx",
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "allowJs": true,
+        "types": [
+            "bun-types" // add Bun global
+        ],
+        "baseUrl": "./src",
+        "paths": {
+            "@db/*": ["app/db/*"],
+            "@common/*": ["modules/common/*"],
+            "@citys/*": ["modules/citys/*"],
+            "@departaments/*": ["modules/departaments/*"],
+            "@point_sales/*": ["modules/point_sales/*"],
+            "@status_codes/*": ["modules/status_codes/*"],
+            "@users/*": ["modules/users/*"]
+        }
+    },
+    "include": ["src", "package.json"]
+}
