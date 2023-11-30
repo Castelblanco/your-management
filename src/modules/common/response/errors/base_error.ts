@@ -2,7 +2,6 @@ import { HttpErrorCode } from '../../enums/errors_enum';
 export class BaseError extends Error {
     code: number;
     status: number;
-    _stack: any;
     error: string;
     metadata: any;
 
@@ -16,7 +15,6 @@ export class BaseError extends Error {
         this.error = this.message;
         this.code = code || HttpErrorCode.UNDEFINED;
         this.status = status || HttpErrorCode.INTERNAL_SERVER_ERROR;
-        this._stack = this.stack;
         this.metadata = metadata;
     }
 }
