@@ -81,6 +81,9 @@ export class DepartamentPrismaRepository implements TDepartamentRepository {
                     ...this.wrappers.domToDal(departament),
                     status: undefined,
                 },
+                include: {
+                    status: true,
+                },
             });
 
             return this.wrappers.dalToDom(newDepartament);
@@ -93,26 +96,22 @@ export class DepartamentPrismaRepository implements TDepartamentRepository {
         departament: TDepartamentDOM,
     ): Promise<TDepartamentDOM> => {
         try {
-            const status = await prisma.status_Code.findFirst({
-                where: {
-                    id: departament.statusId,
-                },
-            });
-
-            let dal = this.wrappers.domToDal(departament);
-
-            if (!status) throw new ErrorResourceNotFound('status not exist');
-
+            const dal = this.wrappers.domToDal(departament);
             const updateDepartament = await this.db.update({
                 data: {
                     ...dal,
                     status: {
-                        connect: status,
+                        connect: {
+                            id: departament.statusId,
+                        },
                     },
                     status_id: undefined,
                 },
                 where: {
                     id: departament.id,
+                },
+                include: {
+                    status: true,
                 },
             });
 
