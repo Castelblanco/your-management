@@ -1,4 +1,4 @@
-# tu-gestion
+# your-management-server
 
 To install dependencies:
 
