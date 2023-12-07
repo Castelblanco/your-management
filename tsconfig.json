@@ -23,7 +23,7 @@
         "paths": {
             "@db/*": ["app/db/*"],
             "@common/*": ["modules/common/*"],
-            "@citys/*": ["modules/citys/*"],
+            "@cities/*": ["modules/cities/*"],
             "@departaments/*": ["modules/departaments/*"],
             "@point_sales/*": ["modules/point_sales/*"],
             "@status_codes/*": ["modules/status_codes/*"],

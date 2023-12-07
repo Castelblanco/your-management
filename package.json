@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "bun --watch ./src/app/server/index.ts",
     "start": "bun ./src/app/server/index.ts",
-    "style": "prettier --check ./src"
+    "style": "prettier --check ./src",
+    "prisma-update": "bunx prisma db push"
   },
   "devDependencies": {
     "bun-types": "latest",
