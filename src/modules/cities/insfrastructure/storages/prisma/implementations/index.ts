@@ -166,8 +166,7 @@ export class CitiesPrismaRepository implements TCitiesRepository {
             });
 
             return;
-        } catch (e) {
-            console.log(JSON.stringify(e));
+        } catch (e: any) {
             throw new StorageError(e);
         }
     };
