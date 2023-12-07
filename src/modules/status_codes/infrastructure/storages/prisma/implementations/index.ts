@@ -6,6 +6,7 @@ import { TStatusCodeRepository } from '@status_codes/domain/repository';
 import { TStatusCodeDAL } from '../models';
 import { StatusCodeWrappers } from '../wrappers';
 import { ErrorResourceNotFound } from '@common/response/errors/resource_not_found';
+import { prismaError } from 'prisma-better-errors';
 export class StatusCodePrismaRepository implements TStatusCodeRepository {
     db: typeof prisma.status_Code;
     wrappers: TWrappers<TStatusCodeDOM, TStatusCodeDAL>;
@@ -19,8 +20,8 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
         try {
             const status = await this.db.findMany();
             return status.map(this.wrappers.dalToDom);
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -38,8 +39,8 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
                 );
 
             return this.wrappers.dalToDom(status);
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -49,8 +50,8 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
                 data: this.wrappers.domToDal(status),
             });
             return this.wrappers.dalToDom(newStatus);
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -63,8 +64,8 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
                 },
             });
             return this.wrappers.dalToDom(updateStatus);
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -75,8 +76,8 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
                     id,
                 },
             });
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -86,8 +87,8 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
                 data: status.map(this.wrappers.domToDal),
             });
             return count;
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 }

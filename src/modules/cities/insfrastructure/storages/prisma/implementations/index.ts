@@ -6,6 +6,7 @@ import { TCityDAL } from '../models';
 import { CitiesWrappers } from '../wrappers';
 import { StorageError } from '@common/response/errors/storage_error';
 import { ErrorResourceNotFound } from '@common/response/errors/resource_not_found';
+import { prismaError } from 'prisma-better-errors';
 
 export class CitiesPrismaRepository implements TCitiesRepository {
     db: typeof prisma.cities;
@@ -55,8 +56,8 @@ export class CitiesPrismaRepository implements TCitiesRepository {
                     ...city,
                 }),
             }));
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -90,8 +91,8 @@ export class CitiesPrismaRepository implements TCitiesRepository {
             return this.wrappers.dalToDom({
                 ...city,
             });
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -113,8 +114,8 @@ export class CitiesPrismaRepository implements TCitiesRepository {
             return this.wrappers.dalToDom({
                 ...newCity,
             });
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -125,8 +126,8 @@ export class CitiesPrismaRepository implements TCitiesRepository {
             });
 
             return count;
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -151,9 +152,8 @@ export class CitiesPrismaRepository implements TCitiesRepository {
             return this.wrappers.dalToDom({
                 ...updateCity,
             });
-        } catch (e) {
-            console.log(e);
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -167,7 +167,7 @@ export class CitiesPrismaRepository implements TCitiesRepository {
 
             return;
         } catch (e: any) {
-            throw new StorageError(e);
+            throw new StorageError(new prismaError(e));
         }
     };
 }

@@ -6,6 +6,7 @@ import { prisma } from '@db/prisma/connect';
 import { UserRolesWrappers } from '../wrappers';
 import { StorageError } from '@common/response/errors/storage_error';
 import { ErrorResourceNotFound } from '@common/response/errors/resource_not_found';
+import { prismaError } from 'prisma-better-errors';
 
 export class UserRolesPrismaRepository implements TUserRoleRepository {
     db: typeof prisma.users_Roles;
@@ -20,8 +21,8 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
         try {
             const roles = await this.db.findMany();
             return roles.map(this.wrappers.dalToDom);
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -39,8 +40,8 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
                 );
 
             return this.wrappers.dalToDom(role);
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -50,8 +51,8 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
                 data: this.wrappers.domToDal(role),
             });
             return this.wrappers.dalToDom(newRole);
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -64,8 +65,8 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
                 },
             });
             return this.wrappers.dalToDom(updateRole);
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -76,8 +77,8 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
                     id,
                 },
             });
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 
@@ -87,8 +88,8 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
                 data: roles.map(this.wrappers.domToDal),
             });
             return count;
-        } catch (e) {
-            throw new StorageError(e);
+        } catch (e: any) {
+            throw new StorageError(new prismaError(e));
         }
     };
 }
