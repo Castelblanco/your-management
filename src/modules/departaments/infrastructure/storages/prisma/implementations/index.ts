@@ -134,10 +134,10 @@ export class DepartamentPrismaRepository implements TDepartamentRepository {
         }
     };
 
-    createMany = async (departament: TDepartamentDOM[]): Promise<number> => {
+    createMany = async (departaments: TDepartamentDOM[]): Promise<number> => {
         try {
             const { count } = await this.db.createMany({
-                data: departament.map(this.wrappers.domToDal),
+                data: departaments.map(this.wrappers.domToDal),
             });
 
             return count;

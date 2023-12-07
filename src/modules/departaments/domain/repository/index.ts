@@ -13,5 +13,5 @@ export type TDepartamentRepository = {
     createOne: (departament: TDepartamentDOM) => Promise<TDepartamentDOM>;
     updateOne: (departament: TDepartamentDOM) => Promise<TDepartamentDOM>;
     deleteOne: (id: string) => Promise<void>;
-    createMany: (departament: TDepartamentDOM[]) => Promise<number>;
+    createMany: (departaments: TDepartamentDOM[]) => Promise<number>;
 };
