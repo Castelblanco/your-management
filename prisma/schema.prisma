@@ -11,9 +11,10 @@ model Users {
   id            String      @id @unique
   first_name    String
   last_name     String
-  document_id   String
-  email         String
-  phone         String
+  document_id   String      @unique
+  email         String      @unique
+  phone         String      @unique
+  password      String
   address       String
   point_sale_id String
   created_at    DateTime    @default(now())
@@ -26,7 +27,7 @@ model Users {
 model Point_Sales {
   id        String      @id @unique
   name      String
-  address   String
+  address   String      @unique
   budget    String
   status_id String
   city_id   String
