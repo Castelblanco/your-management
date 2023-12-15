@@ -1,7 +1,7 @@
 import { TCityFilterDOM, TCityOPT, TCityDOM } from '@cities/domain/entities';
 import { TCitiesRepository } from '@cities/domain/repository';
 import { TWrappers } from '@common/mappers_wrappers/wrappers';
-import { prisma } from '@db/prisma/connect';
+import { PrismaError, prisma } from '@db/prisma/connect';
 import { TCityDAL } from '../models';
 import { CitiesWrappers } from '../wrappers';
 import { StorageError } from '@common/response/errors/storage_error';
@@ -57,7 +57,10 @@ export class CitiesPrismaRepository implements TCitiesRepository {
                 }),
             }));
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -92,7 +95,10 @@ export class CitiesPrismaRepository implements TCitiesRepository {
                 ...city,
             });
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -115,7 +121,10 @@ export class CitiesPrismaRepository implements TCitiesRepository {
                 ...newCity,
             });
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -127,7 +136,10 @@ export class CitiesPrismaRepository implements TCitiesRepository {
 
             return count;
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -149,11 +161,12 @@ export class CitiesPrismaRepository implements TCitiesRepository {
                 },
             });
 
-            return this.wrappers.dalToDom({
-                ...updateCity,
-            });
+            return this.wrappers.dalToDom(updateCity);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -167,7 +180,10 @@ export class CitiesPrismaRepository implements TCitiesRepository {
 
             return;
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 }

@@ -1,5 +1,5 @@
 import { TWrappers } from '@common/mappers_wrappers/wrappers';
-import { prisma } from '@db/prisma/connect';
+import { PrismaError, prisma } from '@db/prisma/connect';
 import {
     TDepartamentFilterDOM,
     TDepartamentOPT,
@@ -47,7 +47,10 @@ export class DepartamentPrismaRepository implements TDepartamentRepository {
 
             return departaments.map(this.wrappers.dalToDom);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -69,7 +72,10 @@ export class DepartamentPrismaRepository implements TDepartamentRepository {
 
             return this.wrappers.dalToDom(departament);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -89,7 +95,10 @@ export class DepartamentPrismaRepository implements TDepartamentRepository {
 
             return this.wrappers.dalToDom(newDepartament);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -118,7 +127,10 @@ export class DepartamentPrismaRepository implements TDepartamentRepository {
 
             return this.wrappers.dalToDom(updateDepartament);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -130,7 +142,10 @@ export class DepartamentPrismaRepository implements TDepartamentRepository {
                 },
             });
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -142,7 +157,10 @@ export class DepartamentPrismaRepository implements TDepartamentRepository {
 
             return count;
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 }

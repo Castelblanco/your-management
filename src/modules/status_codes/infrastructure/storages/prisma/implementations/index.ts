@@ -1,6 +1,6 @@
 import { TWrappers } from '@common/mappers_wrappers/wrappers';
 import { StorageError } from '@common/response/errors/storage_error';
-import { prisma } from '@db/prisma/connect';
+import { PrismaError, prisma } from '@db/prisma/connect';
 import { TStatusCodeDOM } from '@status_codes/domain/entities';
 import { TStatusCodeRepository } from '@status_codes/domain/repository';
 import { TStatusCodeDAL } from '../models';
@@ -21,7 +21,10 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
             const status = await this.db.findMany();
             return status.map(this.wrappers.dalToDom);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -40,7 +43,10 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
 
             return this.wrappers.dalToDom(status);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -51,7 +57,10 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
             });
             return this.wrappers.dalToDom(newStatus);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -65,7 +74,10 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
             });
             return this.wrappers.dalToDom(updateStatus);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -77,7 +89,10 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
                 },
             });
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -88,7 +103,10 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
             });
             return count;
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 }

@@ -1,6 +1,6 @@
 import { TWrappers } from '@common/mappers_wrappers/wrappers';
 import { StorageError } from '@common/response/errors/storage_error';
-import { prisma } from '@db/prisma/connect';
+import { PrismaError, prisma } from '@db/prisma/connect';
 import {
     TPointSaleFilterDOM,
     TPointSaleOPT,
@@ -62,7 +62,10 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
                 }),
             );
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -95,7 +98,10 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
                 })),
             });
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -120,7 +126,10 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
                 city: newPointSale.city.name,
             });
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -132,7 +141,10 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
 
             return count;
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -161,7 +173,10 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
                 users: undefined,
             });
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -173,7 +188,10 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
                 },
             });
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 }

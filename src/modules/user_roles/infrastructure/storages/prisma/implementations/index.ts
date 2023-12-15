@@ -2,7 +2,7 @@ import { TWrappers } from '@common/mappers_wrappers/wrappers';
 import { TUserRoleDOM } from '@user_roles/domain/entities';
 import { TUserRoleRepository } from '@user_roles/domain/repository';
 import { TUserRoleDAL } from '../models';
-import { prisma } from '@db/prisma/connect';
+import { PrismaError, prisma } from '@db/prisma/connect';
 import { UserRolesWrappers } from '../wrappers';
 import { StorageError } from '@common/response/errors/storage_error';
 import { ErrorResourceNotFound } from '@common/response/errors/resource_not_found';
@@ -22,7 +22,10 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
             const roles = await this.db.findMany();
             return roles.map(this.wrappers.dalToDom);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -41,7 +44,10 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
 
             return this.wrappers.dalToDom(role);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -52,7 +58,10 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
             });
             return this.wrappers.dalToDom(newRole);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -66,7 +75,10 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
             });
             return this.wrappers.dalToDom(updateRole);
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -78,7 +90,10 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
                 },
             });
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 
@@ -89,7 +104,10 @@ export class UserRolesPrismaRepository implements TUserRoleRepository {
             });
             return count;
         } catch (e: any) {
-            throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
         }
     };
 }
