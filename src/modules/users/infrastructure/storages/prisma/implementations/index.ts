@@ -205,7 +205,6 @@ export class UsersPrismaRepository implements TUsersRepository {
 
             return this.wrappers.dalToDom(newUser);
         } catch (e: any) {
-            console.log(e.message);
             if (e instanceof PrismaError)
                 throw new StorageError(new prismaError(e));
 
