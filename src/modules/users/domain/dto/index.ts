@@ -4,6 +4,7 @@ export type TUserAPI = {
     last_name: string;
     document_id: string;
     email: string;
+    password: string;
     phone: string;
     address: string;
     point_sale_id: string;
@@ -25,12 +26,26 @@ export type TUserPointSaleAPI = {
     status: string;
 };
 
+export type TUserLoginAPI = {
+    _id: string;
+    first_name: string;
+    last_name: string;
+    document_id: string;
+    email: string;
+    phone: string;
+    address: string;
+    role: string;
+    token: string;
+    point_sale: TUserPointSaleAPI;
+};
+
 export class UserAPI implements TUserAPI {
     _id: string;
     first_name: string;
     last_name: string;
     document_id: string;
     email: string;
+    password: string;
     phone: string;
     address: string;
     point_sale_id: string;
@@ -46,6 +61,7 @@ export class UserAPI implements TUserAPI {
         this.last_name = user.last_name;
         this.document_id = user.document_id;
         this.email = user.email;
+        this.password = user.password;
         this.phone = user.phone;
         this.address = user.address;
         this.point_sale_id = user.point_sale_id;
@@ -76,5 +92,31 @@ export class UserPointSaleAPI implements TUserPointSaleAPI {
         this.city_id = point.city_id;
         this.city = point.city;
         this.status = point.status;
+    }
+}
+
+export class UserLoginAPI implements TUserLoginAPI {
+    _id: string;
+    first_name: string;
+    last_name: string;
+    document_id: string;
+    email: string;
+    phone: string;
+    address: string;
+    role: string;
+    token: string;
+    point_sale: TUserPointSaleAPI;
+
+    constructor(login: TUserLoginAPI) {
+        this._id = login._id;
+        this.first_name = login.first_name;
+        this.last_name = login.last_name;
+        this.document_id = login.document_id;
+        this.email = login.email;
+        this.phone = login.phone;
+        this.address = login.address;
+        this.role = login.role;
+        this.token = login.token;
+        this.point_sale = login.point_sale;
     }
 }

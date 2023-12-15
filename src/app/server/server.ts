@@ -24,7 +24,7 @@ export const server = async () => {
     initHandleError();
     await routers();
 
-    app.listen(PORT, (server) => {
-        console.log(`Server Elysia running in http://localhost:${server.port}`);
+    app.listen(PORT, ({ hostname, port }) => {
+        console.log(`Server Elysia running in http://${hostname}:${port}`);
     });
 };

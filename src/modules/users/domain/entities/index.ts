@@ -4,6 +4,7 @@ export type TUserDOM = {
     lastName: string;
     documentId: string;
     email: string;
+    password: string;
     phone: string;
     address: string;
     pointSaleId: string;
@@ -44,12 +45,26 @@ export type TUserOPT = {
     role: boolean;
 };
 
+export type TUserLoginDOM = {
+    id: string;
+    firstName: string;
+    lastName: string;
+    documentId: string;
+    email: string;
+    phone: string;
+    address: string;
+    role: string;
+    token: string;
+    pointSale: TUserPointSaleDOM;
+};
+
 export class UserDOM implements TUserDOM {
     id: string;
     firstName: string;
     lastName: string;
     documentId: string;
     email: string;
+    password: string;
     phone: string;
     address: string;
     pointSaleId: string;
@@ -64,6 +79,7 @@ export class UserDOM implements TUserDOM {
         this.firstName = user.firstName;
         this.lastName = user.lastName;
         this.documentId = user.documentId;
+        this.password = user.password;
         this.email = user.email;
         this.phone = user.phone;
         this.address = user.address;
@@ -95,5 +111,31 @@ export class UserPointSaleDOM implements TUserPointSaleDOM {
         this.cityId = point.cityId;
         this.city = point.city;
         this.status = point.status;
+    }
+}
+
+export class UserLoginDOM implements TUserLoginDOM {
+    id: string;
+    firstName: string;
+    lastName: string;
+    documentId: string;
+    email: string;
+    phone: string;
+    address: string;
+    role: string;
+    token: string;
+    pointSale: TUserPointSaleDOM;
+
+    constructor(login: TUserLoginDOM) {
+        this.id = login.id;
+        this.firstName = login.firstName;
+        this.lastName = login.lastName;
+        this.documentId = login.documentId;
+        this.email = login.email;
+        this.phone = login.phone;
+        this.address = login.address;
+        this.role = login.role;
+        this.pointSale = login.pointSale;
+        this.token = login.token;
     }
 }

@@ -4,6 +4,7 @@ export type TUserDAL = {
     last_name: string;
     document_id: string;
     email: string;
+    password: string;
     phone: string;
     address: string;
     point_sale_id: string;
@@ -48,6 +49,7 @@ export class UserDAL implements TUserDAL {
     last_name: string;
     document_id: string;
     email: string;
+    password: string;
     phone: string;
     address: string;
     point_sale_id: string;
@@ -63,6 +65,7 @@ export class UserDAL implements TUserDAL {
         this.last_name = user.last_name;
         this.document_id = user.document_id;
         this.email = user.email;
+        this.password = user.password;
         this.phone = user.phone;
         this.address = user.address;
         this.point_sale_id = user.point_sale_id;

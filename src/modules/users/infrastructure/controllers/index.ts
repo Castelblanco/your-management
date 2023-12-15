@@ -2,10 +2,10 @@ import { HttpSuccessCode } from '@common/enums/success_enum';
 import { TMappers } from '@common/mappers_wrappers/mappers';
 import { ApiReponse } from '@common/response/success/api_responses';
 import { ListResponse } from '@common/response/success/list_responses';
-import { UsersMappers } from '@users/app/mappers';
+import { UsersLoginMappers, UsersMappers } from '@users/app/mappers';
 import { UsersServices } from '@users/app/services';
-import { TUserAPI } from '@users/domain/dto';
-import { TUserDOM } from '@users/domain/entities';
+import { TUserAPI, TUserLoginAPI } from '@users/domain/dto';
+import { TUserDOM, TUserLoginDOM } from '@users/domain/entities';
 import { Context } from 'elysia';
 
 type TContext = Context<{
@@ -15,11 +15,28 @@ type TContext = Context<{
 export class UsersControllers {
     services: UsersServices;
     mappers: TMappers<TUserDOM, TUserAPI>;
+    mappersLogin: TMappers<TUserLoginDOM, TUserLoginAPI>;
 
     constructor(services: UsersServices) {
         this.services = services;
         this.mappers = new UsersMappers();
+        this.mappersLogin = new UsersLoginMappers();
     }
+
+    login = async ({ body }: TContext): Promise<ApiReponse<TUserLoginAPI>> => {
+        try {
+            const login = await this.services.login(
+                this.mappers.apiToDom(body as TUserAPI),
+            );
+
+            return new ApiReponse(
+                this.mappersLogin.domToApi(login),
+                HttpSuccessCode.SUCCESSFUL,
+            );
+        } catch (e) {
+            throw e;
+        }
+    };
 
     getAll = async ({ query }: TContext): Promise<ListResponse<TUserAPI>> => {
         try {

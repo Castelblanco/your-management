@@ -72,7 +72,6 @@ export class UsersPrismaRepository implements TUsersRepository {
 
             return users.map(this.wrappers.dalToDom);
         } catch (e: any) {
-            console.log(e);
             if (e instanceof PrismaError)
                 throw new StorageError(new prismaError(e));
 
@@ -81,6 +80,70 @@ export class UsersPrismaRepository implements TUsersRepository {
     };
 
     findOne = async (
+        filter: TUserFilterDOM,
+        pointSale?: boolean | undefined,
+        role?: boolean | undefined,
+    ): Promise<TUserDOM> => {
+        try {
+            const user = await this.db.findFirst({
+                where: {
+                    first_name: {
+                        contains: filter.firstName,
+                    },
+                    last_name: {
+                        contains: filter.lastName,
+                    },
+                    document_id: {
+                        contains: filter.documentId,
+                    },
+                    email: {
+                        contains: filter.email,
+                    },
+                    address: {
+                        contains: filter.address,
+                    },
+                    point_sale_id: filter.pointSaleId,
+                    role_id: filter.roleId,
+                    created_at: {
+                        gte: filter.startTime,
+                        lte: filter.endTime,
+                    },
+                },
+                include: {
+                    point_sale: (pointSale as true) && {
+                        select: {
+                            id: true,
+                            name: true,
+                            address: true,
+                            budget: true,
+                            status_id: true,
+                            city_id: true,
+                            city: true,
+                            status: true,
+                        },
+                    },
+                    role: (role as true) && {
+                        select: {
+                            name: true,
+                            id: true,
+                        },
+                    },
+                },
+            });
+
+            if (!user) throw new ErrorResourceNotFound(`this user not exits`);
+
+            return this.wrappers.dalToDom(user);
+        } catch (e: any) {
+            console.log(e);
+            if (e instanceof PrismaError)
+                throw new StorageError(new prismaError(e));
+
+            throw new StorageError(e);
+        }
+    };
+
+    findById = async (
         id: string,
         pointSale?: boolean | undefined,
         role?: boolean,
@@ -142,6 +205,7 @@ export class UsersPrismaRepository implements TUsersRepository {
 
             return this.wrappers.dalToDom(newUser);
         } catch (e: any) {
+            console.log(e.message);
             if (e instanceof PrismaError)
                 throw new StorageError(new prismaError(e));
 

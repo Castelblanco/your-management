@@ -3,6 +3,11 @@ import { TUserDOM, TUserFilterDOM, TUserOPT } from '../entities';
 export type TUsersRepository = {
     findAll: (filter: TUserFilterDOM, options: TUserOPT) => Promise<TUserDOM[]>;
     findOne: (
+        filter: TUserFilterDOM,
+        pointSale?: boolean,
+        role?: boolean,
+    ) => Promise<TUserDOM>;
+    findById: (
         id: string,
         pointSale?: boolean,
         role?: boolean,

@@ -7,7 +7,6 @@ import { usersRouter } from '@users/infrastructure/routers';
 import Elysia from 'elysia';
 
 export const routerV1 = new Elysia();
-
 routerV1.group('v1', (group) => {
     group.use(statusCodeRouters);
     group.use(userRolesRouters);
