@@ -12,6 +12,7 @@
   "devDependencies": {
     "@types/jsonwebtoken": "9.0.5",
     "bun-types": "latest",
+    "oxlint": "0.0.21",
     "prettier": "3.1.0",
     "typescript": "5.3.2"
   },
