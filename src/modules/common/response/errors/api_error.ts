@@ -3,9 +3,9 @@ import { BaseError } from './base_error';
 class ApiError {
     code: number;
     message: string;
-    metadata: any;
+    metadata: unknown;
 
-    constructor(err: any) {
+    constructor(err: unknown) {
         if (err instanceof BaseError) {
             this.code = err.code || HttpErrorCode.UNDEFINED;
             this.message = err.message || 'Internal server error';

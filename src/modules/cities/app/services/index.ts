@@ -1,5 +1,5 @@
-import { TCityDOM, TCityFilterDOM, TCityOPT } from '@cities/domain/entities';
-import { TCitiesRepository } from '@cities/domain/repository';
+import type { TCityDOM, TCityFilterDOM, TCityOPT } from '@cities/domain/entities';
+import type { TCitiesRepository } from '@cities/domain/repository';
 import { buildFindAll } from './find_all';
 import { buildCreateOne } from './create_one';
 import { buildFindOne } from './find_one';

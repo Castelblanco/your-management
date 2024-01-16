@@ -1,6 +1,7 @@
+import type { TUserDOM } from '@users/domain/entities';
 import { sign, verify } from 'jsonwebtoken';
 
-const JWS_SECRET = Bun.env.JWS_SECRET!;
+const JWS_SECRET = Bun.env.JWS_SECRET || 'el-pepe';
 
 export const singToken = (
     payload: string | object | Buffer,
@@ -11,4 +12,5 @@ export const singToken = (
     });
 };
 
-export const verifyToken = (token: string): any => verify(token, JWS_SECRET);
+export const verifyToken = (token: string): TUserDOM =>
+    verify(token, JWS_SECRET) as TUserDOM;

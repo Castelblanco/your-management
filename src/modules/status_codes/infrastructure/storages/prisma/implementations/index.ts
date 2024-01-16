@@ -1,12 +1,12 @@
-import { TWrappers } from '@common/mappers_wrappers/wrappers';
-import { StorageError } from '@common/response/errors/storage_error';
-import { PrismaError, prisma } from '@db/prisma/connect';
-import { TStatusCodeDOM } from '@status_codes/domain/entities';
-import { TStatusCodeRepository } from '@status_codes/domain/repository';
-import { TStatusCodeDAL } from '../models';
+import type { TWrappers } from '@common/mappers_wrappers/wrappers';
+import type { TStatusCodeDOM } from '@status_codes/domain/entities';
+import type { TStatusCodeRepository } from '@status_codes/domain/repository';
+import type { TStatusCodeDAL } from '../models';
+
 import { StatusCodeWrappers } from '../wrappers';
 import { ErrorResourceNotFound } from '@common/response/errors/resource_not_found';
-import { prismaError } from 'prisma-better-errors';
+import { StorageError } from '@common/response/errors/storage_error';
+import { PrismaError, PrismaRequestError, prisma } from '@db/prisma/connect';
 export class StatusCodePrismaRepository implements TStatusCodeRepository {
     db: typeof prisma.status_Code;
     wrappers: TWrappers<TStatusCodeDOM, TStatusCodeDAL>;
@@ -20,9 +20,10 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
         try {
             const status = await this.db.findMany();
             return status.map(this.wrappers.dalToDom);
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            console.log(e);
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -37,14 +38,12 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
             });
 
             if (!status)
-                throw new ErrorResourceNotFound(
-                    `this status with id ${id}, not exist`,
-                );
+                throw new ErrorResourceNotFound(`this status with id ${id}, not exist`);
 
             return this.wrappers.dalToDom(status);
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -56,9 +55,9 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
                 data: this.wrappers.domToDal(status),
             });
             return this.wrappers.dalToDom(newStatus);
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -73,9 +72,9 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
                 },
             });
             return this.wrappers.dalToDom(updateStatus);
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -88,9 +87,9 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
                     id,
                 },
             });
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -102,9 +101,9 @@ export class StatusCodePrismaRepository implements TStatusCodeRepository {
                 data: status.map(this.wrappers.domToDal),
             });
             return count;
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }

@@ -1,12 +1,14 @@
-import { TUsersRepository } from '@users/domain/repository';
+import type { TUsersRepository } from '@users/domain/repository';
 
 type Dependencies = {
     repository: TUsersRepository;
 };
 
-export const buildDeleteOne = ({ repository }: Dependencies) => {
-    const service = async (id: string) => {
-        return await repository.deleteOne(id);
+export const buildDeleteOne = ({
+    repository,
+}: Dependencies): ((id: string) => Promise<void>) => {
+    const service = async (id: string): Promise<void> => {
+        await repository.deleteOne(id);
     };
 
     return service;

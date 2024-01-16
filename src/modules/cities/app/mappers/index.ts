@@ -1,6 +1,6 @@
-import { CityAPI, CityPointSaleAPI, TCityAPI } from '@cities/domain/dto';
-import { CityDOM, CityPointSaleDOM, TCityDOM } from '@cities/domain/entities';
-import { TMappers } from '@common/mappers_wrappers/mappers';
+import { CityAPI, CityPointSaleAPI, type TCityAPI } from '@cities/domain/dto';
+import { CityDOM, CityPointSaleDOM, type TCityDOM } from '@cities/domain/entities';
+import type { TMappers } from '@common/mappers_wrappers/mappers';
 
 export class CitiesMappers implements TMappers<TCityDOM, TCityAPI> {
     apiToDom = (item: TCityAPI): TCityDOM => {

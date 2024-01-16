@@ -1,6 +1,6 @@
-import { CityDOM, CityPointSaleDOM, TCityDOM } from '@cities/domain/entities';
-import { TWrappers } from '@common/mappers_wrappers/wrappers';
-import { CityDAL, CityPointSaleDAL, TCityDAL } from '../models';
+import { CityDOM, CityPointSaleDOM, type TCityDOM } from '@cities/domain/entities';
+import type { TWrappers } from '@common/mappers_wrappers/wrappers';
+import { CityDAL, CityPointSaleDAL, type TCityDAL } from '../models';
 
 export class CitiesWrappers implements TWrappers<TCityDOM, TCityDAL> {
     dalToDom = (item: TCityDAL): TCityDOM => {
@@ -17,10 +17,10 @@ export class CitiesWrappers implements TWrappers<TCityDOM, TCityDAL> {
         return new CityDOM({
             id: item.id,
             name: item.name,
-            status: item.status?.name!,
+            status: item.status?.name || '',
             statusId: item.status_id,
             departmentId: item.department_id,
-            department: item.department?.name!,
+            department: item.department?.name || '',
             pointSales,
         });
     };

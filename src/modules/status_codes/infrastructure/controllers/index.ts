@@ -3,7 +3,7 @@ import { type TMappers } from '@common/mappers_wrappers/mappers';
 import { ApiReponse } from '@common/response/success/api_responses';
 import { ListResponse } from '@common/response/success/list_responses';
 import { StatusCodeMappers } from '@status_codes/app/mappers';
-import { StatusCodeServices } from '@status_codes/app/services';
+import type { StatusCodeServices } from '@status_codes/app/services';
 import { type TStatusCodeAPI } from '@status_codes/domain/dto';
 import { type TStatusCodeDOM } from '@status_codes/domain/entities';
 import { type Context } from 'elysia';
@@ -47,29 +47,20 @@ export class StatusCodeController {
         }
     };
 
-    createOne = async ({
-        body,
-        set,
-    }: Context): Promise<ApiReponse<TStatusCodeAPI>> => {
+    createOne = async ({ body, set }: Context): Promise<ApiReponse<TStatusCodeAPI>> => {
         try {
             const status = await this.services.createOne(
                 this.mappers.apiToDom(body as TStatusCodeAPI),
             );
 
             set.status = HttpSuccessCode.CREATED;
-            return new ApiReponse(
-                this.mappers.domToApi(status),
-                HttpSuccessCode.CREATED,
-            );
+            return new ApiReponse(this.mappers.domToApi(status), HttpSuccessCode.CREATED);
         } catch (e) {
             throw e;
         }
     };
 
-    createMany = async ({
-        body,
-        set,
-    }: Context): Promise<ApiReponse<number>> => {
+    createMany = async ({ body, set }: Context): Promise<ApiReponse<number>> => {
         try {
             const status = body as TStatusCodeAPI[];
             const count = await this.services.createMany(
@@ -97,10 +88,7 @@ export class StatusCodeController {
                 this.mappers.apiToDom(statusBody),
             );
 
-            return new ApiReponse(
-                this.mappers.domToApi(status),
-                HttpSuccessCode.CREATED,
-            );
+            return new ApiReponse(this.mappers.domToApi(status), HttpSuccessCode.CREATED);
         } catch (e) {
             throw e;
         }
@@ -114,9 +102,7 @@ export class StatusCodeController {
     }>): Promise<void> => {
         try {
             await this.services.deleteOne(params.id);
-
             set.status = HttpSuccessCode.NOT_CONTENT;
-            return;
         } catch (e) {
             throw e;
         }

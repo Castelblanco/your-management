@@ -1,10 +1,11 @@
-import {
+import type {
     TPointSaleDOM,
     TPointSaleFilterDOM,
     TPointSaleOPT,
 } from '@point_sales/domain/entities';
+import type { TPointSaleRepository } from '@point_sales/domain/repository';
+
 import { buildCreateOne } from './create_one';
-import { TPointSaleRepository } from '@point_sales/domain/repository';
 import { buildFindAll } from './find_all';
 import { buildFindOne } from './find_one';
 import { buildUpdateOne } from './update_one';
@@ -16,6 +17,7 @@ export class PointSalesServices {
         filter: TPointSaleFilterDOM,
         options: TPointSaleOPT,
     ) => Promise<TPointSaleDOM[]>;
+
     findOne: (id: string, users?: boolean) => Promise<TPointSaleDOM>;
     createOne: (pointSale: TPointSaleDOM) => Promise<TPointSaleDOM>;
     updateOne: (pointSale: TPointSaleDOM) => Promise<TPointSaleDOM>;

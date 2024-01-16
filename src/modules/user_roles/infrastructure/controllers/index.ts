@@ -1,12 +1,13 @@
+import type { UserRolesServices } from '@user_roles/app/services';
+import type { TUserRoleAPI } from '@user_roles/domain/dto';
+import type { TUserRoleDOM } from '@user_roles/domain/entities';
+import type { Context } from 'elysia';
+import type { TMappers } from '@common/mappers_wrappers/mappers';
+
 import { HttpSuccessCode } from '@common/enums/success_enum';
-import { TMappers } from '@common/mappers_wrappers/mappers';
 import { ApiReponse } from '@common/response/success/api_responses';
 import { ListResponse } from '@common/response/success/list_responses';
 import { UserRolesMappers } from '@user_roles/app/mappers';
-import { UserRolesServices } from '@user_roles/app/services';
-import { TUserRoleAPI } from '@user_roles/domain/dto';
-import { TUserRoleDOM } from '@user_roles/domain/entities';
-import { Context } from 'elysia';
 
 export class UserRolesController {
     private readonly services: UserRolesServices;
@@ -47,10 +48,7 @@ export class UserRolesController {
         }
     };
 
-    createOne = async ({
-        body,
-        set,
-    }: Context): Promise<ApiReponse<TUserRoleAPI>> => {
+    createOne = async ({ body, set }: Context): Promise<ApiReponse<TUserRoleAPI>> => {
         try {
             const newRole = await this.services.createOne(
                 this.mappers.apiToDom(body as TUserRoleAPI),
@@ -66,10 +64,7 @@ export class UserRolesController {
         }
     };
 
-    createMany = async ({
-        body,
-        set,
-    }: Context): Promise<ApiReponse<number>> => {
+    createMany = async ({ body, set }: Context): Promise<ApiReponse<number>> => {
         try {
             const roles = body as TUserRoleAPI[];
             const count = await this.services.createMany(
@@ -114,9 +109,7 @@ export class UserRolesController {
     }>): Promise<void> => {
         try {
             await this.services.deleteOne(params.id);
-
             set.status = HttpSuccessCode.NOT_CONTENT;
-            return;
         } catch (e) {
             throw e;
         }

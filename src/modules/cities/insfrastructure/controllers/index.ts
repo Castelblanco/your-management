@@ -1,12 +1,13 @@
+import type { CitiesServices } from '@cities/app/services';
+import type { TCityAPI } from '@cities/domain/dto';
+import type { TCityDOM } from '@cities/domain/entities';
+import type { TMappers } from '@common/mappers_wrappers/mappers';
+import type { Context } from 'elysia';
+
 import { CitiesMappers } from '@cities/app/mappers';
-import { CitiesServices } from '@cities/app/services';
-import { TCityAPI } from '@cities/domain/dto';
-import { TCityDOM } from '@cities/domain/entities';
 import { HttpSuccessCode } from '@common/enums/success_enum';
-import { TMappers } from '@common/mappers_wrappers/mappers';
 import { ApiReponse } from '@common/response/success/api_responses';
 import { ListResponse } from '@common/response/success/list_responses';
-import { Context } from 'elysia';
 
 type TContext = Context<{
     params: Record<string, string>;
@@ -23,15 +24,8 @@ export class CitiesControllers {
 
     findAll = async ({ query }: TContext): Promise<ListResponse<TCityAPI>> => {
         try {
-            const {
-                limit,
-                offset,
-                pointSales,
-                users,
-                departmentId,
-                name,
-                statusId,
-            } = query;
+            const { limit, offset, pointSales, users, departmentId, name, statusId } =
+                query;
 
             const cities = await this.services.findAll(
                 {
@@ -56,15 +50,9 @@ export class CitiesControllers {
         }
     };
 
-    findOne = async ({
-        params,
-        query,
-    }: TContext): Promise<ApiReponse<TCityAPI>> => {
+    findOne = async ({ params, query }: TContext): Promise<ApiReponse<TCityAPI>> => {
         try {
-            const city = await this.services.findOne(
-                params.id,
-                !!query.pointSales,
-            );
+            const city = await this.services.findOne(params.id, !!query.pointSales);
 
             return new ApiReponse(
                 this.mappers.domToApi(city),
@@ -75,29 +63,20 @@ export class CitiesControllers {
         }
     };
 
-    createOne = async ({
-        body,
-        set,
-    }: TContext): Promise<ApiReponse<TCityAPI>> => {
+    createOne = async ({ body, set }: TContext): Promise<ApiReponse<TCityAPI>> => {
         try {
             const city = await this.services.createOne(
                 this.mappers.apiToDom(body as TCityAPI),
             );
 
             set.status = HttpSuccessCode.CREATED;
-            return new ApiReponse(
-                this.mappers.domToApi(city),
-                HttpSuccessCode.CREATED,
-            );
+            return new ApiReponse(this.mappers.domToApi(city), HttpSuccessCode.CREATED);
         } catch (e) {
             throw e;
         }
     };
 
-    createMany = async ({
-        body,
-        set,
-    }: TContext): Promise<ApiReponse<number>> => {
+    createMany = async ({ body, set }: TContext): Promise<ApiReponse<number>> => {
         try {
             const cities = body as TCityAPI[];
             const count = await this.services.createMany(
@@ -111,10 +90,7 @@ export class CitiesControllers {
         }
     };
 
-    updateOne = async ({
-        body,
-        params,
-    }: TContext): Promise<ApiReponse<TCityAPI>> => {
+    updateOne = async ({ body, params }: TContext): Promise<ApiReponse<TCityAPI>> => {
         try {
             const city = body as TCityAPI;
             if (!city._id) city._id = params.id;
@@ -137,7 +113,6 @@ export class CitiesControllers {
             await this.services.deleteOne(params.id);
 
             set.status = HttpSuccessCode.NOT_CONTENT;
-            return;
         } catch (e) {
             throw e;
         }

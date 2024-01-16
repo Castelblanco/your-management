@@ -1,13 +1,13 @@
-import { TWrappers } from '@common/mappers_wrappers/wrappers';
+import type { TWrappers } from '@common/mappers_wrappers/wrappers';
 import {
-    TUserDOM,
-    TUserPointSaleDOM,
+    type TUserDOM,
+    type TUserPointSaleDOM,
     UserDOM,
     UserPointSaleDOM,
 } from '@users/domain/entities';
 import {
-    TUserDAL,
-    TUserPointSaleDAL,
+    type TUserDAL,
+    type TUserPointSaleDAL,
     UserDAL,
     UserPointSaleDAL,
 } from '../models';
@@ -46,6 +46,7 @@ export class UsersWrappers implements TWrappers<TUserDOM, TUserDAL> {
             pointSale,
         });
     };
+
     domToDal = (item: TUserDOM): TUserDAL => {
         let pointSale: TUserPointSaleDAL | undefined;
 

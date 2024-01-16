@@ -1,4 +1,4 @@
-export class ListResponse<T = any[]> {
+export class ListResponse<T> {
     items: T[];
     total: number;
     status: number;

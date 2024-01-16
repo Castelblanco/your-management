@@ -1,8 +1,8 @@
 import { HttpErrorCode } from '@common/enums/errors_enum';
 import { ErrorAuth } from '@common/response/errors/auth_error';
-import { TUserAPI } from '@users/domain/dto';
-import { TUsersRepository } from '@users/domain/repository';
-import { Context } from 'elysia';
+import type { TUserAPI } from '@users/domain/dto';
+import type { TUsersRepository } from '@users/domain/repository';
+import type { Context } from 'elysia';
 
 type Dependencies = {
     repository: TUsersRepository;
@@ -16,8 +16,8 @@ type TContext = Context<{
 export const buildCheckLogin = ({
     repository,
     verifyPassword,
-}: Dependencies) => {
-    const middleware = async ({ body }: TContext) => {
+}: Dependencies): (({ body }: TContext) => Promise<void>) => {
+    const middleware = async ({ body }: TContext): Promise<void> => {
         const { email, password } = body as TUserAPI;
 
         const user = await repository.findOne({
@@ -27,10 +27,7 @@ export const buildCheckLogin = ({
         const checkPassword = verifyPassword(password, user.password);
 
         if (!checkPassword)
-            throw new ErrorAuth(
-                'Password incorrect',
-                HttpErrorCode.BAD_REQUEST,
-            );
+            throw new ErrorAuth('Password incorrect', HttpErrorCode.BAD_REQUEST);
     };
 
     return middleware;

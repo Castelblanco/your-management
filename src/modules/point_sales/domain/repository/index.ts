@@ -1,4 +1,4 @@
-import { TPointSaleDOM, TPointSaleFilterDOM, TPointSaleOPT } from '../entities';
+import type { TPointSaleDOM, TPointSaleFilterDOM, TPointSaleOPT } from '../entities';
 
 export type TPointSaleRepository = {
     findAll: (

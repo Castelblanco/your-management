@@ -1,12 +1,13 @@
+import type { TMappers } from '@common/mappers_wrappers/mappers';
+import type { DepartamentsServices } from '@departaments/app/services';
+import type { TDepartamentAPI } from '@departaments/domain/dto';
+import type { TDepartamentDOM } from '@departaments/domain/entities';
+import type { Context } from 'elysia';
+
 import { HttpSuccessCode } from '@common/enums/success_enum';
-import { TMappers } from '@common/mappers_wrappers/mappers';
 import { ApiReponse } from '@common/response/success/api_responses';
 import { ListResponse } from '@common/response/success/list_responses';
 import { DepartamentMappers } from '@departaments/app/mappers';
-import { DepartamentsServices } from '@departaments/app/services';
-import { TDepartamentAPI } from '@departaments/domain/dto';
-import { TDepartamentDOM } from '@departaments/domain/entities';
-import { Context } from 'elysia';
 
 export class DepartamentsController {
     private readonly services: DepartamentsServices;
@@ -17,9 +18,7 @@ export class DepartamentsController {
         this.mappers = new DepartamentMappers();
     }
 
-    findAll = async ({
-        query,
-    }: Context): Promise<ListResponse<TDepartamentAPI>> => {
+    findAll = async ({ query }: Context): Promise<ListResponse<TDepartamentAPI>> => {
         try {
             const departaments = await this.services.findAll(
                 {
@@ -58,10 +57,7 @@ export class DepartamentsController {
         }
     };
 
-    createOne = async ({
-        body,
-        set,
-    }: Context): Promise<ApiReponse<TDepartamentAPI>> => {
+    createOne = async ({ body, set }: Context): Promise<ApiReponse<TDepartamentAPI>> => {
         try {
             const newDepartament = await this.services.createOne(
                 this.mappers.apiToDom(body as TDepartamentAPI),
@@ -77,10 +73,7 @@ export class DepartamentsController {
         }
     };
 
-    createMany = async ({
-        body,
-        set,
-    }: Context): Promise<ApiReponse<number>> => {
+    createMany = async ({ body, set }: Context): Promise<ApiReponse<number>> => {
         try {
             const departament = body as TDepartamentAPI[];
             const count = await this.services.createMany(
@@ -125,9 +118,7 @@ export class DepartamentsController {
     }>): Promise<void> => {
         try {
             await this.services.deleteOne(params.id);
-
             set.status = HttpSuccessCode.NOT_CONTENT;
-            return;
         } catch (e) {
             throw e;
         }

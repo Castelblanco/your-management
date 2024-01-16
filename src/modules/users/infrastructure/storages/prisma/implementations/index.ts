@@ -1,12 +1,11 @@
-import { TWrappers } from '@common/mappers_wrappers/wrappers';
-import { PrismaError, prisma } from '@db/prisma/connect';
-import { TUserFilterDOM, TUserOPT, TUserDOM } from '@users/domain/entities';
-import { TUsersRepository } from '@users/domain/repository';
-import { TUserDAL } from '../models';
+import { type TWrappers } from '@common/mappers_wrappers/wrappers';
+import type { TUserFilterDOM, TUserOPT, TUserDOM } from '@users/domain/entities';
+import type { TUsersRepository } from '@users/domain/repository';
+import type { TUserDAL } from '../models';
 import { UsersWrappers } from '../wrappers';
 import { StorageError } from '@common/response/errors/storage_error';
-import { prismaError } from 'prisma-better-errors';
 import { ErrorResourceNotFound } from '@common/response/errors/resource_not_found';
+import { PrismaRequestError, prisma, PrismaError } from '@db/prisma/connect';
 
 export class UsersPrismaRepository implements TUsersRepository {
     db: typeof prisma.users;
@@ -17,10 +16,7 @@ export class UsersPrismaRepository implements TUsersRepository {
         this.wrappers = new UsersWrappers();
     }
 
-    findAll = async (
-        filter: TUserFilterDOM,
-        options: TUserOPT,
-    ): Promise<TUserDOM[]> => {
+    findAll = async (filter: TUserFilterDOM, options: TUserOPT): Promise<TUserDOM[]> => {
         try {
             const users = await this.db.findMany({
                 where: {
@@ -71,9 +67,9 @@ export class UsersPrismaRepository implements TUsersRepository {
             });
 
             return users.map(this.wrappers.dalToDom);
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -81,8 +77,8 @@ export class UsersPrismaRepository implements TUsersRepository {
 
     findOne = async (
         filter: TUserFilterDOM,
-        pointSale?: boolean | undefined,
-        role?: boolean | undefined,
+        pointSale?: boolean,
+        role?: boolean,
     ): Promise<TUserDOM> => {
         try {
             const user = await this.db.findFirst({
@@ -134,10 +130,10 @@ export class UsersPrismaRepository implements TUsersRepository {
             if (!user) throw new ErrorResourceNotFound(`this user not exits`);
 
             return this.wrappers.dalToDom(user);
-        } catch (e: any) {
+        } catch (e) {
             console.log(e);
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -176,14 +172,12 @@ export class UsersPrismaRepository implements TUsersRepository {
             });
 
             if (!user)
-                throw new ErrorResourceNotFound(
-                    `this user with id ${id}, not exits`,
-                );
+                throw new ErrorResourceNotFound(`this user with id ${id}, not exits`);
 
             return this.wrappers.dalToDom(user);
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -204,9 +198,9 @@ export class UsersPrismaRepository implements TUsersRepository {
             });
 
             return this.wrappers.dalToDom(newUser);
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -230,9 +224,9 @@ export class UsersPrismaRepository implements TUsersRepository {
             });
 
             return this.wrappers.dalToDom(updateUser);
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -245,9 +239,9 @@ export class UsersPrismaRepository implements TUsersRepository {
                     id,
                 },
             });
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -264,9 +258,9 @@ export class UsersPrismaRepository implements TUsersRepository {
             });
 
             return count;
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }

@@ -1,11 +1,12 @@
+import type { TUserRoleRepository } from '@user_roles/domain/repository';
+import type { TUserRoleDOM } from '@user_roles/domain/entities';
+
 import { buildFindAll } from './find_all';
 import { buildCreateOne } from './create_one';
 import { buildFindOne } from './find_one';
 import { buildUpdateOne } from './update_one';
 import { buildDeleteOne } from './delete_one';
 import { buildCreateMany } from './create_many';
-import { TUserRoleRepository } from '@user_roles/domain/repository';
-import { TUserRoleDOM } from '@user_roles/domain/entities';
 
 export class UserRolesServices {
     findAll: () => Promise<TUserRoleDOM[]>;

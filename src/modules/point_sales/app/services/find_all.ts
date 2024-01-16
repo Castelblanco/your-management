@@ -1,18 +1,24 @@
-import {
+import type {
+    TPointSaleDOM,
     TPointSaleFilterDOM,
     TPointSaleOPT,
 } from '@point_sales/domain/entities';
-import { TPointSaleRepository } from '@point_sales/domain/repository';
+import type { TPointSaleRepository } from '@point_sales/domain/repository';
 
 type Dependencies = {
     repository: TPointSaleRepository;
 };
 
-export const buildFindAll = ({ repository }: Dependencies) => {
+export const buildFindAll = ({
+    repository,
+}: Dependencies): ((
+    filter: TPointSaleFilterDOM,
+    options: TPointSaleOPT,
+) => Promise<TPointSaleDOM[]>) => {
     const service = async (
         filter: TPointSaleFilterDOM,
         options: TPointSaleOPT,
-    ) => {
+    ): Promise<TPointSaleDOM[]> => {
         return await repository.findAll(filter, options);
     };
 

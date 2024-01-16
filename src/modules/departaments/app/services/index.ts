@@ -4,18 +4,19 @@ import { buildFindOne } from './find_one';
 import { buildUpdateOne } from './update_one';
 import { buildDeleteOne } from './delete_one';
 import { buildCreateMany } from './create_many';
-import {
+import type {
     TDepartamentDOM,
     TDepartamentFilterDOM,
     TDepartamentOPT,
 } from '@departaments/domain/entities';
-import { TDepartamentRepository } from '@departaments/domain/repository';
+import type { TDepartamentRepository } from '@departaments/domain/repository';
 
 export class DepartamentsServices {
     findAll: (
         filter: TDepartamentFilterDOM,
         options: TDepartamentOPT,
     ) => Promise<TDepartamentDOM[]>;
+
     findOne: (id: string) => Promise<TDepartamentDOM>;
     createOne: (role: TDepartamentDOM) => Promise<TDepartamentDOM>;
     updateOne: (role: TDepartamentDOM) => Promise<TDepartamentDOM>;

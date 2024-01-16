@@ -1,4 +1,4 @@
-import { TCityDOM, TCityFilterDOM, TCityOPT } from '../entities';
+import type { TCityDOM, TCityFilterDOM, TCityOPT } from '../entities';
 
 export type TCitiesRepository = {
     findAll: (filter: TCityFilterDOM, options: TCityOPT) => Promise<TCityDOM[]>;

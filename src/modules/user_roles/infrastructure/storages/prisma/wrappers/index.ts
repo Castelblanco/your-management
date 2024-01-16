@@ -1,10 +1,8 @@
-import { TWrappers } from '@common/mappers_wrappers/wrappers';
-import { TUserRoleDOM, UserRoleDOM } from '@user_roles/domain/entities';
-import { TUserRoleDAL, UserRoleDAL } from '../models';
+import type { TWrappers } from '@common/mappers_wrappers/wrappers';
+import { type TUserRoleDOM, UserRoleDOM } from '@user_roles/domain/entities';
+import { type TUserRoleDAL, UserRoleDAL } from '../models';
 
-export class UserRolesWrappers
-    implements TWrappers<TUserRoleDOM, TUserRoleDAL>
-{
+export class UserRolesWrappers implements TWrappers<TUserRoleDOM, TUserRoleDAL> {
     dalToDom = (item: TUserRoleDAL): TUserRoleDOM => {
         return new UserRoleDOM({
             id: item.id,

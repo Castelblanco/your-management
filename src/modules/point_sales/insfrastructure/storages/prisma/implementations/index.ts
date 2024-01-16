@@ -1,16 +1,15 @@
-import { TWrappers } from '@common/mappers_wrappers/wrappers';
-import { StorageError } from '@common/response/errors/storage_error';
-import { PrismaError, prisma } from '@db/prisma/connect';
-import {
+import type { TWrappers } from '@common/mappers_wrappers/wrappers';
+import type {
     TPointSaleFilterDOM,
     TPointSaleOPT,
     TPointSaleDOM,
 } from '@point_sales/domain/entities';
-import { TPointSaleRepository } from '@point_sales/domain/repository';
-import { TPointSaleDAL } from '../models';
-import { pointSalesWrappers } from '../wrappers';
+import type { TPointSaleRepository } from '@point_sales/domain/repository';
+import type { TPointSaleDAL } from '../models';
+import { PointSalesWrappers } from '../wrappers';
+import { StorageError } from '@common/response/errors/storage_error';
+import { PrismaError, PrismaRequestError, prisma } from '@db/prisma/connect';
 import { ErrorResourceNotFound } from '@common/response/errors/resource_not_found';
-import { prismaError } from 'prisma-better-errors';
 
 export class PointSalesPrismaRepository implements TPointSaleRepository {
     db: typeof prisma.point_Sales;
@@ -18,7 +17,7 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
 
     constructor() {
         this.db = prisma.point_Sales;
-        this.wrappers = new pointSalesWrappers();
+        this.wrappers = new PointSalesWrappers();
     }
 
     findAll = async (
@@ -61,9 +60,9 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
                     })),
                 }),
             );
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -97,9 +96,9 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
                     role: user.role.name,
                 })),
             });
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -125,9 +124,9 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
                 status: newPointSale.status.name,
                 city: newPointSale.city.name,
             });
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -140,9 +139,9 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
             });
 
             return count;
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -172,9 +171,9 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
                 city: updatePointSale.city.name,
                 users: undefined,
             });
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }
@@ -187,9 +186,9 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
                     id,
                 },
             });
-        } catch (e: any) {
-            if (e instanceof PrismaError)
-                throw new StorageError(new prismaError(e));
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
 
             throw new StorageError(e);
         }

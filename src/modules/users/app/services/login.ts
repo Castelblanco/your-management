@@ -1,12 +1,15 @@
-import { TUserDOM, TUserLoginDOM, UserLoginDOM } from '@users/domain/entities';
-import { TUsersRepository } from '@users/domain/repository';
+import { type TUserDOM, type TUserLoginDOM, UserLoginDOM } from '@users/domain/entities';
+import type { TUsersRepository } from '@users/domain/repository';
 
 type Dependecies = {
     repository: TUsersRepository;
     singToken: (payload: string | object | Buffer, expiresIn: string) => string;
 };
 
-export const buildLogin = ({ repository, singToken }: Dependecies) => {
+export const buildLogin = ({
+    repository,
+    singToken,
+}: Dependecies): ((user: TUserDOM) => Promise<TUserLoginDOM>) => {
     const service = async (user: TUserDOM): Promise<TUserLoginDOM> => {
         const userFind = await repository.findOne(
             {
@@ -21,8 +24,8 @@ export const buildLogin = ({ repository, singToken }: Dependecies) => {
         return new UserLoginDOM({
             ...userFind,
             token,
-            role: userFind.role!,
-            pointSale: userFind.pointSale!,
+            role: userFind.role || '',
+            pointSale: userFind.pointSale,
         });
     };
 

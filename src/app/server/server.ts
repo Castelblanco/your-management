@@ -2,24 +2,24 @@ import Elysia from 'elysia';
 import { cors } from '@elysiajs/cors';
 import { handleError } from './handle_error';
 
-const PORT = Bun.env.PORT || 5000;
+const PORT = Bun.env.PORT ?? 5000;
 
 const app = new Elysia();
 
-const routers = async () => {
+const routers = async (): Promise<void> => {
     const { routers } = await import('../routers');
     app.use(routers);
 };
 
-const middleware = () => {
+const middleware = (): void => {
     app.use(cors());
 };
 
-const initHandleError = () => {
+const initHandleError = (): void => {
     app.onError(handleError);
 };
 
-export const server = async () => {
+export const server = async (): Promise<void> => {
     middleware();
     initHandleError();
     await routers();

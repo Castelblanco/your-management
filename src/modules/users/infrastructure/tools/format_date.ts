@@ -1,13 +1,10 @@
-import { TDateFormat } from '@users/app/services/find_all';
+import type { TDateFormat } from '@users/app/services/find_all';
 
 const DAYS = 'dd';
 const MONTHS = 'mm';
 const YEARS = 'yy';
 
-export const getDateFormat = (
-    date: string | number,
-    format?: TDateFormat,
-): string => {
+export const getDateFormat = (date: string | number, format?: TDateFormat): string => {
     let time: Date;
 
     if (typeof date === 'string') time = new Date(date);

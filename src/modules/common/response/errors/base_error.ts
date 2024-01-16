@@ -3,17 +3,12 @@ export class BaseError extends Error {
     code: number;
     status: number;
     error: string;
-    metadata: any;
+    metadata: unknown;
 
-    constructor(
-        message: string,
-        code: number,
-        status?: number,
-        metadata?: any,
-    ) {
+    constructor(message: string, code: number, status?: number, metadata?: unknown) {
         super(message || 'Default error');
         this.error = this.message;
-        this.code = code || HttpErrorCode.UNDEFINED;
+        this.code = code;
         this.status = status || HttpErrorCode.INTERNAL_SERVER_ERROR;
         this.metadata = metadata;
     }

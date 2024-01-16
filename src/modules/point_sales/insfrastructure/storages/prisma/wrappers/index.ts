@@ -1,14 +1,12 @@
-import { TWrappers } from '@common/mappers_wrappers/wrappers';
+import type { TWrappers } from '@common/mappers_wrappers/wrappers';
 import {
     PointSaleDOM,
     PointSaleUserDOM,
-    TPointSaleDOM,
+    type TPointSaleDOM,
 } from '@point_sales/domain/entities';
-import { PointSaleDAL, PointSaleUserDAL, TPointSaleDAL } from '../models';
+import { PointSaleDAL, PointSaleUserDAL, type TPointSaleDAL } from '../models';
 
-export class pointSalesWrappers
-    implements TWrappers<TPointSaleDOM, TPointSaleDAL>
-{
+export class PointSalesWrappers implements TWrappers<TPointSaleDOM, TPointSaleDAL> {
     dalToDom = (item: TPointSaleDAL): TPointSaleDOM => {
         const users = item.users?.map(
             (user) =>

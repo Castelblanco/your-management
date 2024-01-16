@@ -1,12 +1,12 @@
 import { version } from '../../../../package.json';
 
-export type Healthy = {
+export type THealthy = {
     version: string;
     message: string;
 };
 
 export class HealthyController {
-    get = (): Healthy => {
+    get = (): THealthy => {
         return {
             version,
             message: 'server running 👩‍💻',

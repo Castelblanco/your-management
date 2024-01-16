@@ -55,7 +55,7 @@ export type TUserLoginDOM = {
     address: string;
     role: string;
     token: string;
-    pointSale: TUserPointSaleDOM;
+    pointSale?: TUserPointSaleDOM;
 };
 
 export class UserDOM implements TUserDOM {
@@ -124,7 +124,7 @@ export class UserLoginDOM implements TUserLoginDOM {
     address: string;
     role: string;
     token: string;
-    pointSale: TUserPointSaleDOM;
+    pointSale?: TUserPointSaleDOM;
 
     constructor(login: TUserLoginDOM) {
         this.id = login.id;

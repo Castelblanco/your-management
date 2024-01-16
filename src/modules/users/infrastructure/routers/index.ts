@@ -2,8 +2,7 @@ import Elysia from 'elysia';
 import { UsersControllers } from '../controllers';
 import { UsersServices } from '@users/app/services';
 import { UsersPrismaRepository } from '../storages/prisma/implementations';
-import { createId, singToken } from '../tools';
-import { getDateFormat } from '../tools';
+import { createId, singToken, getDateFormat } from '../tools';
 import { buildCheckLogin } from '../middlewares';
 import { verifyPassword } from '../tools/encrypt';
 

@@ -1,10 +1,8 @@
-import { TMappers } from '@common/mappers_wrappers/mappers';
-import { DepartamentAPI, TDepartamentAPI } from '@departaments/domain/dto';
-import { DepartamentDOM, TDepartamentDOM } from '@departaments/domain/entities';
+import type { TMappers } from '@common/mappers_wrappers/mappers';
+import { DepartamentAPI, type TDepartamentAPI } from '@departaments/domain/dto';
+import { DepartamentDOM, type TDepartamentDOM } from '@departaments/domain/entities';
 
-export class DepartamentMappers
-    implements TMappers<TDepartamentDOM, TDepartamentAPI>
-{
+export class DepartamentMappers implements TMappers<TDepartamentDOM, TDepartamentAPI> {
     apiToDom = (item: TDepartamentAPI): TDepartamentDOM => {
         return new DepartamentDOM({
             id: item.id,

@@ -1,4 +1,4 @@
-export class ApiReponse<T = any> {
+export class ApiReponse<T> {
     item: T;
     status: number;
 

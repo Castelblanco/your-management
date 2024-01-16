@@ -1,12 +1,14 @@
-import { TDepartamentRepository } from '@departaments/domain/repository';
+import type { TDepartamentRepository } from '@departaments/domain/repository';
 
 type Dependencies = {
     repository: TDepartamentRepository;
 };
 
-export const buildDeleteOne = ({ repository }: Dependencies) => {
-    const service = async (id: string) => {
-        return await repository.deleteOne(id);
+export const buildDeleteOne = ({
+    repository,
+}: Dependencies): ((id: string) => Promise<void>) => {
+    const service = async (id: string): Promise<void> => {
+        await repository.deleteOne(id);
     };
 
     return service;

@@ -1,12 +1,13 @@
+import type { TMappers } from '@common/mappers_wrappers/mappers';
+import type { PointSalesServices } from '@point_sales/app/services';
+import type { TPointSaleAPI } from '@point_sales/domain/dto';
+import type { TPointSaleDOM } from '@point_sales/domain/entities';
+import type { Context } from 'elysia';
+
 import { HttpSuccessCode } from '@common/enums/success_enum';
-import { TMappers } from '@common/mappers_wrappers/mappers';
 import { ApiReponse } from '@common/response/success/api_responses';
 import { ListResponse } from '@common/response/success/list_responses';
 import { PointSalesMappers } from '@point_sales/app/mappers';
-import { PointSalesServices } from '@point_sales/app/services';
-import { TPointSaleAPI } from '@point_sales/domain/dto';
-import { TPointSaleDOM } from '@point_sales/domain/entities';
-import { Context } from 'elysia';
 
 type TContext = Context<{
     params: Record<string, string>;
@@ -21,9 +22,7 @@ export class PointSalesControllers {
         this.mappers = new PointSalesMappers();
     }
 
-    findAll = async ({
-        query,
-    }: Context): Promise<ListResponse<TPointSaleAPI>> => {
+    findAll = async ({ query }: Context): Promise<ListResponse<TPointSaleAPI>> => {
         try {
             const points = await this.services.findAll(
                 {
@@ -47,9 +46,7 @@ export class PointSalesControllers {
         }
     };
 
-    findOne = async ({
-        params,
-    }: TContext): Promise<ApiReponse<TPointSaleAPI>> => {
+    findOne = async ({ params }: TContext): Promise<ApiReponse<TPointSaleAPI>> => {
         try {
             const point = await this.services.findOne(params.id);
 
@@ -62,10 +59,7 @@ export class PointSalesControllers {
         }
     };
 
-    createOne = async ({
-        body,
-        set,
-    }: TContext): Promise<ApiReponse<TPointSaleAPI>> => {
+    createOne = async ({ body, set }: TContext): Promise<ApiReponse<TPointSaleAPI>> => {
         try {
             const newPoint = await this.services.createOne(
                 this.mappers.apiToDom(body as TPointSaleAPI),
@@ -81,10 +75,7 @@ export class PointSalesControllers {
         }
     };
 
-    createMany = async ({
-        body,
-        set,
-    }: TContext): Promise<ApiReponse<number>> => {
+    createMany = async ({ body, set }: TContext): Promise<ApiReponse<number>> => {
         try {
             const count = await this.services.createMany(
                 (body as TPointSaleAPI[]).map(this.mappers.apiToDom),
@@ -121,9 +112,7 @@ export class PointSalesControllers {
     deleteOne = async ({ params, set }: TContext): Promise<void> => {
         try {
             await this.services.deleteOne(params.id);
-
             set.status = HttpSuccessCode.NOT_CONTENT;
-            return;
         } catch (e) {
             throw e;
         }

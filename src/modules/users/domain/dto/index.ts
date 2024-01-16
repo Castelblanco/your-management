@@ -36,7 +36,7 @@ export type TUserLoginAPI = {
     address: string;
     role: string;
     token: string;
-    point_sale: TUserPointSaleAPI;
+    point_sale?: TUserPointSaleAPI;
 };
 
 export class UserAPI implements TUserAPI {
@@ -105,7 +105,7 @@ export class UserLoginAPI implements TUserLoginAPI {
     address: string;
     role: string;
     token: string;
-    point_sale: TUserPointSaleAPI;
+    point_sale?: TUserPointSaleAPI;
 
     constructor(login: TUserLoginAPI) {
         this._id = login._id;

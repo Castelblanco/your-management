@@ -1,13 +1,13 @@
-import { TMappers } from '@common/mappers_wrappers/mappers';
+import type { TMappers } from '@common/mappers_wrappers/mappers';
 import {
-    TUserAPI,
-    TUserPointSaleAPI,
+    type TUserAPI,
+    type TUserPointSaleAPI,
     UserAPI,
     UserPointSaleAPI,
 } from '@users/domain/dto';
 import {
-    TUserDOM,
-    TUserPointSaleDOM,
+    type TUserDOM,
+    type TUserPointSaleDOM,
     UserDOM,
     UserPointSaleDOM,
 } from '@users/domain/entities';
@@ -46,6 +46,7 @@ export class UsersMappers implements TMappers<TUserDOM, TUserAPI> {
             pointSale,
         });
     };
+
     domToApi = (item: TUserDOM): TUserAPI => {
         let pointSale: TUserPointSaleAPI | undefined;
 
@@ -57,8 +58,8 @@ export class UsersMappers implements TMappers<TUserDOM, TUserAPI> {
                 budget: item.pointSale.budget,
                 status_id: item.pointSale.statusId,
                 city_id: item.pointSale.cityId,
-                city: item.pointSale.city!,
-                status: item.pointSale.status!,
+                city: item.pointSale.city || '',
+                status: item.pointSale.status || '',
             });
         }
 

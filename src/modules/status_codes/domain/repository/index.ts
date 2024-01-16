@@ -1,4 +1,4 @@
-import { TStatusCodeDOM } from '../entities';
+import type { TStatusCodeDOM } from '../entities';
 
 export type TStatusCodeRepository = {
     findAll: () => Promise<TStatusCodeDOM[]>;

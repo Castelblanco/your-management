@@ -1,12 +1,13 @@
+import type { TMappers } from '@common/mappers_wrappers/mappers';
+import type { UsersServices } from '@users/app/services';
+import type { TUserAPI, TUserLoginAPI } from '@users/domain/dto';
+import type { TUserDOM, TUserLoginDOM } from '@users/domain/entities';
+import type { Context } from 'elysia';
+
 import { HttpSuccessCode } from '@common/enums/success_enum';
-import { TMappers } from '@common/mappers_wrappers/mappers';
 import { ApiReponse } from '@common/response/success/api_responses';
 import { ListResponse } from '@common/response/success/list_responses';
 import { UsersLoginMappers, UsersMappers } from '@users/app/mappers';
-import { UsersServices } from '@users/app/services';
-import { TUserAPI, TUserLoginAPI } from '@users/domain/dto';
-import { TUserDOM, TUserLoginDOM } from '@users/domain/entities';
-import { Context } from 'elysia';
 
 type TContext = Context<{
     params: Record<string, string>;
@@ -69,13 +70,20 @@ export class UsersControllers {
         }
     };
 
-    getOne = async ({
-        params,
-        query,
-    }: TContext): Promise<ApiReponse<TUserAPI>> => {
+    getOne = async ({ params, query }: TContext): Promise<ApiReponse<TUserAPI>> => {
         try {
             const user = await this.services.findOne(
-                params.id,
+                {
+                    firstName: query.firstName || undefined,
+                    lastName: query.lastName || undefined,
+                    documentId: query.documentId || undefined,
+                    email: query.email || undefined,
+                    address: query.address || undefined,
+                    pointSaleId: query.pointSaleId || undefined,
+                    roleId: query.roleId || undefined,
+                    startTime: query.startTime ? query.startTime : undefined,
+                    endTime: query.endTime ? query.endTime : undefined,
+                },
                 !!query.pointSale,
                 !!query.role,
             );
@@ -89,10 +97,7 @@ export class UsersControllers {
         }
     };
 
-    createOne = async ({
-        body,
-        set,
-    }: TContext): Promise<ApiReponse<TUserAPI>> => {
+    createOne = async ({ body, set }: TContext): Promise<ApiReponse<TUserAPI>> => {
         try {
             const newUser = await this.services.createOne(
                 this.mappers.apiToDom(body as TUserAPI),
@@ -108,10 +113,7 @@ export class UsersControllers {
         }
     };
 
-    createMany = async ({
-        body,
-        set,
-    }: TContext): Promise<ApiReponse<number>> => {
+    createMany = async ({ body, set }: TContext): Promise<ApiReponse<number>> => {
         try {
             const count = await this.services.createMany(
                 (body as TUserAPI[]).map(this.mappers.apiToDom),
@@ -124,10 +126,7 @@ export class UsersControllers {
         }
     };
 
-    updateOne = async ({
-        body,
-        params,
-    }: TContext): Promise<ApiReponse<TUserAPI>> => {
+    updateOne = async ({ body, params }: TContext): Promise<ApiReponse<TUserAPI>> => {
         try {
             const user = body as TUserAPI;
             if (!user._id) user._id = params.id;
@@ -148,7 +147,6 @@ export class UsersControllers {
     deleteOne = async ({ params, set }: TContext): Promise<void> => {
         try {
             await this.services.deleteOne(params.id);
-
             set.status = HttpSuccessCode.NOT_CONTENT;
         } catch (e) {
             throw e;

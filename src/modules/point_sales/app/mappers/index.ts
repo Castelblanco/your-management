@@ -1,18 +1,16 @@
-import { TMappers } from '@common/mappers_wrappers/mappers';
+import type { TMappers } from '@common/mappers_wrappers/mappers';
 import {
     PointSaleAPI,
     PointSaleUserAPI,
-    TPointSaleAPI,
+    type TPointSaleAPI,
 } from '@point_sales/domain/dto';
 import {
     PointSaleDOM,
     PointSaleUserDOM,
-    TPointSaleDOM,
+    type TPointSaleDOM,
 } from '@point_sales/domain/entities';
 
-export class PointSalesMappers
-    implements TMappers<TPointSaleDOM, TPointSaleAPI>
-{
+export class PointSalesMappers implements TMappers<TPointSaleDOM, TPointSaleAPI> {
     apiToDom = (item: TPointSaleAPI): TPointSaleDOM => {
         const users = item.users?.map(
             (user) =>
@@ -41,6 +39,7 @@ export class PointSalesMappers
             users,
         });
     };
+
     domToApi = (item: TPointSaleDOM): TPointSaleAPI => {
         const users = item.users?.map(
             (user) =>

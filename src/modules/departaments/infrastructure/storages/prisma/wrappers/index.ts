@@ -1,10 +1,8 @@
-import { TWrappers } from '@common/mappers_wrappers/wrappers';
-import { DepartamentDOM, TDepartamentDOM } from '@departaments/domain/entities';
-import { DepartamentDAL, TDepartamentDAL } from '../models';
+import type { TWrappers } from '@common/mappers_wrappers/wrappers';
+import { DepartamentDOM, type TDepartamentDOM } from '@departaments/domain/entities';
+import { DepartamentDAL, type TDepartamentDAL } from '../models';
 
-export class DepartamentWrappers
-    implements TWrappers<TDepartamentDOM, TDepartamentDAL>
-{
+export class DepartamentWrappers implements TWrappers<TDepartamentDOM, TDepartamentDAL> {
     dalToDom = (item: TDepartamentDAL): TDepartamentDOM => {
         return new DepartamentDOM({
             id: item.id,

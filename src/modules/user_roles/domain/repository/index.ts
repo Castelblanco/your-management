@@ -1,4 +1,4 @@
-import { TUserRoleDOM } from '../entities';
+import type { TUserRoleDOM } from '../entities';
 
 export type TUserRoleRepository = {
     findAll: () => Promise<TUserRoleDOM[]>;
