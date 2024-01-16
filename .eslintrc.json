@@ -1,0 +1,35 @@
+{
+    "root": true,
+    "env": {
+        "es2021": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+        "semi": "off",
+        "@typescript-eslint/semi": "off",
+        "@typescript-eslint/no-explicit-any": "error",
+        "prettier/prettier": "error",
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "@typescript-eslint/no-floating-promises": [
+            "error",
+            {
+                "ignoreIIFE": true
+            }
+        ],
+        "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+        "@typescript-eslint/prefer-nullish-coalescing": "off",
+        "no-useless-catch": "off"
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "prettier"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "standard-with-typescript",
+        "plugin:prettier/recommended"
+    ]
+}
