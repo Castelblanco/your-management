@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+    your-management-server:
+        build: .
+        environment:
+            DATABASE_URL: postgres://koyeb-adm:xN2S5CKRDQVg@ep-aged-grass-22178745.us-east-1.pg.koyeb.app/your-management-db?sslmode=require&pgbouncer=true&connect_timeout=10
+            DIRECT_URL: postgres://koyeb-adm:xN2S5CKRDQVg@ep-aged-grass-22178745.us-east-1.pg.koyeb.app/your-management-db?sslmode=require&connect_timeout=10
+            PORT: 10100
+        ports:
+            - 10100:10100
