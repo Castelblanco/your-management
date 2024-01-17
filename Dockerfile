@@ -1,5 +1,6 @@
 FROM node:20
 
+WORKDIR /code
 # Install Bun.js
 RUN npm install -g bun
 
