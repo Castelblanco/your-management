@@ -4,8 +4,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch ./src/app/server/index.ts",
-    "start": "bun ./src/app/server/index.ts",
+    "dev": "bun --hot ./src/app/server/index.ts",
+    "start": "bun  ./src/app/server/index.ts",
     "style": "prettier --check ./src",
     "lint": "eslint .",
     "prisma-update": "prisma db push",
