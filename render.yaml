@@ -1,5 +1,0 @@
-services:
-    - name: dev-your-management-server
-      plan: free
-      env: production
-      start_command: docker-compose up
