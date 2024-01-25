@@ -1,0 +1,17 @@
+meta {
+  name: update-one
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{HOST}}/v1/status-code/update-one/b4ca520d-b585-4e7e-a2fe-738b2fab97de
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Inactivo"
+  }
+}
