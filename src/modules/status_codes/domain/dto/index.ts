@@ -1,14 +1,14 @@
 export type TStatusCodeAPI = {
-    id: string;
+    _id: string;
     name: string;
 };
 
 export class StatusCodeAPI implements TStatusCodeAPI {
-    id: string;
+    _id: string;
     name: string;
 
     constructor(status: TStatusCodeAPI) {
-        this.id = status.id;
+        this._id = status._id;
         this.name = status.name;
     }
 }
