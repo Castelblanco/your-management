@@ -1,8 +1,9 @@
-import { version } from '../../../../package.json';
+import { version, name } from '../../../../package.json';
 
 export type THealthy = {
     version: string;
     message: string;
+    name: string;
 };
 
 export class HealthyController {
@@ -10,6 +11,7 @@ export class HealthyController {
         return {
             version,
             message: 'server running 👩‍💻',
+            name,
         };
     };
 }
