@@ -7,37 +7,159 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url        = env("DATABASE_URL")
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
+model Guide_Service {
+  id                            String                   @id @unique
+  units                         Int
+  weight                        Float
+  price                         Float
+  created_at                    DateTime
+  updated_at                    DateTime
+  status_id                     String
+  status                        Guide_Service_Status     @relation(fields: [status_id], references: [id])
+  novelty_id                    String                   @unique
+  novelty                       Guide_Service_Novelty    @relation(fields: [novelty_id], references: [id])
+  collection_id                 String                   @unique
+  collection                    Guide_Service_Collection @relation(fields: [collection_id], references: [id])
+  service_id                    String                   @unique
+  service                       Guide_Service_Type       @relation(fields: [service_id], references: [id])
+  user_id                       String                   @unique
+  user                          Users                    @relation(fields: [user_id], references: [id])
+  point_sale_origin_id          String                   @unique
+  point_sale_origin             Point_Sales              @relation("origin", fields: [point_sale_origin_id], references: [id])
+  point_sale_destination_id     String                   @unique
+  point_sale_destination        Point_Sales              @relation("destination", fields: [point_sale_destination_id], references: [id])
+  client_natural_origin_id      String?                  @unique
+  client_natural_origin         Natural_Client?          @relation("origin", fields: [client_natural_origin_id], references: [id])
+  client_natural_destination_id String?                  @unique
+  client_natural_destination    Natural_Client?          @relation("destination", fields: [client_natural_destination_id], references: [id])
+  client_legal_origin_id        String?                  @unique
+  client_legal_origin           Legal_Client?            @relation("origin", fields: [client_legal_origin_id], references: [id])
+  client_legal_destination_id   String?                  @unique
+  client_legal_destination      Legal_Client?            @relation("destination", fields: [client_legal_destination_id], references: [id])
+}
+
+model Guide_Service_Collection {
+  id            String          @id @unique
+  name          String
+  Guide_Service Guide_Service[]
+}
+
+model Guide_Service_Novelty {
+  id            String          @id @unique
+  name          String
+  Guide_Service Guide_Service[]
+}
+
+model Guide_Service_Type {
+  id            String         @id @unique
+  name          String         @unique
+  Guide_Service Guide_Service?
+}
+
+model Guide_Service_Status {
+  id            String          @id @unique
+  name          String          @unique
+  Guide_Service Guide_Service[]
+}
+
+model Natural_Client {
+  id                         String            @id @unique
+  number_movil               String            @unique
+  address                    String            @unique
+  document_id                String            @unique
+  first_name                 String
+  last_name                  String
+  type_id                    String
+  type                       Client_Type       @relation(fields: [type_id], references: [id])
+  personhood_id              String
+  personhood                 Client_Personhood @relation(fields: [personhood_id], references: [id])
+  status_id                  String
+  status                     Client_Status     @relation(fields: [status_id], references: [id])
+  guides_service_origin      Guide_Service[]   @relation("origin")
+  guides_service_destination Guide_Service[]   @relation("destination")
+}
+
+model Legal_Client {
+  id                         String            @id @unique
+  number_movil               String            @unique
+  address                    String            @unique
+  nit                        String            @unique
+  business_name              String            @unique
+  type_id                    String
+  type                       Client_Type       @relation(fields: [type_id], references: [id])
+  personhood_id              String
+  personhood                 Client_Personhood @relation(fields: [personhood_id], references: [id])
+  status_id                  String
+  status                     Client_Status     @relation(fields: [status_id], references: [id])
+  guides_service_origin      Guide_Service[]   @relation("origin")
+  guides_service_destination Guide_Service[]   @relation("destination")
+}
+
+model Client_Type {
+  id             String           @id @unique
+  name           String           @unique
+  Natural_Client Natural_Client[]
+  Legal_Client   Legal_Client[]
+}
+
+model Client_Status {
+  id             String           @id @unique
+  name           String           @unique
+  Natural_Client Natural_Client[]
+  Legal_Client   Legal_Client[]
+}
+
+model Client_Personhood {
+  id             String           @id @unique
+  name           String
+  Natural_Client Natural_Client[]
+  Legal_Client   Legal_Client[]
+}
+
 model Users {
-  id            String      @id @unique
+  id            String          @id @unique
   first_name    String
   last_name     String
-  document_id   String      @unique
-  email         String      @unique
-  phone         String      @unique
+  document_id   String          @unique
+  email         String          @unique
+  phone         String          @unique
   password      String
   address       String
-  point_sale_id String
   created_at    DateTime
   updated_at    DateTime
+  status_id     String
+  status        Users_Status    @relation(fields: [status_id], references: [id])
+  point_sale_id String
+  point_sale    Point_Sales     @relation(fields: [point_sale_id], references: [id])
   role_id       String
-  point_sale    Point_Sales @relation(fields: [point_sale_id], references: [id])
-  role          Users_Roles @relation(fields: [role_id], references: [id])
+  role          Users_Roles     @relation(fields: [role_id], references: [id])
+  guide_service Guide_Service[]
+}
+
+model Users_Status {
+  id    String  @id @unique
+  name  String
+  Users Users[]
 }
 
 model Point_Sales {
-  id        String      @id @unique
-  name      String
-  address   String      @unique
-  budget    String
-  status_id String
-  city_id   String
-  city      Cities      @relation(fields: [city_id], references: [id])
-  status    Status_Code @relation(fields: [status_id], references: [id])
-  users     Users[]
+  id                         String          @id @unique
+  name                       String
+  address                    String          @unique
+  latitude                   Float
+  longitude                  Float
+  budget                     Float
+  status_id                  String
+  city_id                    String
+  city                       Cities          @relation(fields: [city_id], references: [id])
+  status                     Status_Code     @relation(fields: [status_id], references: [id])
+  users                      Users[]
+  guides_service_origin      Guide_Service[] @relation("origin")
+  guides_service_destination Guide_Service[] @relation("destination")
 }
 
 model Department {
@@ -50,7 +172,7 @@ model Department {
 
 model Status_Code {
   id          String        @id @unique
-  name        String
+  name        String        @unique
   Cities      Cities[]
   department  Department[]
   point_sales Point_Sales[]
@@ -58,7 +180,7 @@ model Status_Code {
 
 model Users_Roles {
   id    String  @id @unique
-  name  String
+  name  String  @unique
   users Users[]
 }
 
