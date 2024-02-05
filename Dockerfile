@@ -9,4 +9,4 @@ RUN bun install
 RUN bun style
 RUN bun prisma-generate
 
-CMD [ "bun", "start" ]
+ENTRYPOINT [ "bun", "start" ]
