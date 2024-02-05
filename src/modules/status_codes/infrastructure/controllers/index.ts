@@ -7,7 +7,6 @@ import type { StatusCodeServices } from '@status_codes/app/services';
 import { type TStatusCodeAPI } from '@status_codes/domain/dto';
 import { type TStatusCodeDOM } from '@status_codes/domain/entities';
 import { type Context } from 'elysia';
-
 export class StatusCodeController {
     private readonly services: StatusCodeServices;
     private readonly mappers: TMappers<TStatusCodeDOM, TStatusCodeAPI>;
@@ -82,7 +81,7 @@ export class StatusCodeController {
     }>): Promise<ApiReponse<TStatusCodeAPI>> => {
         try {
             const statusBody = body as TStatusCodeAPI;
-            if (!statusBody.id) statusBody.id = params.id;
+            if (!statusBody._id) statusBody._id = params.id;
 
             const status = await this.services.updateOne(
                 this.mappers.apiToDom(statusBody),

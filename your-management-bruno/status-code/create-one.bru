@@ -1,0 +1,17 @@
+meta {
+  name: create-one
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{HOST}}/v1/status-code/create-one
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Inactivo"
+  }
+}
