@@ -1,20 +1,22 @@
 export type TDepartamentAPI = {
-    id: string;
+    _id: string;
     name: string;
-    status_id: string;
-    status?: string;
+    status?: TDepartamentStatusAPI;
+};
+
+export type TDepartamentStatusAPI = {
+    _id: string;
+    name: string;
 };
 
 export class DepartamentAPI implements TDepartamentAPI {
-    id: string;
+    _id: string;
     name: string;
-    status_id: string;
-    status?: string;
+    status?: TDepartamentStatusAPI;
 
     constructor(departament: TDepartamentAPI) {
-        this.id = departament.id;
+        this._id = departament._id;
         this.name = departament.name;
-        this.status_id = departament.status_id;
         this.status = departament.status;
     }
 }

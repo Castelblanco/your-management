@@ -107,7 +107,7 @@ export class DepartamentPrismaRepository implements TDepartamentRepository {
                     ...dal,
                     status: {
                         connect: {
-                            id: departament.statusId,
+                            id: departament.status?.id,
                         },
                     },
                     status_id: undefined,

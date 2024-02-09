@@ -1,23 +1,46 @@
 import type { TMappers } from '@common/mappers_wrappers/mappers';
-import { DepartamentAPI, type TDepartamentAPI } from '@departaments/domain/dto';
-import { DepartamentDOM, type TDepartamentDOM } from '@departaments/domain/entities';
+import {
+    DepartamentAPI,
+    type TDepartamentStatusAPI,
+    type TDepartamentAPI,
+} from '@departaments/domain/dto';
+import {
+    DepartamentDOM,
+    type TDepartamentStatusDOM,
+    type TDepartamentDOM,
+} from '@departaments/domain/entities';
 
 export class DepartamentMappers implements TMappers<TDepartamentDOM, TDepartamentAPI> {
     apiToDom = (item: TDepartamentAPI): TDepartamentDOM => {
+        let status: TDepartamentStatusDOM | undefined;
+
+        if (item.status) {
+            status = {
+                id: item.status._id,
+                name: item.status.name,
+            };
+        }
+
         return new DepartamentDOM({
-            id: item.id,
+            id: item._id,
             name: item.name,
-            statusId: item.status_id,
-            status: item.status,
+            status,
         });
     };
 
     domToApi = (item: TDepartamentDOM): TDepartamentAPI => {
+        let status: TDepartamentStatusAPI | undefined;
+
+        if (item.status) {
+            status = {
+                _id: item.status.id,
+                name: item.status.name,
+            };
+        }
         return new DepartamentAPI({
-            id: item.id,
+            _id: item.id,
             name: item.name,
-            status_id: item.statusId,
-            status: item.status,
+            status,
         });
     };
 }

@@ -2,11 +2,13 @@ export type TPointSaleDAL = {
     id: string;
     name: string;
     address: string;
-    budget: string;
+    budget: number;
     status_id: string;
     city_id: string;
     city: string;
     status: string;
+    latitude: number;
+    longitude: number;
     users?: TPointSaleUserDAL[];
 };
 
@@ -26,11 +28,13 @@ export class PointSaleDAL implements TPointSaleDAL {
     id: string;
     name: string;
     address: string;
-    budget: string;
+    budget: number;
     status_id: string;
     city_id: string;
     city: string;
     status: string;
+    latitude: number;
+    longitude: number;
     users?: TPointSaleUserDAL[];
 
     constructor(pointSale: TPointSaleDAL) {
@@ -43,6 +47,8 @@ export class PointSaleDAL implements TPointSaleDAL {
         this.city = pointSale.city;
         this.status = pointSale.status;
         this.users = pointSale.users;
+        this.latitude = pointSale.latitude;
+        this.longitude = pointSale.longitude;
     }
 }
 

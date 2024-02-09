@@ -1,14 +1,10 @@
-export type TDepartamentDAL = {
-    id: string;
-    name: string;
-    status_id: string;
+import type { Department, Department_Status } from '@prisma/client';
+
+export type TDepartamentDAL = Department & {
     status?: TDepartamentStatusDAL;
 };
 
-export type TDepartamentStatusDAL = {
-    id: string;
-    name: string;
-};
+export type TDepartamentStatusDAL = Department_Status;
 
 export class DepartamentDAL implements TDepartamentDAL {
     id: string;

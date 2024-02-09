@@ -190,6 +190,7 @@ export class UsersPrismaRepository implements TUsersRepository {
                     ...this.wrappers.domToDal(user),
                     role: undefined,
                     point_sale: undefined,
+                    status: undefined,
                 },
                 include: {
                     point_sale: true,
@@ -216,6 +217,7 @@ export class UsersPrismaRepository implements TUsersRepository {
                     ...this.wrappers.domToDal(user),
                     role: undefined,
                     point_sale: undefined,
+                    status: undefined,
                 },
                 include: {
                     point_sale: true,

@@ -2,11 +2,13 @@ export type TPointSaleDOM = {
     id: string;
     name: string;
     address: string;
-    budget: string;
+    budget: number;
     statusId: string;
     cityId: string;
     city: string;
     status: string;
+    latitude: number;
+    longitude: number;
     users?: TPointSaleUserDOM[];
 };
 
@@ -38,11 +40,13 @@ export class PointSaleDOM implements TPointSaleDOM {
     id: string;
     name: string;
     address: string;
-    budget: string;
+    budget: number;
     statusId: string;
     cityId: string;
     city: string;
     status: string;
+    latitude: number;
+    longitude: number;
     users?: TPointSaleUserDOM[];
 
     constructor(pointSale: TPointSaleDOM) {
@@ -55,6 +59,8 @@ export class PointSaleDOM implements TPointSaleDOM {
         this.city = pointSale.city;
         this.status = pointSale.status;
         this.users = pointSale.users;
+        this.latitude = pointSale.latitude;
+        this.longitude = pointSale.longitude;
     }
 }
 

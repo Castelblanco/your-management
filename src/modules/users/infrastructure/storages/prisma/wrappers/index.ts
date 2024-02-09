@@ -4,29 +4,61 @@ import {
     type TUserPointSaleDOM,
     UserDOM,
     UserPointSaleDOM,
+    type TUserRoleDOM,
+    type TUserStatusDOM,
+    type TUserPointSaleCityDOM,
 } from '@users/domain/entities';
-import {
-    type TUserDAL,
-    type TUserPointSaleDAL,
-    UserDAL,
-    UserPointSaleDAL,
-} from '../models';
+import { type TUserDAL, UserDAL } from '../models';
 
 export class UsersWrappers implements TWrappers<TUserDOM, TUserDAL> {
     dalToDom = (item: TUserDAL): TUserDOM => {
         let pointSale: TUserPointSaleDOM | undefined;
 
         if (item.point_sale) {
+            const { point_sale: pointSaleDal } = item;
+            let city: TUserPointSaleCityDOM | undefined;
+
+            if (pointSaleDal.city) {
+                const { department } = pointSaleDal.city;
+                city = {
+                    id: pointSaleDal.city.id,
+                    name: pointSaleDal.city.name,
+                    department: undefined,
+                };
+
+                if (department) {
+                    city.department = {
+                        id: department.id,
+                        name: department.name,
+                    };
+                }
+            }
+
             pointSale = new UserPointSaleDOM({
                 id: item.point_sale.id,
                 name: item.point_sale.name,
                 address: item.point_sale.address,
                 budget: item.point_sale.budget,
-                statusId: item.point_sale.status_id,
-                cityId: item.point_sale.city_id,
-                city: item.point_sale.city?.name,
-                status: item.point_sale.status?.name,
+                city,
             });
+        }
+
+        let role: TUserRoleDOM | undefined;
+
+        if (item.role) {
+            role = {
+                id: item.role.id,
+                name: item.role.name,
+            };
+        }
+
+        let status: TUserStatusDOM | undefined;
+
+        if (item.status) {
+            status = {
+                id: item.status.id,
+                name: item.status.name,
+            };
         }
 
         return new UserDOM({
@@ -38,31 +70,15 @@ export class UsersWrappers implements TWrappers<TUserDOM, TUserDAL> {
             password: item.password,
             phone: item.phone,
             address: item.address,
-            pointSaleId: item.point_sale_id,
-            roleId: item.role_id,
-            role: item.role?.name,
+            role,
+            status,
+            pointSale,
             createdAt: item.created_at,
             updatedAt: item.updated_at,
-            pointSale,
         });
     };
 
     domToDal = (item: TUserDOM): TUserDAL => {
-        let pointSale: TUserPointSaleDAL | undefined;
-
-        if (item.pointSale) {
-            pointSale = new UserPointSaleDAL({
-                id: item.pointSale.id,
-                name: item.pointSale.name,
-                address: item.pointSale.address,
-                budget: item.pointSale.budget,
-                status_id: item.pointSale.statusId,
-                city_id: item.pointSale.cityId,
-                city: undefined,
-                status: undefined,
-            });
-        }
-
         return new UserDAL({
             id: item.id,
             first_name: item.firstName,
@@ -71,13 +87,12 @@ export class UsersWrappers implements TWrappers<TUserDOM, TUserDAL> {
             email: item.email,
             password: item.password,
             phone: item.phone,
-            point_sale_id: item.pointSaleId,
+            point_sale_id: item.pointSale?.id || '',
             address: item.address,
-            role_id: item.roleId,
-            role: undefined,
+            role_id: item.role?.id || '',
+            status_id: item.status?.id || '',
             created_at: item.createdAt,
             updated_at: item.updatedAt,
-            point_sale: pointSale,
         });
     };
 }

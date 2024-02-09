@@ -1,38 +1,42 @@
 export type TCityAPI = {
     _id: string;
     name: string;
-    status: string;
-    status_id: string;
-    department_id: string;
-    department: string;
+    status?: TCityStatusAPI;
+    department?: TCityDepartamentAPI;
     point_sales?: TCityPointSaleAPI[];
+};
+
+export type TCityDepartamentAPI = {
+    _id: string;
+    name: string;
+};
+
+export type TCityStatusAPI = {
+    _id: string;
+    name: string;
 };
 
 export type TCityPointSaleAPI = {
     _id: string;
     name: string;
     address: string;
-    budget: string;
+    budget: number;
     status: string;
 };
 
 export class CityAPI implements TCityAPI {
     _id: string;
     name: string;
-    status: string;
-    status_id: string;
-    department_id: string;
-    department: string;
+    status?: TCityStatusAPI;
+    department?: TCityDepartamentAPI;
     point_sales?: TCityPointSaleAPI[];
 
     constructor(city: TCityAPI) {
         this._id = city._id;
         this.name = city.name;
         this.status = city.status;
-        this.department_id = city.department_id;
         this.department = city.department;
         this.point_sales = city.point_sales;
-        this.status_id = city.status_id;
     }
 }
 
@@ -40,7 +44,7 @@ export class CityPointSaleAPI implements TCityPointSaleAPI {
     _id: string;
     name: string;
     address: string;
-    budget: string;
+    budget: number;
     status: string;
 
     constructor(pointSale: TCityPointSaleAPI) {

@@ -32,6 +32,8 @@ export class PointSalesWrappers implements TWrappers<TPointSaleDOM, TPointSaleDA
             cityId: item.city_id,
             city: item.city,
             status: item.status,
+            latitude: item.latitude,
+            longitude: item.longitude,
             users,
         });
     };
@@ -61,6 +63,8 @@ export class PointSalesWrappers implements TWrappers<TPointSaleDOM, TPointSaleDA
             city_id: item.cityId,
             city: item.city,
             status: item.status,
+            latitude: item.latitude,
+            longitude: item.longitude,
             users,
         });
     };

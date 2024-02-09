@@ -1,6 +1,12 @@
-import { CityDOM, CityPointSaleDOM, type TCityDOM } from '@cities/domain/entities';
+import {
+    CityDOM,
+    CityPointSaleDOM,
+    type TCityStatusDOM,
+    type TCityDOM,
+    type TCityDepartamentDOM,
+} from '@cities/domain/entities';
 import type { TWrappers } from '@common/mappers_wrappers/wrappers';
-import { CityDAL, CityPointSaleDAL, type TCityDAL } from '../models';
+import { CityDAL, type TCityDAL } from '../models';
 
 export class CitiesWrappers implements TWrappers<TCityDOM, TCityDAL> {
     dalToDom = (item: TCityDAL): TCityDOM => {
@@ -14,35 +20,35 @@ export class CitiesWrappers implements TWrappers<TCityDOM, TCityDAL> {
             });
         });
 
+        let status: TCityStatusDOM | undefined;
+        let department: TCityDepartamentDOM | undefined;
+
+        if (item.status) {
+            status = item.status;
+        }
+
+        if (item.department) {
+            department = item.department;
+        }
+
         return new CityDOM({
             id: item.id,
             name: item.name,
-            status: item.status?.name || '',
-            statusId: item.status_id,
-            departmentId: item.department_id,
-            department: item.department?.name || '',
+            status,
+            department,
             pointSales,
         });
     };
 
     domToDal = (item: TCityDOM): TCityDAL => {
-        const pointSales = item.pointSales?.map((point) => {
-            return new CityPointSaleDAL({
-                id: point.id,
-                address: point.address,
-                budget: point.budget,
-                name: point.name,
-                status: undefined,
-            });
-        });
-
         return new CityDAL({
             id: item.id,
             name: item.name,
-            status_id: item.statusId,
-            department_id: item.departmentId,
+            status_id: item.status?.id || '',
+            department_id: item.department?.id || '',
+            point_sales: undefined,
             department: undefined,
-            point_sales: pointSales,
+            status: undefined,
         });
     };
 }

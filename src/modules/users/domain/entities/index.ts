@@ -7,23 +7,40 @@ export type TUserDOM = {
     password: string;
     phone: string;
     address: string;
-    pointSaleId: string;
-    roleId: string;
     createdAt: Date;
     updatedAt: Date;
-    role?: string;
+    status?: TUserStatusDOM;
+    role?: TUserRoleDOM;
     pointSale?: TUserPointSaleDOM;
+};
+
+export type TUserStatusDOM = {
+    id: string;
+    name: string;
+};
+
+export type TUserRoleDOM = {
+    id: string;
+    name: string;
 };
 
 export type TUserPointSaleDOM = {
     id: string;
     name: string;
     address: string;
-    budget: string;
-    statusId: string;
-    cityId: string;
-    city?: string;
-    status?: string;
+    budget: number;
+    city?: TUserPointSaleCityDOM;
+};
+
+export type TUserPointSaleCityDOM = {
+    id: string;
+    name: string;
+    department?: TUserPointSaleDepartamentDOM;
+};
+
+export type TUserPointSaleDepartamentDOM = {
+    id: string;
+    name: string;
 };
 
 export type TUserFilterDOM = {
@@ -53,7 +70,10 @@ export type TUserLoginDOM = {
     email: string;
     phone: string;
     address: string;
-    role: string;
+    createdAt: Date;
+    updatedAt: Date;
+    status?: TUserStatusDOM;
+    role?: TUserRoleDOM;
     token: string;
     pointSale?: TUserPointSaleDOM;
 };
@@ -67,11 +87,10 @@ export class UserDOM implements TUserDOM {
     password: string;
     phone: string;
     address: string;
-    pointSaleId: string;
-    roleId: string;
     createdAt: Date;
     updatedAt: Date;
-    role?: string;
+    status?: TUserStatusDOM;
+    role?: TUserRoleDOM;
     pointSale?: TUserPointSaleDOM;
 
     constructor(user: TUserDOM) {
@@ -83,11 +102,10 @@ export class UserDOM implements TUserDOM {
         this.email = user.email;
         this.phone = user.phone;
         this.address = user.address;
-        this.pointSaleId = user.pointSaleId;
-        this.roleId = user.roleId;
-        this.role = user.role;
         this.createdAt = user.createdAt;
         this.updatedAt = user.updatedAt;
+        this.status = user.status;
+        this.role = user.role;
         this.pointSale = user.pointSale;
     }
 }
@@ -96,21 +114,15 @@ export class UserPointSaleDOM implements TUserPointSaleDOM {
     id: string;
     name: string;
     address: string;
-    budget: string;
-    statusId: string;
-    cityId: string;
-    city?: string;
-    status?: string;
+    budget: number;
+    city?: TUserPointSaleCityDOM;
 
     constructor(point: TUserPointSaleDOM) {
         this.id = point.id;
         this.name = point.name;
         this.address = point.address;
         this.budget = point.budget;
-        this.statusId = point.statusId;
-        this.cityId = point.cityId;
         this.city = point.city;
-        this.status = point.status;
     }
 }
 
@@ -122,7 +134,10 @@ export class UserLoginDOM implements TUserLoginDOM {
     email: string;
     phone: string;
     address: string;
-    role: string;
+    createdAt: Date;
+    updatedAt: Date;
+    status?: TUserStatusDOM;
+    role?: TUserRoleDOM;
     token: string;
     pointSale?: TUserPointSaleDOM;
 
@@ -137,5 +152,7 @@ export class UserLoginDOM implements TUserLoginDOM {
         this.role = login.role;
         this.pointSale = login.pointSale;
         this.token = login.token;
+        this.createdAt = login.createdAt;
+        this.updatedAt = login.updatedAt;
     }
 }

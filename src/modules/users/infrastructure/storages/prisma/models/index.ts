@@ -1,44 +1,29 @@
-export type TUserDAL = {
-    id: string;
-    first_name: string;
-    last_name: string;
-    document_id: string;
-    email: string;
-    password: string;
-    phone: string;
-    address: string;
-    point_sale_id: string;
-    role_id: string;
-    created_at: Date;
-    updated_at: Date;
+import type { Users_Roles, Users, Users_Status } from '@prisma/client';
+
+export type TUserDAL = Users & {
+    status?: TUserStatusDAL;
     role?: TUserRoleDAL;
     point_sale?: TUserPointSaleDAL;
 };
 
-export type TUserRoleDAL = {
-    id: string;
-    name: string;
-};
+export type TUserRoleDAL = Users_Roles;
+export type TUserStatusDAL = Users_Status;
 
 export type TUserPointSaleDAL = {
     id: string;
     address: string;
     name: string;
-    budget: string;
-    status_id: string;
-    city_id: string;
+    budget: number;
     city?: TUserPointSaleCityDAL;
-    status?: TUserPointSaleStatusDAL;
 };
 
 export type TUserPointSaleCityDAL = {
     id: string;
     name: string;
-    department_id: string;
-    status_id: string;
+    department?: TUserPointSaleDepartamentDAL;
 };
 
-export type TUserPointSaleStatusDAL = {
+export type TUserPointSaleDepartamentDAL = {
     id: string;
     name: string;
 };
@@ -52,12 +37,14 @@ export class UserDAL implements TUserDAL {
     password: string;
     phone: string;
     address: string;
-    point_sale_id: string;
     role_id: string;
+    role?: TUserRoleDAL;
+    point_sale_id: string;
+    point_sale?: TUserPointSaleDAL;
+    status_id: string;
+    status?: TUserStatusDAL | undefined;
     created_at: Date;
     updated_at: Date;
-    role?: TUserRoleDAL;
-    point_sale?: TUserPointSaleDAL;
 
     constructor(user: TUserDAL) {
         this.id = user.id;
@@ -69,11 +56,13 @@ export class UserDAL implements TUserDAL {
         this.phone = user.phone;
         this.address = user.address;
         this.point_sale_id = user.point_sale_id;
+        this.point_sale = user.point_sale;
         this.role_id = user.role_id;
         this.role = user.role;
+        this.status_id = user.status_id;
+        this.status = user.status;
         this.created_at = user.created_at;
         this.updated_at = user.updated_at;
-        this.point_sale = user.point_sale;
     }
 }
 
@@ -81,20 +70,14 @@ export class UserPointSaleDAL implements TUserPointSaleDAL {
     id: string;
     name: string;
     address: string;
-    budget: string;
-    status_id: string;
-    city_id: string;
+    budget: number;
     city?: TUserPointSaleCityDAL;
-    status?: TUserPointSaleStatusDAL;
 
     constructor(point: TUserPointSaleDAL) {
         this.id = point.id;
         this.name = point.name;
         this.address = point.address;
         this.budget = point.budget;
-        this.status_id = point.status_id;
-        this.city_id = point.city_id;
         this.city = point.city;
-        this.status = point.status;
     }
 }

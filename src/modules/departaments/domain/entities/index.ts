@@ -1,8 +1,12 @@
 export type TDepartamentDOM = {
     id: string;
     name: string;
-    statusId: string;
-    status?: string;
+    status?: TDepartamentStatusDOM;
+};
+
+export type TDepartamentStatusDOM = {
+    id: string;
+    name: string;
 };
 
 export type TDepartamentFilterDOM = {
@@ -18,13 +22,11 @@ export type TDepartamentOPT = {
 export class DepartamentDOM implements TDepartamentDOM {
     id: string;
     name: string;
-    statusId: string;
-    status?: string;
+    status?: TDepartamentStatusDOM;
 
     constructor(departament: TDepartamentDOM) {
         this.id = departament.id;
         this.name = departament.name;
-        this.statusId = departament.statusId;
         this.status = departament.status;
     }
 }

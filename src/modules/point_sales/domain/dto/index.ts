@@ -2,11 +2,13 @@ export type TPointSaleAPI = {
     _id: string;
     name: string;
     address: string;
-    budget: string;
+    budget: number;
     status_id: string;
     city_id: string;
     city: string;
     status: string;
+    latitude: number;
+    longitude: number;
     users?: TPointSaleUserAPI[];
 };
 
@@ -26,11 +28,13 @@ export class PointSaleAPI implements TPointSaleAPI {
     _id: string;
     name: string;
     address: string;
-    budget: string;
+    budget: number;
     status_id: string;
     city_id: string;
     city: string;
     status: string;
+    latitude: number;
+    longitude: number;
     users?: TPointSaleUserAPI[];
 
     constructor(pointSale: TPointSaleAPI) {
@@ -43,6 +47,8 @@ export class PointSaleAPI implements TPointSaleAPI {
         this.city = pointSale.city;
         this.status = pointSale.status;
         this.users = pointSale.users;
+        this.latitude = pointSale.latitude;
+        this.longitude = pointSale.longitude;
     }
 }
 

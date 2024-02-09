@@ -36,6 +36,8 @@ export class PointSalesMappers implements TMappers<TPointSaleDOM, TPointSaleAPI>
             cityId: item.city_id,
             city: item.city,
             status: item.status,
+            latitude: item.latitude,
+            longitude: item.longitude,
             users,
         });
     };
@@ -65,6 +67,8 @@ export class PointSalesMappers implements TMappers<TPointSaleDOM, TPointSaleAPI>
             city_id: item.cityId,
             city: item.city,
             status: item.status,
+            latitude: item.latitude,
+            longitude: item.longitude,
             users,
         });
     };

@@ -1,18 +1,26 @@
 export type TCityDOM = {
     id: string;
     name: string;
-    status: string;
-    statusId: string;
-    departmentId: string;
-    department: string;
+    status?: TCityStatusDOM;
+    department?: TCityDepartamentDOM;
     pointSales?: TCityPointSaleDOM[];
+};
+
+export type TCityDepartamentDOM = {
+    id: string;
+    name: string;
+};
+
+export type TCityStatusDOM = {
+    id: string;
+    name: string;
 };
 
 export type TCityPointSaleDOM = {
     id: string;
     name: string;
     address: string;
-    budget: string;
+    budget: number;
     status: string;
 };
 
@@ -32,20 +40,16 @@ export type TCityOPT = {
 export class CityDOM implements TCityDOM {
     id: string;
     name: string;
-    status: string;
-    statusId: string;
-    departmentId: string;
-    department: string;
+    status?: TCityStatusDOM;
+    department?: TCityDepartamentDOM;
     pointSales?: TCityPointSaleDOM[];
 
     constructor(city: TCityDOM) {
         this.id = city.id;
         this.name = city.name;
         this.status = city.status;
-        this.departmentId = city.departmentId;
         this.department = city.department;
         this.pointSales = city.pointSales;
-        this.statusId = city.statusId;
     }
 }
 
@@ -53,7 +57,7 @@ export class CityPointSaleDOM implements TCityPointSaleDOM {
     id: string;
     name: string;
     address: string;
-    budget: string;
+    budget: number;
     status: string;
 
     constructor(pointSale: TCityPointSaleDOM) {

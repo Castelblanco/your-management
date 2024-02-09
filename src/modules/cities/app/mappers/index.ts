@@ -1,5 +1,17 @@
-import { CityAPI, CityPointSaleAPI, type TCityAPI } from '@cities/domain/dto';
-import { CityDOM, CityPointSaleDOM, type TCityDOM } from '@cities/domain/entities';
+import {
+    CityAPI,
+    CityPointSaleAPI,
+    type TCityStatusAPI,
+    type TCityAPI,
+    type TCityDepartamentAPI,
+} from '@cities/domain/dto';
+import {
+    CityDOM,
+    CityPointSaleDOM,
+    type TCityDepartamentDOM,
+    type TCityStatusDOM,
+    type TCityDOM,
+} from '@cities/domain/entities';
 import type { TMappers } from '@common/mappers_wrappers/mappers';
 
 export class CitiesMappers implements TMappers<TCityDOM, TCityAPI> {
@@ -14,13 +26,28 @@ export class CitiesMappers implements TMappers<TCityDOM, TCityAPI> {
             });
         });
 
+        let status: TCityStatusDOM | undefined;
+        let department: TCityDepartamentDOM | undefined;
+
+        if (item.status) {
+            status = {
+                id: item.status._id,
+                name: item.status.name,
+            };
+        }
+
+        if (item.department) {
+            department = {
+                id: item.department._id,
+                name: item.department.name,
+            };
+        }
+
         return new CityDOM({
             id: item._id,
             name: item.name,
-            status: item.status,
-            statusId: item.status_id,
-            departmentId: item.department_id,
-            department: item.department,
+            status,
+            department,
             pointSales,
         });
     };
@@ -36,13 +63,28 @@ export class CitiesMappers implements TMappers<TCityDOM, TCityAPI> {
             });
         });
 
+        let status: TCityStatusAPI | undefined;
+        let department: TCityDepartamentAPI | undefined;
+
+        if (item.status) {
+            status = {
+                _id: item.status.id,
+                name: item.status.name,
+            };
+        }
+
+        if (item.department) {
+            department = {
+                _id: item.department.id,
+                name: item.department.name,
+            };
+        }
+
         return new CityAPI({
             _id: item.id,
             name: item.name,
-            status: item.status,
-            status_id: item.statusId,
-            department_id: item.departmentId,
-            department: item.department,
+            status,
+            department,
             point_sales: pointSales,
         });
     };

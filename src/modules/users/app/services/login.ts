@@ -24,7 +24,7 @@ export const buildLogin = ({
         return new UserLoginDOM({
             ...userFind,
             token,
-            role: userFind.role || '',
+            role: userFind.role,
             pointSale: userFind.pointSale,
         });
     };
