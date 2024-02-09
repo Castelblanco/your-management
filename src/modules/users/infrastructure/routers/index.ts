@@ -17,8 +17,8 @@ const checkLogin = buildCheckLogin({ repository, verifyPassword });
 export const usersRouter = new Elysia();
 
 usersRouter.group('users', (app) => {
-    app.get('get-all', controllers.getAll);
-    app.get('get-one/:id', controllers.getOne);
+    app.get('get-all', controllers.findAll);
+    app.get('get-one/:id', controllers.findOne);
     app.post('create-one', controllers.createOne);
     app.guard({
         beforeHandle: [checkLogin],
