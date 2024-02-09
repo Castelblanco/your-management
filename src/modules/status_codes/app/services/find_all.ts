@@ -1,4 +1,4 @@
-import type { TStatusCodeDOM } from '@status_codes/domain/entities';
+import type { TStatusCodeDOM, TStatusCodeType } from '@status_codes/domain/entities';
 import { type TStatusCodeRepository } from '@status_codes/domain/repository';
 
 type Dependencies = {
@@ -7,9 +7,9 @@ type Dependencies = {
 
 export const buildFindAll = ({
     repository,
-}: Dependencies): (() => Promise<TStatusCodeDOM[]>) => {
-    const services = async (): Promise<TStatusCodeDOM[]> => {
-        return await repository.findAll();
+}: Dependencies): ((type: TStatusCodeType) => Promise<TStatusCodeDOM[]>) => {
+    const services = async (type: TStatusCodeType): Promise<TStatusCodeDOM[]> => {
+        return await repository[type].findAll();
     };
 
     return services;

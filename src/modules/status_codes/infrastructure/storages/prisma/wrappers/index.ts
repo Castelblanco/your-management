@@ -4,16 +4,10 @@ import { StatusCodeDAL, type TStatusCodeDAL } from '../models';
 
 export class StatusCodeWrappers implements TWrappers<TStatusCodeDOM, TStatusCodeDAL> {
     dalToDom = (item: TStatusCodeDAL): TStatusCodeDOM => {
-        return new StatusCodeDOM({
-            id: item.id,
-            name: item.name,
-        });
+        return new StatusCodeDOM(item);
     };
 
     domToDal = (item: TStatusCodeDOM): TStatusCodeDAL => {
-        return new StatusCodeDAL({
-            id: item.id,
-            name: item.name,
-        });
+        return new StatusCodeDAL(item);
     };
 }

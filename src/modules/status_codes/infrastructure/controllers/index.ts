@@ -1,12 +1,17 @@
 import { HttpSuccessCode } from '@common/enums/success_enum';
-import { type TMappers } from '@common/mappers_wrappers/mappers';
 import { ApiReponse } from '@common/response/success/api_responses';
 import { ListResponse } from '@common/response/success/list_responses';
 import { StatusCodeMappers } from '@status_codes/app/mappers';
+
+import { type TMappers } from '@common/mappers_wrappers/mappers';
 import type { StatusCodeServices } from '@status_codes/app/services';
 import { type TStatusCodeAPI } from '@status_codes/domain/dto';
-import { type TStatusCodeDOM } from '@status_codes/domain/entities';
+import type { TStatusCodeType, TStatusCodeDOM } from '@status_codes/domain/entities';
 import { type Context } from 'elysia';
+
+type TContext = Context<{
+    params: Record<string, string>;
+}>;
 export class StatusCodeController {
     private readonly services: StatusCodeServices;
     private readonly mappers: TMappers<TStatusCodeDOM, TStatusCodeAPI>;
@@ -16,9 +21,9 @@ export class StatusCodeController {
         this.mappers = new StatusCodeMappers();
     }
 
-    findAll = async (): Promise<ListResponse<TStatusCodeAPI>> => {
+    findAll = async ({ query }: TContext): Promise<ListResponse<TStatusCodeAPI>> => {
         try {
-            const status = await this.services.findAll();
+            const status = await this.services.findAll(query.type as TStatusCodeType);
 
             return new ListResponse(
                 status.map(this.mappers.domToApi),
@@ -30,12 +35,14 @@ export class StatusCodeController {
     };
 
     findOne = async ({
+        query,
         params,
-    }: Context<{
-        params: Record<string, string>;
-    }>): Promise<ApiReponse<TStatusCodeAPI>> => {
+    }: TContext): Promise<ApiReponse<TStatusCodeAPI>> => {
         try {
-            const status = await this.services.findOne(params.id);
+            const status = await this.services.findOne(
+                query.type as TStatusCodeType,
+                params.id,
+            );
 
             return new ApiReponse(
                 this.mappers.domToApi(status),
@@ -46,9 +53,14 @@ export class StatusCodeController {
         }
     };
 
-    createOne = async ({ body, set }: Context): Promise<ApiReponse<TStatusCodeAPI>> => {
+    createOne = async ({
+        body,
+        set,
+        query,
+    }: TContext): Promise<ApiReponse<TStatusCodeAPI>> => {
         try {
             const status = await this.services.createOne(
+                query.type as TStatusCodeType,
                 this.mappers.apiToDom(body as TStatusCodeAPI),
             );
 
@@ -59,10 +71,11 @@ export class StatusCodeController {
         }
     };
 
-    createMany = async ({ body, set }: Context): Promise<ApiReponse<number>> => {
+    createMany = async ({ body, set, query }: TContext): Promise<ApiReponse<number>> => {
         try {
             const status = body as TStatusCodeAPI[];
             const count = await this.services.createMany(
+                query.type as TStatusCodeType,
                 status.map(this.mappers.apiToDom),
             );
 
@@ -75,15 +88,15 @@ export class StatusCodeController {
 
     updateOne = async ({
         body,
+        query,
         params,
-    }: Context<{
-        params: Record<string, string>;
-    }>): Promise<ApiReponse<TStatusCodeAPI>> => {
+    }: TContext): Promise<ApiReponse<TStatusCodeAPI>> => {
         try {
             const statusBody = body as TStatusCodeAPI;
             if (!statusBody._id) statusBody._id = params.id;
 
             const status = await this.services.updateOne(
+                query.type as TStatusCodeType,
                 this.mappers.apiToDom(statusBody),
             );
 
@@ -93,14 +106,9 @@ export class StatusCodeController {
         }
     };
 
-    deleteOne = async ({
-        params,
-        set,
-    }: Context<{
-        params: Record<string, string>;
-    }>): Promise<void> => {
+    deleteOne = async ({ params, set, query }: TContext): Promise<void> => {
         try {
-            await this.services.deleteOne(params.id);
+            await this.services.deleteOne(query.type as TStatusCodeType, params.id);
             set.status = HttpSuccessCode.NOT_CONTENT;
         } catch (e) {
             throw e;

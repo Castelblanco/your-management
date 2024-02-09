@@ -1,4 +1,4 @@
-import type { TStatusCodeDOM } from '@status_codes/domain/entities';
+import type { TStatusCodeDOM, TStatusCodeType } from '@status_codes/domain/entities';
 import type { TStatusCodeRepository } from '@status_codes/domain/repository';
 
 type Dependencies = {
@@ -9,9 +9,15 @@ type Dependencies = {
 export const buildCreateMany = ({
     repository,
     createId,
-}: Dependencies): ((status: TStatusCodeDOM[]) => Promise<number>) => {
-    const services = async (status: TStatusCodeDOM[]): Promise<number> => {
-        return await repository.createMany(
+}: Dependencies): ((
+    type: TStatusCodeType,
+    status: TStatusCodeDOM[],
+) => Promise<number>) => {
+    const services = async (
+        type: TStatusCodeType,
+        status: TStatusCodeDOM[],
+    ): Promise<number> => {
+        return await repository[type].createMany(
             status.map((s) => {
                 s.id = createId();
                 return s;

@@ -45,25 +45,25 @@ model Guide_Service {
 model Guide_Service_Collection {
   id            String          @id @unique
   name          String
-  Guide_Service Guide_Service[]
+  guide_service Guide_Service[]
 }
 
 model Guide_Service_Novelty {
   id            String          @id @unique
   name          String
-  Guide_Service Guide_Service[]
+  guide_service Guide_Service[]
 }
 
 model Guide_Service_Type {
   id            String         @id @unique
   name          String         @unique
-  Guide_Service Guide_Service?
+  guide_service Guide_Service?
 }
 
 model Guide_Service_Status {
   id            String          @id @unique
   name          String          @unique
-  Guide_Service Guide_Service[]
+  guide_service Guide_Service[]
 }
 
 model Natural_Client {
@@ -102,22 +102,22 @@ model Legal_Client {
 model Client_Type {
   id             String           @id @unique
   name           String           @unique
-  Natural_Client Natural_Client[]
-  Legal_Client   Legal_Client[]
+  natural_client Natural_Client[]
+  legal_client   Legal_Client[]
 }
 
 model Client_Status {
   id             String           @id @unique
   name           String           @unique
-  Natural_Client Natural_Client[]
-  Legal_Client   Legal_Client[]
+  natural_client Natural_Client[]
+  legal_client   Legal_Client[]
 }
 
 model Client_Personhood {
   id             String           @id @unique
   name           String
-  Natural_Client Natural_Client[]
-  Legal_Client   Legal_Client[]
+  natural_client Natural_Client[]
+  legal_client   Legal_Client[]
 }
 
 model Users {
@@ -147,35 +147,39 @@ model Users_Status {
 }
 
 model Point_Sales {
-  id                         String          @id @unique
+  id                         String             @id @unique
   name                       String
-  address                    String          @unique
+  address                    String             @unique
   latitude                   Float
   longitude                  Float
   budget                     Float
   status_id                  String
   city_id                    String
-  city                       Cities          @relation(fields: [city_id], references: [id])
-  status                     Status_Code     @relation(fields: [status_id], references: [id])
+  city                       Cities             @relation(fields: [city_id], references: [id])
+  status                     Point_Sales_Status @relation(fields: [status_id], references: [id])
   users                      Users[]
-  guides_service_origin      Guide_Service[] @relation("origin")
-  guides_service_destination Guide_Service[] @relation("destination")
+  guides_service_origin      Guide_Service[]    @relation("origin")
+  guides_service_destination Guide_Service[]    @relation("destination")
+}
+
+model Point_Sales_Status {
+  id          String        @id @unique
+  name        String        @unique
+  point_sales Point_Sales[]
 }
 
 model Department {
-  id        String      @id @unique
+  id        String            @id @unique
   name      String
   status_id String
+  status    Department_Status @relation(fields: [status_id], references: [id])
   cities    Cities[]
-  status    Status_Code @relation(fields: [status_id], references: [id])
 }
 
-model Status_Code {
-  id          String        @id @unique
-  name        String        @unique
-  Cities      Cities[]
-  department  Department[]
-  point_sales Point_Sales[]
+model Department_Status {
+  id         String       @id @unique
+  name       String
+  department Department[]
 }
 
 model Users_Roles {
@@ -188,8 +192,14 @@ model Cities {
   id            String        @id @unique
   name          String
   department_id String
-  status_id     String
   department    Department    @relation(fields: [department_id], references: [id])
-  status        Status_Code   @relation(fields: [status_id], references: [id])
+  status_id     String
+  status        Cities_Status @relation(fields: [status_id], references: [id])
   point_sales   Point_Sales[]
+}
+
+model Cities_Status {
+  id     String   @id @unique
+  name   String
+  cities Cities[]
 }

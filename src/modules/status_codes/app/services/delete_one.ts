@@ -1,3 +1,4 @@
+import type { TStatusCodeType } from '@status_codes/domain/entities';
 import type { TStatusCodeRepository } from '@status_codes/domain/repository';
 
 type Dependencies = {
@@ -6,9 +7,9 @@ type Dependencies = {
 
 export const buildDeleteOne = ({
     repository,
-}: Dependencies): ((id: string) => Promise<void>) => {
-    const services = async (id: string): Promise<void> => {
-        await repository.deleteOne(id);
+}: Dependencies): ((type: TStatusCodeType, id: string) => Promise<void>) => {
+    const services = async (type: TStatusCodeType, id: string): Promise<void> => {
+        await repository[type].deleteOne(id);
     };
 
     return services;
