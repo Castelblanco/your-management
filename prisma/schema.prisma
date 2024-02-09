@@ -67,36 +67,32 @@ model Guide_Service_Status {
 }
 
 model Natural_Client {
-  id                         String            @id @unique
-  number_movil               String            @unique
-  address                    String            @unique
-  document_id                String            @unique
+  id                         String          @id @unique
+  number_movil               String          @unique
+  address                    String          @unique
+  document_id                String          @unique
   first_name                 String
   last_name                  String
   type_id                    String
-  type                       Client_Type       @relation(fields: [type_id], references: [id])
-  personhood_id              String
-  personhood                 Client_Personhood @relation(fields: [personhood_id], references: [id])
+  type                       Client_Type     @relation(fields: [type_id], references: [id])
   status_id                  String
-  status                     Client_Status     @relation(fields: [status_id], references: [id])
-  guides_service_origin      Guide_Service[]   @relation("origin")
-  guides_service_destination Guide_Service[]   @relation("destination")
+  status                     Client_Status   @relation(fields: [status_id], references: [id])
+  guides_service_origin      Guide_Service[] @relation("origin")
+  guides_service_destination Guide_Service[] @relation("destination")
 }
 
 model Legal_Client {
-  id                         String            @id @unique
-  number_movil               String            @unique
-  address                    String            @unique
-  nit                        String            @unique
-  business_name              String            @unique
+  id                         String          @id @unique
+  number_movil               String          @unique
+  address                    String          @unique
+  nit                        String          @unique
+  business_name              String          @unique
   type_id                    String
-  type                       Client_Type       @relation(fields: [type_id], references: [id])
-  personhood_id              String
-  personhood                 Client_Personhood @relation(fields: [personhood_id], references: [id])
+  type                       Client_Type     @relation(fields: [type_id], references: [id])
   status_id                  String
-  status                     Client_Status     @relation(fields: [status_id], references: [id])
-  guides_service_origin      Guide_Service[]   @relation("origin")
-  guides_service_destination Guide_Service[]   @relation("destination")
+  status                     Client_Status   @relation(fields: [status_id], references: [id])
+  guides_service_origin      Guide_Service[] @relation("origin")
+  guides_service_destination Guide_Service[] @relation("destination")
 }
 
 model Client_Type {
@@ -109,13 +105,6 @@ model Client_Type {
 model Client_Status {
   id             String           @id @unique
   name           String           @unique
-  natural_client Natural_Client[]
-  legal_client   Legal_Client[]
-}
-
-model Client_Personhood {
-  id             String           @id @unique
-  name           String
   natural_client Natural_Client[]
   legal_client   Legal_Client[]
 }
