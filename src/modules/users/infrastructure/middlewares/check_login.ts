@@ -13,16 +13,21 @@ type TContext = Context<{
     params: Record<string, string>;
 }>;
 
-export const buildCheckLogin = ({
-    repository,
-    verifyPassword,
-}: Dependencies): (({ body }: TContext) => Promise<void>) => {
+export const buildCheckLogin = ({ repository, verifyPassword }: Dependencies) => {
     const middleware = async ({ body }: TContext): Promise<void> => {
         const { email, password } = body as TUserAPI;
 
-        const user = await repository.findOne({
-            email,
-        });
+        const [user] = await repository.findAll(
+            {
+                email,
+            },
+            {
+                limit: 1,
+                offset: 0,
+                pointSale: false,
+                role: false,
+            },
+        );
 
         const checkPassword = verifyPassword(password, user.password);
 
