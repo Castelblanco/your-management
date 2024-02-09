@@ -39,19 +39,19 @@ export class UsersControllers {
         }
     };
 
-    getAll = async ({ query }: TContext): Promise<ListResponse<TUserAPI>> => {
+    findAll = async ({ query }: TContext): Promise<ListResponse<TUserAPI>> => {
         try {
             const users = await this.services.findAll(
                 {
-                    firstName: query.firstName || undefined,
-                    lastName: query.lastName || undefined,
-                    documentId: query.documentId || undefined,
-                    email: query.email || undefined,
-                    address: query.address || undefined,
-                    pointSaleId: query.pointSaleId || undefined,
-                    roleId: query.roleId || undefined,
-                    startTime: query.startTime ? query.startTime : undefined,
-                    endTime: query.endTime ? query.endTime : undefined,
+                    firstName: query.firstName,
+                    lastName: query.lastName,
+                    documentId: query.documentId,
+                    email: query.email,
+                    address: query.address,
+                    pointSaleId: query.pointSaleId,
+                    roleId: query.roleId,
+                    startTime: query.startTime,
+                    endTime: query.endTime,
                 },
                 {
                     limit: query.limit ? +query.limit : 50,
@@ -70,20 +70,10 @@ export class UsersControllers {
         }
     };
 
-    getOne = async ({ params, query }: TContext): Promise<ApiReponse<TUserAPI>> => {
+    findOne = async ({ params, query }: TContext): Promise<ApiReponse<TUserAPI>> => {
         try {
             const user = await this.services.findOne(
-                {
-                    firstName: query.firstName || undefined,
-                    lastName: query.lastName || undefined,
-                    documentId: query.documentId || undefined,
-                    email: query.email || undefined,
-                    address: query.address || undefined,
-                    pointSaleId: query.pointSaleId || undefined,
-                    roleId: query.roleId || undefined,
-                    startTime: query.startTime ? query.startTime : undefined,
-                    endTime: query.endTime ? query.endTime : undefined,
-                },
+                params.id,
                 !!query.pointSale,
                 !!query.role,
             );
