@@ -5,9 +5,7 @@ type Dependencies = {
     repository: TUserRoleRepository;
 };
 
-export const buildFindAll = ({
-    repository,
-}: Dependencies): (() => Promise<TUserRoleDOM[]>) => {
+export const buildFindAll = ({ repository }: Dependencies) => {
     const services = async (): Promise<TUserRoleDOM[]> => {
         return await repository.findAll();
     };

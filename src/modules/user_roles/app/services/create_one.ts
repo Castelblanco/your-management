@@ -6,10 +6,7 @@ type Dependencies = {
     createId: () => string;
 };
 
-export const buildCreateOne = ({
-    repository,
-    createId,
-}: Dependencies): ((role: TUserRoleDOM) => Promise<TUserRoleDOM>) => {
+export const buildCreateOne = ({ repository, createId }: Dependencies) => {
     const services = async (role: TUserRoleDOM): Promise<TUserRoleDOM> => {
         role.id = createId();
         return await repository.createOne(role);

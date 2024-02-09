@@ -6,17 +6,18 @@ type Dependecies = {
     singToken: (payload: string | object | Buffer, expiresIn: string) => string;
 };
 
-export const buildLogin = ({
-    repository,
-    singToken,
-}: Dependecies): ((user: TUserDOM) => Promise<TUserLoginDOM>) => {
+export const buildLogin = ({ repository, singToken }: Dependecies) => {
     const service = async (user: TUserDOM): Promise<TUserLoginDOM> => {
-        const userFind = await repository.findOne(
+        const [userFind] = await repository.findAll(
             {
                 email: user.email,
             },
-            true,
-            true,
+            {
+                limit: 1,
+                offset: 0,
+                pointSale: true,
+                role: true,
+            },
         );
 
         const token = singToken(userFind, '1h');

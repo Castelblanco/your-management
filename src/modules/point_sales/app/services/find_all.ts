@@ -9,12 +9,7 @@ type Dependencies = {
     repository: TPointSaleRepository;
 };
 
-export const buildFindAll = ({
-    repository,
-}: Dependencies): ((
-    filter: TPointSaleFilterDOM,
-    options: TPointSaleOPT,
-) => Promise<TPointSaleDOM[]>) => {
+export const buildFindAll = ({ repository }: Dependencies) => {
     const service = async (
         filter: TPointSaleFilterDOM,
         options: TPointSaleOPT,

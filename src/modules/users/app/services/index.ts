@@ -19,11 +19,7 @@ type TSingToken = (payload: string | object | Buffer, expiresIn: string) => stri
 export class UsersServices {
     login: (user: TUserDOM) => Promise<TUserLoginDOM>;
     findAll: (filter: TUserFilterDOM, options: TUserOPT) => Promise<TUserDOM[]>;
-    findOne: (
-        filter: TUserFilterDOM,
-        pointSale?: boolean,
-        role?: boolean,
-    ) => Promise<TUserDOM>;
+    findOne: (id: string, pointSale?: boolean, role?: boolean) => Promise<TUserDOM>;
 
     createOne: (user: TUserDOM) => Promise<TUserDOM>;
     updateOne: (user: TUserDOM) => Promise<TUserDOM>;

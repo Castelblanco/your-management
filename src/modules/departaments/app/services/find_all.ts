@@ -9,12 +9,7 @@ type Dependencies = {
     repository: TDepartamentRepository;
 };
 
-export const buildFindAll = ({
-    repository,
-}: Dependencies): ((
-    filter: TDepartamentFilterDOM,
-    options: TDepartamentOPT,
-) => Promise<TDepartamentDOM[]>) => {
+export const buildFindAll = ({ repository }: Dependencies) => {
     const service = async (
         filter: TDepartamentFilterDOM,
         options: TDepartamentOPT,

@@ -5,9 +5,7 @@ type Dependencies = {
     repository: TStatusCodeRepository;
 };
 
-export const buildDeleteOne = ({
-    repository,
-}: Dependencies): ((type: TStatusCodeType, id: string) => Promise<void>) => {
+export const buildDeleteOne = ({ repository }: Dependencies) => {
     const services = async (type: TStatusCodeType, id: string): Promise<void> => {
         await repository[type].deleteOne(id);
     };

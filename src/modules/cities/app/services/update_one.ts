@@ -5,9 +5,7 @@ type Dependencies = {
     repository: TCitiesRepository;
 };
 
-export const buildUpdateOne = ({
-    repository,
-}: Dependencies): ((city: TCityDOM) => Promise<TCityDOM>) => {
+export const buildUpdateOne = ({ repository }: Dependencies) => {
     const service = async (city: TCityDOM): Promise<TCityDOM> => {
         return await repository.updateOne(city);
     };

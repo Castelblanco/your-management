@@ -5,9 +5,7 @@ type Dependencies = {
     repository: TUsersRepository;
 };
 
-export const buildUpdateOne = ({
-    repository,
-}: Dependencies): ((user: TUserDOM) => Promise<TUserDOM>) => {
+export const buildUpdateOne = ({ repository }: Dependencies) => {
     const service = async (user: TUserDOM): Promise<TUserDOM> => {
         return await repository.updateOne(user);
     };

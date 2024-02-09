@@ -4,9 +4,7 @@ type Dependencies = {
     repository: TPointSaleRepository;
 };
 
-export const buildDeleteOne = ({
-    repository,
-}: Dependencies): ((id: string) => Promise<void>) => {
+export const buildDeleteOne = ({ repository }: Dependencies) => {
     const service = async (id: string): Promise<void> => {
         await repository.deleteOne(id);
     };

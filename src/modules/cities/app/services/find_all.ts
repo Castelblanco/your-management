@@ -5,12 +5,7 @@ type Dependencies = {
     repository: TCitiesRepository;
 };
 
-export const buildFindAll = ({
-    repository,
-}: Dependencies): ((
-    filter: TCityFilterDOM,
-    options: TCityOPT,
-) => Promise<TCityDOM[]>) => {
+export const buildFindAll = ({ repository }: Dependencies) => {
     const service = async (
         filter: TCityFilterDOM,
         options: TCityOPT,

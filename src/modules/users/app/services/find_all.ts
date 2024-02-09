@@ -12,13 +12,7 @@ type Dependencies = {
     getDateFormat: (date: string | number, format?: TDateFormat) => string;
 };
 
-export const buildFindAll = ({
-    repository,
-    getDateFormat,
-}: Dependencies): ((
-    filter: TUserFilterDOM,
-    options: TUserOPT,
-) => Promise<TUserDOM[]>) => {
+export const buildFindAll = ({ repository, getDateFormat }: Dependencies) => {
     const service = async (
         filter: TUserFilterDOM,
         options: TUserOPT,

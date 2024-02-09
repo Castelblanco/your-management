@@ -5,9 +5,7 @@ type Dependencies = {
     repository: TDepartamentRepository;
 };
 
-export const buildUpdateOne = ({
-    repository,
-}: Dependencies): ((departament: TDepartamentDOM) => Promise<TDepartamentDOM>) => {
+export const buildUpdateOne = ({ repository }: Dependencies) => {
     const service = async (departament: TDepartamentDOM): Promise<TDepartamentDOM> => {
         return await repository.updateOne(departament);
     };

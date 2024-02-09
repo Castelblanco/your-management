@@ -6,13 +6,7 @@ type Dependencies = {
     createId: () => string;
 };
 
-export const buildCreateOne = ({
-    repository,
-    createId,
-}: Dependencies): ((
-    type: TStatusCodeType,
-    status: TStatusCodeDOM,
-) => Promise<TStatusCodeDOM>) => {
+export const buildCreateOne = ({ repository, createId }: Dependencies) => {
     const services = async (
         type: TStatusCodeType,
         status: TStatusCodeDOM,

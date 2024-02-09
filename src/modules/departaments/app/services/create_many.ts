@@ -6,10 +6,7 @@ type Dependencies = {
     createId: () => string;
 };
 
-export const buildCreateMany = ({
-    repository,
-    createId,
-}: Dependencies): ((departaments: TDepartamentDOM[]) => Promise<number>) => {
+export const buildCreateMany = ({ repository, createId }: Dependencies) => {
     const service = async (departaments: TDepartamentDOM[]): Promise<number> => {
         return await repository.createMany(
             departaments.map((d) => {

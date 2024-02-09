@@ -5,9 +5,7 @@ type Dependencies = {
     repository: TStatusCodeRepository;
 };
 
-export const buildFindOne = ({
-    repository,
-}: Dependencies): ((type: TStatusCodeType, id: string) => Promise<TStatusCodeDOM>) => {
+export const buildFindOne = ({ repository }: Dependencies) => {
     const services = async (
         type: TStatusCodeType,
         id: string,

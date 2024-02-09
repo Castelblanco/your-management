@@ -5,9 +5,7 @@ type Dependencies = {
     repository: TStatusCodeRepository;
 };
 
-export const buildFindAll = ({
-    repository,
-}: Dependencies): ((type: TStatusCodeType) => Promise<TStatusCodeDOM[]>) => {
+export const buildFindAll = ({ repository }: Dependencies) => {
     const services = async (type: TStatusCodeType): Promise<TStatusCodeDOM[]> => {
         return await repository[type].findAll();
     };

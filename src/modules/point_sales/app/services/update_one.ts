@@ -5,9 +5,7 @@ type Dependencies = {
     repository: TPointSaleRepository;
 };
 
-export const buildUpdateOne = ({
-    repository,
-}: Dependencies): ((pointSale: TPointSaleDOM) => Promise<TPointSaleDOM>) => {
+export const buildUpdateOne = ({ repository }: Dependencies) => {
     const service = async (pointSale: TPointSaleDOM): Promise<TPointSaleDOM> => {
         return await repository.updateOne(pointSale);
     };

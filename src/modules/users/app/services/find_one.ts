@@ -1,23 +1,17 @@
-import type { TUserDOM, TUserFilterDOM } from '@users/domain/entities';
+import type { TUserDOM } from '@users/domain/entities';
 import type { TUsersRepository } from '@users/domain/repository';
 
 type Dependencies = {
     repository: TUsersRepository;
 };
 
-export const buildFindOne = ({
-    repository,
-}: Dependencies): ((
-    filter: TUserFilterDOM,
-    pointSale?: boolean,
-    role?: boolean,
-) => Promise<TUserDOM>) => {
+export const buildFindOne = ({ repository }: Dependencies) => {
     const service = async (
-        filter: TUserFilterDOM,
+        id: string,
         pointSale?: boolean,
         role?: boolean,
     ): Promise<TUserDOM> => {
-        return await repository.findOne(filter, pointSale, role);
+        return await repository.findOne(id, pointSale, role);
     };
 
     return service;

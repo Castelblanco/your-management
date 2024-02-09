@@ -5,9 +5,7 @@ type Dependencies = {
     repository: TCitiesRepository;
 };
 
-export const buildFindOne = ({
-    repository,
-}: Dependencies): ((id: string, pointSales?: boolean) => Promise<TCityDOM>) => {
+export const buildFindOne = ({ repository }: Dependencies) => {
     const service = async (id: string, pointSales?: boolean): Promise<TCityDOM> => {
         return await repository.findOne(id, pointSales);
     };
