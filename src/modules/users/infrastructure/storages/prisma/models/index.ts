@@ -20,10 +20,10 @@ export type TUserPointSaleDAL = {
 export type TUserPointSaleCityDAL = {
     id: string;
     name: string;
-    department?: TUserPointSaleDepartamentDAL;
+    department?: TUserPointSaleDepartmentDAL;
 };
 
-export type TUserPointSaleDepartamentDAL = {
+export type TUserPointSaleDepartmentDAL = {
     id: string;
     name: string;
 };

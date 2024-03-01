@@ -3,7 +3,7 @@ import {
     CityPointSaleDOM,
     type TCityStatusDOM,
     type TCityDOM,
-    type TCityDepartamentDOM,
+    type TCityDepartmentDOM,
 } from '@cities/domain/entities';
 import type { TWrappers } from '@common/mappers_wrappers/wrappers';
 import { CityDAL, type TCityDAL } from '../models';
@@ -21,7 +21,7 @@ export class CitiesWrappers implements TWrappers<TCityDOM, TCityDAL> {
         });
 
         let status: TCityStatusDOM | undefined;
-        let department: TCityDepartamentDOM | undefined;
+        let department: TCityDepartmentDOM | undefined;
 
         if (item.status) {
             status = item.status;

@@ -35,10 +35,10 @@ export type TUserPointSaleDOM = {
 export type TUserPointSaleCityDOM = {
     id: string;
     name: string;
-    department?: TUserPointSaleDepartamentDOM;
+    department?: TUserPointSaleDepartmentDOM;
 };
 
-export type TUserPointSaleDepartamentDOM = {
+export type TUserPointSaleDepartmentDOM = {
     id: string;
     name: string;
 };

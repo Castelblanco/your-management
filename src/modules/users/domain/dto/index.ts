@@ -35,10 +35,10 @@ export type TUserPointSaleAPI = {
 export type TUserPointSaleCityAPI = {
     _id: string;
     name: string;
-    department?: TUserPointSaleDepartamentAPI;
+    department?: TUserPointSaleDepartmentAPI;
 };
 
-export type TUserPointSaleDepartamentAPI = {
+export type TUserPointSaleDepartmentAPI = {
     _id: string;
     name: string;
 };

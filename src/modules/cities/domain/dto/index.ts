@@ -2,11 +2,11 @@ export type TCityAPI = {
     _id: string;
     name: string;
     status?: TCityStatusAPI;
-    department?: TCityDepartamentAPI;
+    department?: TCityDepartmentAPI;
     point_sales?: TCityPointSaleAPI[];
 };
 
-export type TCityDepartamentAPI = {
+export type TCityDepartmentAPI = {
     _id: string;
     name: string;
 };
@@ -28,7 +28,7 @@ export class CityAPI implements TCityAPI {
     _id: string;
     name: string;
     status?: TCityStatusAPI;
-    department?: TCityDepartamentAPI;
+    department?: TCityDepartmentAPI;
     point_sales?: TCityPointSaleAPI[];
 
     constructor(city: TCityAPI) {

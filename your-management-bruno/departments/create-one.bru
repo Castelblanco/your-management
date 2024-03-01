@@ -1,0 +1,24 @@
+meta {
+  name: create-one
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{HOST}}/v1/departments/create-one?type=department
+  body: json
+  auth: none
+}
+
+query {
+  type: department
+}
+
+body:json {
+  {
+    "name": "Bogota",
+    "status": {
+      "_id": "de6dd565-bfd3-490a-964e-a4ec658101db"
+    }
+  }
+}

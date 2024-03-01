@@ -2,11 +2,11 @@ export type TCityDOM = {
     id: string;
     name: string;
     status?: TCityStatusDOM;
-    department?: TCityDepartamentDOM;
+    department?: TCityDepartmentDOM;
     pointSales?: TCityPointSaleDOM[];
 };
 
-export type TCityDepartamentDOM = {
+export type TCityDepartmentDOM = {
     id: string;
     name: string;
 };
@@ -41,7 +41,7 @@ export class CityDOM implements TCityDOM {
     id: string;
     name: string;
     status?: TCityStatusDOM;
-    department?: TCityDepartamentDOM;
+    department?: TCityDepartmentDOM;
     pointSales?: TCityPointSaleDOM[];
 
     constructor(city: TCityDOM) {

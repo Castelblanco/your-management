@@ -2,13 +2,13 @@ import type { Cities, Cities_Status } from '@prisma/client';
 
 export type TCityDAL = Cities & {
     status?: TCityStatusDAL;
-    department?: TCityDepartamentDAL;
+    department?: TCityDepartmentDAL;
     point_sales?: TCityPointSaleDAL[];
 };
 
 export type TCityStatusDAL = Cities_Status;
 
-export type TCityDepartamentDAL = {
+export type TCityDepartmentDAL = {
     id: string;
     name: string;
     status_id: string;
@@ -38,7 +38,7 @@ export class CityDAL implements TCityDAL {
     status?: TCityStatusDal;
     status_id: string;
     department_id: string;
-    department?: TCityDepartamentDAL;
+    department?: TCityDepartmentDAL;
     point_sales?: TCityPointSaleDAL[];
 
     constructor(city: TCityDAL) {

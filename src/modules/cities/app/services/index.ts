@@ -10,9 +10,9 @@ import { buildDeleteOne } from './delete_one';
 export class CitiesServices {
     findAll: (filter: TCityFilterDOM, options: TCityOPT) => Promise<TCityDOM[]>;
     findOne: (id: string, pointSales?: boolean) => Promise<TCityDOM>;
-    createOne: (departament: TCityDOM) => Promise<TCityDOM>;
-    createMany: (departament: TCityDOM[]) => Promise<number>;
-    updateOne: (departament: TCityDOM) => Promise<TCityDOM>;
+    createOne: (department: TCityDOM) => Promise<TCityDOM>;
+    createMany: (department: TCityDOM[]) => Promise<number>;
+    updateOne: (department: TCityDOM) => Promise<TCityDOM>;
     deleteOne: (id: string) => Promise<void>;
 
     constructor(repository: TCitiesRepository, createId: () => string) {

@@ -3,12 +3,12 @@ import {
     CityPointSaleAPI,
     type TCityStatusAPI,
     type TCityAPI,
-    type TCityDepartamentAPI,
+    type TCityDepartmentAPI,
 } from '@cities/domain/dto';
 import {
     CityDOM,
     CityPointSaleDOM,
-    type TCityDepartamentDOM,
+    type TCityDepartmentDOM,
     type TCityStatusDOM,
     type TCityDOM,
 } from '@cities/domain/entities';
@@ -27,7 +27,7 @@ export class CitiesMappers implements TMappers<TCityDOM, TCityAPI> {
         });
 
         let status: TCityStatusDOM | undefined;
-        let department: TCityDepartamentDOM | undefined;
+        let department: TCityDepartmentDOM | undefined;
 
         if (item.status) {
             status = {
@@ -64,7 +64,7 @@ export class CitiesMappers implements TMappers<TCityDOM, TCityAPI> {
         });
 
         let status: TCityStatusAPI | undefined;
-        let department: TCityDepartamentAPI | undefined;
+        let department: TCityDepartmentAPI | undefined;
 
         if (item.status) {
             status = {
