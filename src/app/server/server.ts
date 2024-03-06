@@ -12,7 +12,11 @@ const routers = async (): Promise<void> => {
 };
 
 const middleware = (): void => {
-    app.use(cors());
+    app.use(
+        cors({
+            origin: '*',
+        }),
+    );
 };
 
 const initHandleError = (): void => {
