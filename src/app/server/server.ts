@@ -14,7 +14,7 @@ const routers = async (): Promise<void> => {
 const middleware = (): void => {
     app.use(
         cors({
-            origin: '*',
+            methods: '*',
         }),
     );
 };
