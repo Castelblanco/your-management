@@ -22,18 +22,23 @@ export class UsersPrismaRepository implements TUsersRepository {
                 where: {
                     first_name: {
                         contains: filter.firstName,
+                        mode: 'insensitive',
                     },
                     last_name: {
                         contains: filter.lastName,
+                        mode: 'insensitive',
                     },
                     document_id: {
                         contains: filter.documentId,
+                        mode: 'insensitive',
                     },
                     email: {
                         contains: filter.email,
+                        mode: 'insensitive',
                     },
                     address: {
                         contains: filter.address,
+                        mode: 'insensitive',
                     },
                     point_sale_id: filter.pointSaleId,
                     role_id: filter.roleId,

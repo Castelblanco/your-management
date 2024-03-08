@@ -1,7 +1,12 @@
-import type { Department, Department_Status } from '@prisma/client';
+import type { Department, Department_Status, Prisma } from '@prisma/client';
 
 export type TDepartmentDAL = Department & {
     status?: TDepartmentStatusDAL;
+};
+
+export type TDepartmentFilterDAL = {
+    name?: Prisma.StringFilter;
+    status_id?: Prisma.StringFilter;
 };
 
 export type TDepartmentStatusDAL = Department_Status;

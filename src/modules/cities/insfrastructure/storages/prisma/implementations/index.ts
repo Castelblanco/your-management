@@ -22,6 +22,7 @@ export class CitiesPrismaRepository implements TCitiesRepository {
                 where: {
                     name: {
                         contains: filter.name,
+                        mode: 'insensitive',
                     },
                     status_id: filter.statusId,
                     department_id: filter.departmentId,

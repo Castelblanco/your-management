@@ -26,26 +26,31 @@ export class NaturalClientPrismaRepository implements TNaturalClientRepository {
             address: (v, o) => {
                 o.address = {
                     contains: v,
+                    mode: 'insensitive',
                 };
             },
             documentId: (v, o) => {
                 o.document_id = {
                     contains: v,
+                    mode: 'insensitive',
                 };
             },
             firstName: (v, o) => {
                 o.first_name = {
                     contains: v,
+                    mode: 'insensitive',
                 };
             },
             lastName: (v, o) => {
                 o.last_name = {
                     contains: v,
+                    mode: 'insensitive',
                 };
             },
             numberMovil: (v, o) => {
                 o.number_movil = {
                     contains: v,
+                    mode: 'insensitive',
                 };
             },
             statusId: (v, o) => {

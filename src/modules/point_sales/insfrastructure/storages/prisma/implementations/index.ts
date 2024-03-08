@@ -29,6 +29,7 @@ export class PointSalesPrismaRepository implements TPointSaleRepository {
                 where: {
                     name: {
                         contains: filter.name,
+                        mode: 'insensitive',
                     },
                     status_id: filter.statusId,
                     city_id: filter.cityId,

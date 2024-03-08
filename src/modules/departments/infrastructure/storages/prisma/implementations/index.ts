@@ -6,7 +6,7 @@ import type {
     TDepartmentDOM,
 } from 'modules/departments/domain/entities';
 import type { TDepartmentRepository } from 'modules/departments/domain/repository';
-import type { TDepartmentDAL } from '../models';
+import type { TDepartmentDAL, TDepartmentFilterDAL } from '../models';
 import { DepartmentWrappers } from '../wrappers';
 import { StorageError } from '@common/response/errors/storage_error';
 import { ErrorResourceNotFound } from '@common/response/errors/resource_not_found';
@@ -14,10 +14,27 @@ import { ErrorResourceNotFound } from '@common/response/errors/resource_not_foun
 export class DepartmentPrismaRepository implements TDepartmentRepository {
     db: typeof prisma.department;
     wrappers: TWrappers<TDepartmentDOM, TDepartmentDAL>;
+    ifFilterDal: Record<
+        keyof TDepartmentFilterDOM,
+        (v: string, o: TDepartmentFilterDAL) => void
+    >;
 
     constructor() {
         this.db = prisma.department;
         this.wrappers = new DepartmentWrappers();
+        this.ifFilterDal = {
+            name: (v, o) => {
+                o.name = {
+                    contains: v,
+                    mode: 'insensitive',
+                };
+            },
+            statusId: (v, o) => {
+                o.status_id = {
+                    equals: v,
+                };
+            },
+        };
     }
 
     findAll = async (
@@ -26,14 +43,7 @@ export class DepartmentPrismaRepository implements TDepartmentRepository {
     ): Promise<TDepartmentDOM[]> => {
         try {
             const departments = await this.db.findMany({
-                where: {
-                    name: {
-                        contains: filter?.name,
-                    },
-                    status_id: {
-                        equals: filter?.statusId,
-                    },
-                },
+                where: this.filterDomToDal(filter),
                 orderBy: {
                     name: 'asc',
                 },
@@ -157,5 +167,20 @@ export class DepartmentPrismaRepository implements TDepartmentRepository {
 
             throw new StorageError(e);
         }
+    };
+
+    filterDomToDal = (filter: TDepartmentFilterDOM): TDepartmentFilterDAL => {
+        const options: TDepartmentFilterDAL = {};
+
+        Object.keys(filter).forEach((key) => {
+            const value = filter[key as keyof TDepartmentFilterDOM];
+            if (!value) return;
+
+            this.ifFilterDal[key as keyof TDepartmentFilterDOM](value, options);
+        });
+
+        console.log(options);
+
+        return options;
     };
 }
