@@ -5,17 +5,17 @@ meta {
 }
 
 post {
-  url: {{HOST}}/v1/status-code/create-one?type=department
+  url: {{HOST}}/v1/status-code/create-one?type=point_sales
   body: json
   auth: none
 }
 
 query {
-  type: department
+  type: point_sales
 }
 
 body:json {
   {
-    "name": "Activo"
+    "name": "Inactivo"
   }
 }

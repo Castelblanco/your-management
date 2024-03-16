@@ -2,11 +2,9 @@ import Elysia from 'elysia';
 import { StatusCodeController } from '../controllers';
 import { StatusCodeServices } from '@status_codes/app/services';
 import {
-    StatusCodeCitiesPrismaOperations,
     StatusCodeClientsPrismaOperations,
-    StatusCodeDepartmentPrismaRepository,
     StatusCodeGuidesServicePrismaOperations,
-    StatusCodePointSalesPrismaOperations,
+    StatusCodePointsSalePrismaOperations,
     StatusCodeUsersPrismaRepository,
 } from '../storages/prisma/implementations';
 import { createId } from '../tools/create_id';
@@ -16,11 +14,9 @@ import type { TStatusCodeOperations } from '@status_codes/domain/repository';
 import { validTypeStatus } from '../middleware/valid_type_status';
 
 const repository: Record<TStatusCodeType, TStatusCodeOperations> = {
-    cities: new StatusCodeCitiesPrismaOperations(),
     clients: new StatusCodeClientsPrismaOperations(),
-    department: new StatusCodeDepartmentPrismaRepository(),
-    guide_service: new StatusCodeGuidesServicePrismaOperations(),
-    point_sales: new StatusCodePointSalesPrismaOperations(),
+    guides_service: new StatusCodeGuidesServicePrismaOperations(),
+    points_sale: new StatusCodePointsSalePrismaOperations(),
     users: new StatusCodeUsersPrismaRepository(),
 };
 

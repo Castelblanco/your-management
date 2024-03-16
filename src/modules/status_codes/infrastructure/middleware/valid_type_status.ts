@@ -7,12 +7,10 @@ type TContext = Context<{
 }>;
 
 const validType: Record<TStatusCodeType, boolean> = {
-    cities: true,
-    department: true,
-    point_sales: true,
+    points_sale: true,
     users: true,
     clients: true,
-    guide_service: true,
+    guides_service: true,
 };
 
 const keyList = Object.keys(validType)

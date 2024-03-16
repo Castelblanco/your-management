@@ -3,13 +3,7 @@ export type TStatusCodeDOM = {
     name: string;
 };
 
-export type TStatusCodeType =
-    | 'cities'
-    | 'department'
-    | 'point_sales'
-    | 'users'
-    | 'clients'
-    | 'guide_service';
+export type TStatusCodeType = 'points_sale' | 'users' | 'clients' | 'guides_service';
 
 export class StatusCodeDOM implements TStatusCodeDOM {
     id: string;

@@ -10,10 +10,8 @@ export type TStatusCodeOperations = {
 };
 
 export type TStatusCodeRepository = {
-    cities: TStatusCodeOperations;
-    department: TStatusCodeOperations;
-    point_sales: TStatusCodeOperations;
+    points_sale: TStatusCodeOperations;
     users: TStatusCodeOperations;
     clients: TStatusCodeOperations;
-    guide_service: TStatusCodeOperations;
+    guides_service: TStatusCodeOperations;
 };

@@ -139,12 +139,13 @@ model Point_Sales {
   id                         String             @id @unique
   name                       String
   address                    String             @unique
+  department                 String
+  municipality               String
+  neighborhood               String
   latitude                   Float
   longitude                  Float
   budget                     Float
   status_id                  String
-  city_id                    String
-  city                       Cities             @relation(fields: [city_id], references: [id])
   status                     Point_Sales_Status @relation(fields: [status_id], references: [id])
   users                      Users[]
   guides_service_origin      Guide_Service[]    @relation("origin")
@@ -157,38 +158,8 @@ model Point_Sales_Status {
   point_sales Point_Sales[]
 }
 
-model Department {
-  id        String            @id @unique
-  name      String
-  status_id String
-  status    Department_Status @relation(fields: [status_id], references: [id])
-  cities    Cities[]
-}
-
-model Department_Status {
-  id         String       @id @unique
-  name       String
-  department Department[]
-}
-
 model Users_Roles {
   id    String  @id @unique
   name  String  @unique
   users Users[]
-}
-
-model Cities {
-  id            String        @id @unique
-  name          String
-  department_id String
-  department    Department    @relation(fields: [department_id], references: [id])
-  status_id     String
-  status        Cities_Status @relation(fields: [status_id], references: [id])
-  point_sales   Point_Sales[]
-}
-
-model Cities_Status {
-  id     String   @id @unique
-  name   String
-  cities Cities[]
 }
