@@ -5,13 +5,8 @@ export type TNaturalClientAPI = {
     document_id: string;
     first_name: string;
     last_name: string;
-    type: TNaturalClientTypeAPI;
+    natural: boolean;
     status?: TNaturalClientStatusAPI;
-};
-
-export type TNaturalClientTypeAPI = {
-    _id: string;
-    name: string;
 };
 
 export type TNaturalClientStatusAPI = {
@@ -26,7 +21,7 @@ export class NaturalClientAPI implements TNaturalClientAPI {
     document_id: string;
     first_name: string;
     last_name: string;
-    type: TNaturalClientTypeAPI;
+    natural: boolean;
     status?: TNaturalClientStatusAPI;
 
     constructor(client: TNaturalClientAPI) {
@@ -36,7 +31,7 @@ export class NaturalClientAPI implements TNaturalClientAPI {
         this.document_id = client.document_id;
         this.first_name = client.first_name;
         this.last_name = client.last_name;
-        this.type = client.type;
+        this.natural = client.natural;
         this.status = client.status;
     }
 }

@@ -4,13 +4,8 @@ export type TLegalClientDOM = {
     address: string;
     nit: string;
     businessName: string;
-    type: TLegalClientTypeDOM;
+    natural: boolean;
     status?: TLegalClientStatusDOM;
-};
-
-export type TLegalClientTypeDOM = {
-    id: string;
-    name: string;
 };
 
 export type TLegalClientStatusDOM = {
@@ -19,12 +14,10 @@ export type TLegalClientStatusDOM = {
 };
 
 export type TLegalClientFilterDOM = {
-    id?: string;
     numberMovil?: string;
     address?: string;
     nit?: string;
     businessName?: string;
-    typeId?: string;
     statusId?: string;
 };
 
@@ -40,7 +33,7 @@ export class LegalClientDOM implements TLegalClientDOM {
     address: string;
     nit: string;
     businessName: string;
-    type: TLegalClientTypeDOM;
+    natural: boolean;
     status?: TLegalClientStatusDOM;
 
     constructor(client: TLegalClientDOM) {
@@ -49,7 +42,7 @@ export class LegalClientDOM implements TLegalClientDOM {
         this.address = client.address;
         this.nit = client.nit;
         this.businessName = client.businessName;
-        this.type = client.type;
+        this.natural = client.natural;
         this.status = client.status;
     }
 }

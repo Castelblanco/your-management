@@ -10,7 +10,7 @@ export class LegalClientWrappers implements TWrappers<TLegalClientDOM, TLegalCli
             address: item.address,
             nit: item.nit,
             businessName: item.business_name,
-            type: item.type,
+            natural: item.natural,
             status: item.status,
         });
     };
@@ -23,8 +23,7 @@ export class LegalClientWrappers implements TWrappers<TLegalClientDOM, TLegalCli
             nit: item.nit,
             business_name: item.businessName,
             status_id: item.status?.id || '',
-            type_id: item.type.id,
-            type: item.type,
+            natural: item.natural,
         });
     };
 }

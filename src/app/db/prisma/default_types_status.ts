@@ -1,31 +1,5 @@
 import { prisma } from '.';
 
-export const createDefaultClientTypes = async () => {
-    try {
-        const count = await prisma.client_Type.count();
-
-        if (count !== 0) return;
-
-        await prisma.client_Type.createMany({
-            data: [
-                {
-                    id: crypto.randomUUID(),
-                    name: 'Natural',
-                },
-                {
-                    id: crypto.randomUUID(),
-                    name: 'Juridico',
-                },
-            ],
-            skipDuplicates: true,
-        });
-
-        console.log('Client Types Created');
-    } catch (e) {
-        console.log(e);
-    }
-};
-
 export const createDefaultAllStatus = async () => {
     try {
         const [points, clients, guides, users] = await Promise.all([

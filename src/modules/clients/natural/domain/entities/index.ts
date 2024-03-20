@@ -5,13 +5,8 @@ export type TNaturalClientDOM = {
     documentId: string;
     firstName: string;
     lastName: string;
-    type: TNaturalClientTypeDOM;
+    natural: boolean;
     status?: TNaturalClientStatusDOM;
-};
-
-export type TNaturalClientTypeDOM = {
-    id: string;
-    name: string;
 };
 
 export type TNaturalClientStatusDOM = {
@@ -41,7 +36,7 @@ export class NaturalClientDOM implements TNaturalClientDOM {
     documentId: string;
     firstName: string;
     lastName: string;
-    type: TNaturalClientTypeDOM;
+    natural: boolean;
     status?: TNaturalClientStatusDOM;
 
     constructor(client: TNaturalClientDOM) {
@@ -51,7 +46,7 @@ export class NaturalClientDOM implements TNaturalClientDOM {
         this.documentId = client.documentId;
         this.firstName = client.firstName;
         this.lastName = client.lastName;
-        this.type = client.type;
+        this.natural = client.natural;
         this.status = client.status;
     }
 }

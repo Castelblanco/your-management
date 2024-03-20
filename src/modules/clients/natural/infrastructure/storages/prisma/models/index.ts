@@ -1,16 +1,9 @@
-import {
-    type Prisma,
-    type Client_Status,
-    type Client_Type,
-    type Natural_Client,
-} from '@prisma/client';
+import { type Prisma, type Client_Status, type Natural_Client } from '@prisma/client';
 
 export type TNaturalClientDAL = Natural_Client & {
-    type: TNaturalClientTypeDAL;
     status?: TNaturalClientStatusDAL;
 };
 
-export type TNaturalClientTypeDAL = Client_Type;
 export type TNaturalClientStatusDAL = Client_Status;
 
 export type TNaturalClientFilterDAL = {
@@ -29,9 +22,8 @@ export class NaturalClientDAL implements TNaturalClientDAL {
     document_id: string;
     first_name: string;
     last_name: string;
-    type_id: string;
     status_id: string;
-    type: TNaturalClientTypeDAL;
+    natural: boolean;
     status?: TNaturalClientStatusDAL;
 
     constructor(client: TNaturalClientDAL) {
@@ -41,9 +33,8 @@ export class NaturalClientDAL implements TNaturalClientDAL {
         this.document_id = client.document_id;
         this.first_name = client.first_name;
         this.last_name = client.last_name;
-        this.type_id = client.type_id;
+        this.natural = client.natural;
         this.status_id = client.status_id;
-        this.type = client.type;
         this.status = client.status;
     }
 }

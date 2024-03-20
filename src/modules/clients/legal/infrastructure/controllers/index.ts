@@ -26,12 +26,10 @@ export class LegalClientControllers {
         try {
             const clients = await this.services.findAll(
                 {
-                    id: query.id,
                     numberMovil: query.numberMovil,
                     address: query.address,
                     nit: query.nit,
                     businessName: query.businessName,
-                    typeId: query.typeId,
                     statusId: query.statusId,
                 },
                 {

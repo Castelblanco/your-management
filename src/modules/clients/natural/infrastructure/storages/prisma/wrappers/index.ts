@@ -16,7 +16,7 @@ export class NaturalClientWrappers
             documentId: item.document_id,
             firstName: item.first_name,
             lastName: item.last_name,
-            type: item.type,
+            natural: item.natural,
             status: item.status,
         });
     };
@@ -29,9 +29,8 @@ export class NaturalClientWrappers
             document_id: item.documentId,
             first_name: item.firstName,
             last_name: item.lastName,
-            type: item.type,
+            natural: item.natural,
             status_id: item.status?.id || '',
-            type_id: item.type.id,
         });
     };
 }

@@ -66,8 +66,7 @@ model Natural_Client {
   document_id                String          @unique
   first_name                 String
   last_name                  String
-  type_id                    String
-  type                       Client_Type     @relation(fields: [type_id], references: [id])
+  natural                    Boolean
   status_id                  String
   status                     Client_Status   @relation(fields: [status_id], references: [id])
   guides_service_origin      Guide_Service[] @relation("origin")
@@ -80,19 +79,11 @@ model Legal_Client {
   address                    String          @unique
   nit                        String          @unique
   business_name              String          @unique
-  type_id                    String
-  type                       Client_Type     @relation(fields: [type_id], references: [id])
+  natural                    Boolean
   status_id                  String
   status                     Client_Status   @relation(fields: [status_id], references: [id])
   guides_service_origin      Guide_Service[] @relation("origin")
   guides_service_destination Guide_Service[] @relation("destination")
-}
-
-model Client_Type {
-  id             String           @id @unique
-  name           String           @unique
-  natural_client Natural_Client[]
-  legal_client   Legal_Client[]
 }
 
 model Client_Status {

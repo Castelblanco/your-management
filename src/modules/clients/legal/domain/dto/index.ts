@@ -4,13 +4,8 @@ export type TLegalClientAPI = {
     address: string;
     nit: string;
     business_name: string;
-    type: TLegalClientTypeAPI;
+    natural: boolean;
     status?: TLegalClientStatusAPI;
-};
-
-export type TLegalClientTypeAPI = {
-    _id: string;
-    name: string;
 };
 
 export type TLegalClientStatusAPI = {
@@ -24,7 +19,7 @@ export class LegalClientAPI implements TLegalClientAPI {
     address: string;
     nit: string;
     business_name: string;
-    type: TLegalClientTypeAPI;
+    natural: boolean;
     status?: TLegalClientStatusAPI;
 
     constructor(client: TLegalClientAPI) {
@@ -33,7 +28,7 @@ export class LegalClientAPI implements TLegalClientAPI {
         this.address = client.address;
         this.nit = client.nit;
         this.business_name = client.business_name;
-        this.type = client.type;
+        this.natural = client.natural;
         this.status = client.status;
     }
 }

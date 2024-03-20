@@ -70,7 +70,6 @@ export class NaturalClientPrismaRepository implements TNaturalClientRepository {
                 where: { ...this.filterDomToDal(filter) },
                 include: {
                     status: options.status,
-                    type: true,
                 },
                 take: options.limit,
                 skip: options.offset,
@@ -93,7 +92,6 @@ export class NaturalClientPrismaRepository implements TNaturalClientRepository {
             const client = await this.db.findUniqueOrThrow({
                 where: { id },
                 include: {
-                    type: true,
                     status,
                 },
             });
@@ -113,10 +111,8 @@ export class NaturalClientPrismaRepository implements TNaturalClientRepository {
                 data: {
                     ...this.wrappers.domToDal(client),
                     status: undefined,
-                    type: undefined,
                 },
                 include: {
-                    type: true,
                     status: true,
                 },
             });
@@ -136,7 +132,6 @@ export class NaturalClientPrismaRepository implements TNaturalClientRepository {
                 data: clients.map((client) => ({
                     ...this.wrappers.domToDal(client),
                     status: undefined,
-                    type: undefined,
                 })),
             });
 
@@ -155,13 +150,11 @@ export class NaturalClientPrismaRepository implements TNaturalClientRepository {
                 data: {
                     ...this.wrappers.domToDal(client),
                     status: undefined,
-                    type: undefined,
                 },
                 where: {
                     id: client.id,
                 },
                 include: {
-                    type: true,
                     status: true,
                 },
             });

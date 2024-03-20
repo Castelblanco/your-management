@@ -1,18 +1,15 @@
-import type { Client_Status, Client_Type, Legal_Client } from '@prisma/client';
+import type { Client_Status, Legal_Client, Prisma } from '@prisma/client';
 
 export type TLegalClientDAL = Legal_Client & {
-    type: Client_Type;
     status?: Client_Status;
 };
 
 export type TLegalClientFilterDAL = {
-    id?: string;
-    number_movil?: string;
-    address?: string;
-    nit?: string;
-    business_name?: string;
-    type_id?: string;
-    status_id?: string;
+    number_movil?: Prisma.StringFilter;
+    address?: Prisma.StringFilter;
+    nit?: Prisma.StringFilter;
+    business_name?: Prisma.StringFilter;
+    status_id?: Prisma.StringFilter;
 };
 
 export class LegalClientDAL implements TLegalClientDAL {
@@ -21,9 +18,8 @@ export class LegalClientDAL implements TLegalClientDAL {
     address: string;
     nit: string;
     business_name: string;
-    type_id: string;
     status_id: string;
-    type: Client_Type;
+    natural: boolean;
     status?: Client_Status;
 
     constructor(client: TLegalClientDAL) {
@@ -32,9 +28,8 @@ export class LegalClientDAL implements TLegalClientDAL {
         this.address = client.address;
         this.nit = client.nit;
         this.business_name = client.business_name;
-        this.type_id = client.type_id;
         this.status_id = client.status_id;
-        this.type = client.type;
+        this.natural = client.natural;
         this.status = client.status;
     }
 }

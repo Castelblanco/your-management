@@ -23,13 +23,30 @@ export class LegalClientPrismaRepository implements TLegalClientRepository {
         this.db = prisma.legal_Client;
         this.wrappers = new LegalClientWrappers();
         this.ifFilterDal = {
-            id: (v, o) => (o.id = v),
-            numberMovil: (v, o) => (o.number_movil = v),
-            address: (v, o) => (o.address = v),
-            nit: (v, o) => (o.nit = v),
-            businessName: (v, o) => (o.business_name = v),
-            typeId: (v, o) => (o.type_id = v),
-            statusId: (v, o) => (o.status_id = v),
+            numberMovil: (v, o) =>
+                (o.number_movil = {
+                    contains: v,
+                    mode: 'insensitive',
+                }),
+            address: (v, o) =>
+                (o.address = {
+                    contains: v,
+                    mode: 'insensitive',
+                }),
+            nit: (v, o) =>
+                (o.nit = {
+                    contains: v,
+                    mode: 'insensitive',
+                }),
+            businessName: (v, o) =>
+                (o.business_name = {
+                    contains: v,
+                    mode: 'insensitive',
+                }),
+            statusId: (v, o) =>
+                (o.status_id = {
+                    equals: v,
+                }),
         };
     }
 
@@ -41,7 +58,6 @@ export class LegalClientPrismaRepository implements TLegalClientRepository {
             const clients = await this.db.findMany({
                 where: { ...this.filterDomToDal(filter) },
                 include: {
-                    type: true,
                     status: option.status,
                 },
                 take: option.limit,
@@ -67,7 +83,6 @@ export class LegalClientPrismaRepository implements TLegalClientRepository {
                     id,
                 },
                 include: {
-                    type: true,
                     status,
                 },
             });
@@ -89,11 +104,9 @@ export class LegalClientPrismaRepository implements TLegalClientRepository {
             const newClient = await this.db.create({
                 data: {
                     ...this.wrappers.domToDal(client),
-                    type: undefined,
                     status: undefined,
                 },
                 include: {
-                    type: true,
                     status: true,
                 },
             });
@@ -112,7 +125,6 @@ export class LegalClientPrismaRepository implements TLegalClientRepository {
             const { count } = await this.db.createMany({
                 data: clients.map((client) => ({
                     ...this.wrappers.domToDal(client),
-                    type: undefined,
                     status: undefined,
                 })),
             });
@@ -131,14 +143,12 @@ export class LegalClientPrismaRepository implements TLegalClientRepository {
             const updateClient = await this.db.update({
                 data: {
                     ...this.wrappers.domToDal(client),
-                    type: undefined,
                     status: undefined,
                 },
                 where: {
                     id: client.id,
                 },
                 include: {
-                    type: true,
                     status: true,
                 },
             });
