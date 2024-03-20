@@ -12,40 +12,33 @@ datasource db {
 }
 
 model Guide_Service {
-  id                            String                   @id @unique
+  id                            String                @id @unique
   units                         Int
   weight                        Float
   price                         Float
   created_at                    DateTime
   updated_at                    DateTime
+  collection                    Boolean
   status_id                     String
-  status                        Guide_Service_Status     @relation(fields: [status_id], references: [id])
-  novelty_id                    String                   @unique
-  novelty                       Guide_Service_Novelty    @relation(fields: [novelty_id], references: [id])
-  collection_id                 String                   @unique
-  collection                    Guide_Service_Collection @relation(fields: [collection_id], references: [id])
-  service_id                    String                   @unique
-  service                       Guide_Service_Type       @relation(fields: [service_id], references: [id])
-  user_id                       String                   @unique
-  user                          Users                    @relation(fields: [user_id], references: [id])
-  point_sale_origin_id          String                   @unique
-  point_sale_origin             Point_Sales              @relation("origin", fields: [point_sale_origin_id], references: [id])
-  point_sale_destination_id     String                   @unique
-  point_sale_destination        Point_Sales              @relation("destination", fields: [point_sale_destination_id], references: [id])
-  client_natural_origin_id      String?                  @unique
-  client_natural_origin         Natural_Client?          @relation("origin", fields: [client_natural_origin_id], references: [id])
-  client_natural_destination_id String?                  @unique
-  client_natural_destination    Natural_Client?          @relation("destination", fields: [client_natural_destination_id], references: [id])
-  client_legal_origin_id        String?                  @unique
-  client_legal_origin           Legal_Client?            @relation("origin", fields: [client_legal_origin_id], references: [id])
-  client_legal_destination_id   String?                  @unique
-  client_legal_destination      Legal_Client?            @relation("destination", fields: [client_legal_destination_id], references: [id])
-}
-
-model Guide_Service_Collection {
-  id            String          @id @unique
-  name          String
-  guide_service Guide_Service[]
+  status                        Guide_Service_Status  @relation(fields: [status_id], references: [id])
+  novelty_id                    String                @unique
+  novelty                       Guide_Service_Novelty @relation(fields: [novelty_id], references: [id])
+  service_id                    String                @unique
+  service                       Guide_Service_Type    @relation(fields: [service_id], references: [id])
+  user_id                       String                @unique
+  user                          Users                 @relation(fields: [user_id], references: [id])
+  point_sale_origin_id          String                @unique
+  point_sale_origin             Point_Sales           @relation("origin", fields: [point_sale_origin_id], references: [id])
+  point_sale_destination_id     String                @unique
+  point_sale_destination        Point_Sales           @relation("destination", fields: [point_sale_destination_id], references: [id])
+  client_natural_origin_id      String?               @unique
+  client_natural_origin         Natural_Client?       @relation("origin", fields: [client_natural_origin_id], references: [id])
+  client_natural_destination_id String?               @unique
+  client_natural_destination    Natural_Client?       @relation("destination", fields: [client_natural_destination_id], references: [id])
+  client_legal_origin_id        String?               @unique
+  client_legal_origin           Legal_Client?         @relation("origin", fields: [client_legal_origin_id], references: [id])
+  client_legal_destination_id   String?               @unique
+  client_legal_destination      Legal_Client?         @relation("destination", fields: [client_legal_destination_id], references: [id])
 }
 
 model Guide_Service_Novelty {

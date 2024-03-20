@@ -3,11 +3,11 @@ export type TGuideServiceDOM = {
     units: number;
     weight: number;
     price: number;
+    collection: boolean;
     createdAt: Date;
     updatedAt: Date;
     status?: TGuideServiceStatusDOM;
     novelty?: TGuideServiceNoveltyDOM;
-    collection?: TGuideServiceCollectionDOM;
     service?: TGuideServiceTypeServiceDOM;
     user?: TGuideServiceUserDOM;
     pointSaleOrigin?: TGuideServicePointSaleDOM;
@@ -31,11 +31,6 @@ export type TGuideServiceStatusDOM = {
 };
 
 export type TGuideServiceNoveltyDOM = {
-    id: string;
-    name: string;
-};
-
-export type TGuideServiceCollectionDOM = {
     id: string;
     name: string;
 };
@@ -121,11 +116,11 @@ export class GuideServiceDOM implements TGuideServiceDOM {
     units: number;
     weight: number;
     price: number;
+    collection: boolean;
     createdAt: Date;
     updatedAt: Date;
     status?: TGuideServiceStatusDOM;
     novelty?: TGuideServiceNoveltyDOM;
-    collection?: TGuideServiceCollectionDOM;
     service?: TGuideServiceTypeServiceDOM;
     user?: TGuideServiceUserDOM;
     pointSaleOrigin?: TGuideServicePointSaleDOM;

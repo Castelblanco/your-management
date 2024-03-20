@@ -2,7 +2,6 @@ import {
     type Prisma,
     type Client_Type,
     type Guide_Service,
-    type Guide_Service_Collection,
     type Guide_Service_Novelty,
     type Guide_Service_Status,
     type Guide_Service_Type,
@@ -13,7 +12,6 @@ import {
 export type TGuideServiceDAL = Guide_Service & {
     status?: TGuideServiceStatusDAL;
     novelty?: TGuideServiceNoveltyDAL;
-    collection?: TGuideServiceCollectionDAL;
     service?: TGuideServiceTypeServiceDAL;
     user?: TGuideServiceUserDAL;
     point_sale_origin?: TGuideServicePointSaleDAL;
@@ -26,7 +24,6 @@ export type TGuideServiceDAL = Guide_Service & {
 
 export type TGuideServiceStatusDAL = Guide_Service_Status;
 export type TGuideServiceNoveltyDAL = Guide_Service_Novelty;
-export type TGuideServiceCollectionDAL = Guide_Service_Collection;
 export type TGuideServiceTypeServiceDAL = Guide_Service_Type;
 
 export type TGuideServiceFilterDAL = {
@@ -87,11 +84,11 @@ export class GuideServiceDAL implements TGuideServiceDAL {
     units: number;
     weight: number;
     price: number;
+    collection: boolean;
     created_at: Date;
     updated_at: Date;
     status?: TGuideServiceStatusDAL;
     novelty?: TGuideServiceNoveltyDAL;
-    collection?: TGuideServiceCollectionDAL;
     service?: TGuideServiceTypeServiceDAL;
     user?: TGuideServiceUserDAL;
     point_sale_origin?: TGuideServicePointSaleDAL;
@@ -102,7 +99,6 @@ export class GuideServiceDAL implements TGuideServiceDAL {
     client_natural_origin: TGuideServiceNaturalClientDAL | null;
     status_id: string;
     novelty_id: string;
-    collection_id: string;
     service_id: string;
     user_id: string;
     point_sale_origin_id: string;
@@ -132,7 +128,6 @@ export class GuideServiceDAL implements TGuideServiceDAL {
         this.client_natural_origin = guide.client_natural_origin;
         this.status_id = guide.status_id;
         this.novelty_id = guide.novelty_id;
-        this.collection_id = guide.collection_id;
         this.service_id = guide.service_id;
         this.user_id = guide.user_id;
         this.point_sale_origin_id = guide.point_sale_origin_id;

@@ -11,7 +11,6 @@ import {
     type TGuideServiceUserRoleAPI,
     type TGuideServiceStatusAPI,
     type TGuideServiceNoveltyAPI,
-    type TGuideServiceCollectionAPI,
     type TGuideServiceTypeServiceAPI,
     type TGuideServiceLegalClientAPI,
     type TGuideServiceNaturalClientAPI,
@@ -30,7 +29,6 @@ import {
     type TGuideServiceUserStatusDOM,
     type TGuideServiceStatusDOM,
     type TGuideServiceNoveltyDOM,
-    type TGuideServiceCollectionDOM,
     type TGuideServiceTypeServiceDOM,
     type TGuideServiceLegalClientDOM,
     type TGuideServiceNaturalClientDOM,
@@ -66,15 +64,6 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
             };
         }
 
-        let collection: TGuideServiceCollectionDOM | undefined;
-
-        if (item.collection) {
-            collection = {
-                id: item.collection._id,
-                name: item.collection.name,
-            };
-        }
-
         let service: TGuideServiceTypeServiceDOM | undefined;
 
         if (item.service) {
@@ -89,11 +78,11 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
             units: item.units,
             weight: item.weight,
             price: item.price,
+            collection: item.collection,
             createdAt: item.created_at,
             updatedAt: item.updated_at,
             status,
             novelty,
-            collection,
             service,
             user: this.userApiToDom(item.user),
             clientDestination:
@@ -128,15 +117,6 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
             };
         }
 
-        let collection: TGuideServiceCollectionAPI | undefined;
-
-        if (item.collection) {
-            collection = {
-                _id: item.collection.id,
-                name: item.collection.name,
-            };
-        }
-
         let service: TGuideServiceTypeServiceAPI | undefined;
 
         if (item.service) {
@@ -151,11 +131,11 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
             units: item.units,
             weight: item.weight,
             price: item.price,
+            collection: item.collection,
             created_at: item.createdAt,
             updated_at: item.updatedAt,
             status,
             novelty,
-            collection,
             service,
             user: this.userDomToApi(item.user),
             client_destination:

@@ -3,11 +3,11 @@ export type TGuideServiceAPI = {
     units: number;
     weight: number;
     price: number;
+    collection: boolean;
     created_at: Date;
     updated_at: Date;
     status?: TGuideServiceStatusAPI;
     novelty?: TGuideServiceNoveltyAPI;
-    collection?: TGuideServiceCollectionAPI;
     service?: TGuideServiceTypeServiceAPI;
     user?: TGuideServiceUserAPI;
     point_sale_origin?: TGuideServicePointSaleAPI;
@@ -31,11 +31,6 @@ export type TGuideServiceStatusAPI = {
 };
 
 export type TGuideServiceNoveltyAPI = {
-    _id: string;
-    name: string;
-};
-
-export type TGuideServiceCollectionAPI = {
     _id: string;
     name: string;
 };
@@ -98,11 +93,11 @@ export class GuideServiceAPI implements TGuideServiceAPI {
     units: number;
     weight: number;
     price: number;
+    collection: boolean;
     created_at: Date;
     updated_at: Date;
     status?: TGuideServiceStatusAPI;
     novelty?: TGuideServiceNoveltyAPI;
-    collection?: TGuideServiceCollectionAPI;
     service?: TGuideServiceTypeServiceAPI;
     user?: TGuideServiceUserAPI;
     point_sale_origin?: TGuideServicePointSaleAPI;
