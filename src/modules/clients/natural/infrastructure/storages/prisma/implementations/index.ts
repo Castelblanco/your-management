@@ -67,7 +67,7 @@ export class NaturalClientPrismaRepository implements TNaturalClientRepository {
     ): Promise<TNaturalClientDOM[]> => {
         try {
             const clients = await this.db.findMany({
-                where: { ...this.filterDomToDal(filter) },
+                where: this.filterDomToDal(filter),
                 include: {
                     status: options.status,
                 },

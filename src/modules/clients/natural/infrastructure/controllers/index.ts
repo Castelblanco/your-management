@@ -23,11 +23,21 @@ export class NaturalClientControllers {
 
     findAll = async ({ query }: TContext): Promise<ListResponse<TNaturalClientAPI>> => {
         try {
-            const clients = await this.services.findAll(query, {
-                limit: query.limit ? +query.limit : 50,
-                offset: query.offset ? +query.offset : 0,
-                status: !!query.status,
-            });
+            const clients = await this.services.findAll(
+                {
+                    address: query.address,
+                    documentId: query.documentId,
+                    firstName: query.firstName,
+                    lastName: query.lastName,
+                    numberMovil: query.numberMovil,
+                    statusId: query.statusId,
+                },
+                {
+                    limit: query.limit ? +query.limit : 50,
+                    offset: query.offset ? +query.offset : 0,
+                    status: !!query.status,
+                },
+            );
 
             return new ListResponse(
                 clients.map(this.mappers.domToApi),
