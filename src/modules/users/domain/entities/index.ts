@@ -53,6 +53,7 @@ export type TUserOPT = {
     offset: number;
     pointSale: boolean;
     role: boolean;
+    status: boolean;
 };
 
 export type TUserLoginDOM = {

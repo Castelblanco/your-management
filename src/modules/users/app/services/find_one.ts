@@ -10,8 +10,9 @@ export const buildFindOne = ({ repository }: Dependencies) => {
         id: string,
         pointSale?: boolean,
         role?: boolean,
+        status?: boolean,
     ): Promise<TUserDOM> => {
-        return await repository.findOne(id, pointSale, role);
+        return await repository.findOne(id, pointSale, role, status);
     };
 
     return service;

@@ -58,6 +58,7 @@ export class UsersControllers {
                     offset: query.offset ? +query.offset : 0,
                     pointSale: !!query.pointSale,
                     role: !!query.role,
+                    status: !!query.status,
                 },
             );
 
@@ -76,6 +77,7 @@ export class UsersControllers {
                 params.id,
                 !!query.pointSale,
                 !!query.role,
+                !!query.status,
             );
 
             return new ApiReponse(

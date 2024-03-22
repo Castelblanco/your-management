@@ -52,6 +52,7 @@ export class UsersPrismaRepository implements TUsersRepository {
                 include: {
                     point_sale: options.pointSale,
                     role: options.role,
+                    status: options.status,
                 },
             });
 
@@ -68,6 +69,7 @@ export class UsersPrismaRepository implements TUsersRepository {
         id: string,
         pointSale?: boolean,
         role?: boolean,
+        status?: boolean,
     ): Promise<TUserDOM> => {
         try {
             const user = await this.db.findFirst({
@@ -77,6 +79,7 @@ export class UsersPrismaRepository implements TUsersRepository {
                 include: {
                     point_sale: pointSale,
                     role,
+                    status,
                 },
             });
 
