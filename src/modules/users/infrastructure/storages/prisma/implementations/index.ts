@@ -50,24 +50,8 @@ export class UsersPrismaRepository implements TUsersRepository {
                 take: options.limit,
                 skip: options.offset,
                 include: {
-                    point_sale: (options.pointSale as true) && {
-                        select: {
-                            id: true,
-                            name: true,
-                            address: true,
-                            budget: true,
-                            status_id: true,
-                            city_id: true,
-                            city: true,
-                            status: true,
-                        },
-                    },
-                    role: (options.role as true) && {
-                        select: {
-                            name: true,
-                            id: true,
-                        },
-                    },
+                    point_sale: options.pointSale,
+                    role: options.role,
                 },
             });
 
@@ -91,24 +75,8 @@ export class UsersPrismaRepository implements TUsersRepository {
                     id,
                 },
                 include: {
-                    point_sale: (pointSale as true) && {
-                        select: {
-                            id: true,
-                            name: true,
-                            address: true,
-                            budget: true,
-                            status_id: true,
-                            city_id: true,
-                            city: true,
-                            status: true,
-                        },
-                    },
-                    role: (role as true) && {
-                        select: {
-                            name: true,
-                            id: true,
-                        },
-                    },
+                    point_sale: pointSale,
+                    role,
                 },
             });
 
@@ -135,24 +103,8 @@ export class UsersPrismaRepository implements TUsersRepository {
                     id,
                 },
                 include: {
-                    point_sale: (pointSale as true) && {
-                        select: {
-                            id: true,
-                            name: true,
-                            address: true,
-                            budget: true,
-                            status_id: true,
-                            city_id: true,
-                            city: true,
-                            status: true,
-                        },
-                    },
-                    role: (role as true) && {
-                        select: {
-                            name: true,
-                            id: true,
-                        },
-                    },
+                    point_sale: pointSale,
+                    role,
                 },
             });
 

@@ -6,7 +6,6 @@ import {
     UserPointSaleDOM,
     type TUserRoleDOM,
     type TUserStatusDOM,
-    type TUserPointSaleCityDOM,
 } from '@users/domain/entities';
 import { type TUserDAL, UserDAL } from '../models';
 
@@ -16,30 +15,17 @@ export class UsersWrappers implements TWrappers<TUserDOM, TUserDAL> {
 
         if (item.point_sale) {
             const { point_sale: pointSaleDal } = item;
-            let city: TUserPointSaleCityDOM | undefined;
-
-            if (pointSaleDal.city) {
-                const { department } = pointSaleDal.city;
-                city = {
-                    id: pointSaleDal.city.id,
-                    name: pointSaleDal.city.name,
-                    department: undefined,
-                };
-
-                if (department) {
-                    city.department = {
-                        id: department.id,
-                        name: department.name,
-                    };
-                }
-            }
 
             pointSale = new UserPointSaleDOM({
                 id: item.point_sale.id,
                 name: item.point_sale.name,
                 address: item.point_sale.address,
                 budget: item.point_sale.budget,
-                city,
+                department: pointSaleDal.department,
+                municipality: pointSaleDal.municipality,
+                neighborhood: pointSaleDal.neighborhood,
+                latitude: pointSaleDal.latitude,
+                longitude: pointSaleDal.longitude,
             });
         }
 

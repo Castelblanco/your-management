@@ -2,6 +2,7 @@ version: '3'
 
 services:
     your-management-server:
+        platform: linux/amd64
         image: your-management-server
         env_file: .env
         build: .

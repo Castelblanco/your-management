@@ -6,7 +6,6 @@ import {
     UserPointSaleAPI,
     type TUserRoleAPI,
     type TUserStatusAPI,
-    type TUserPointSaleCityAPI,
 } from '@users/domain/dto';
 import {
     type TUserDOM,
@@ -15,7 +14,6 @@ import {
     UserPointSaleDOM,
     type TUserRoleDOM,
     type TUserStatusDOM,
-    type TUserPointSaleCityDOM,
 } from '@users/domain/entities';
 
 export class UsersMappers implements TMappers<TUserDOM, TUserAPI> {
@@ -24,29 +22,16 @@ export class UsersMappers implements TMappers<TUserDOM, TUserAPI> {
 
         if (item.point_sale) {
             const { point_sale: pointSaleApi } = item;
-            let city: TUserPointSaleCityDOM | undefined;
-
-            if (pointSaleApi.city) {
-                const { department } = pointSaleApi.city;
-                city = {
-                    id: pointSaleApi.city._id,
-                    name: pointSaleApi.city.name,
-                    department: undefined,
-                };
-
-                if (department) {
-                    city.department = {
-                        id: department._id,
-                        name: department.name,
-                    };
-                }
-            }
             pointSale = new UserPointSaleDOM({
-                id: item.point_sale._id,
-                name: item.point_sale.name,
-                address: item.point_sale.address,
-                budget: item.point_sale.budget,
-                city,
+                id: pointSaleApi._id,
+                name: pointSaleApi.name,
+                address: pointSaleApi.address,
+                budget: pointSaleApi.budget,
+                department: pointSaleApi.department,
+                latitude: pointSaleApi.latitude,
+                longitude: pointSaleApi.longitude,
+                municipality: pointSaleApi.municipality,
+                neighborhood: pointSaleApi.neighborhood,
             });
         }
 
@@ -90,30 +75,17 @@ export class UsersMappers implements TMappers<TUserDOM, TUserAPI> {
 
         if (item.pointSale) {
             const { pointSale: pointSaleDom } = item;
-            let city: TUserPointSaleCityAPI | undefined;
-
-            if (pointSaleDom.city) {
-                const { department } = pointSaleDom.city;
-                city = {
-                    _id: pointSaleDom.city.id,
-                    name: pointSaleDom.city.name,
-                    department: undefined,
-                };
-
-                if (department) {
-                    city.department = {
-                        _id: department.id,
-                        name: department.name,
-                    };
-                }
-            }
 
             pointSale = new UserPointSaleAPI({
                 _id: item.pointSale.id,
                 name: item.pointSale.name,
                 address: item.pointSale.address,
                 budget: item.pointSale.budget,
-                city,
+                department: pointSaleDom.department,
+                latitude: pointSaleDom.latitude,
+                longitude: pointSaleDom.longitude,
+                municipality: pointSaleDom.municipality,
+                neighborhood: pointSaleDom.neighborhood,
             });
         }
 

@@ -29,18 +29,11 @@ export type TUserPointSaleDOM = {
     name: string;
     address: string;
     budget: number;
-    city?: TUserPointSaleCityDOM;
-};
-
-export type TUserPointSaleCityDOM = {
-    id: string;
-    name: string;
-    department?: TUserPointSaleDepartmentDOM;
-};
-
-export type TUserPointSaleDepartmentDOM = {
-    id: string;
-    name: string;
+    department: string;
+    municipality: string;
+    neighborhood: string;
+    latitude: number;
+    longitude: number;
 };
 
 export type TUserFilterDOM = {
@@ -115,14 +108,22 @@ export class UserPointSaleDOM implements TUserPointSaleDOM {
     name: string;
     address: string;
     budget: number;
-    city?: TUserPointSaleCityDOM;
+    department: string;
+    municipality: string;
+    neighborhood: string;
+    latitude: number;
+    longitude: number;
 
     constructor(point: TUserPointSaleDOM) {
         this.id = point.id;
         this.name = point.name;
         this.address = point.address;
         this.budget = point.budget;
-        this.city = point.city;
+        this.department = point.department;
+        this.municipality = point.municipality;
+        this.neighborhood = point.neighborhood;
+        this.latitude = point.latitude;
+        this.longitude = point.longitude;
     }
 }
 
@@ -136,9 +137,9 @@ export class UserLoginDOM implements TUserLoginDOM {
     address: string;
     createdAt: Date;
     updatedAt: Date;
+    token: string;
     status?: TUserStatusDOM;
     role?: TUserRoleDOM;
-    token: string;
     pointSale?: TUserPointSaleDOM;
 
     constructor(login: TUserLoginDOM) {

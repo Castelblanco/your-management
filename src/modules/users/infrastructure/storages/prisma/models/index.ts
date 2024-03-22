@@ -11,21 +11,14 @@ export type TUserStatusDAL = Users_Status;
 
 export type TUserPointSaleDAL = {
     id: string;
+    name: string;
     address: string;
-    name: string;
+    department: string;
+    municipality: string;
+    neighborhood: string;
+    latitude: number;
+    longitude: number;
     budget: number;
-    city?: TUserPointSaleCityDAL;
-};
-
-export type TUserPointSaleCityDAL = {
-    id: string;
-    name: string;
-    department?: TUserPointSaleDepartmentDAL;
-};
-
-export type TUserPointSaleDepartmentDAL = {
-    id: string;
-    name: string;
 };
 
 export class UserDAL implements TUserDAL {
@@ -69,15 +62,23 @@ export class UserDAL implements TUserDAL {
 export class UserPointSaleDAL implements TUserPointSaleDAL {
     id: string;
     name: string;
-    address: string;
     budget: number;
-    city?: TUserPointSaleCityDAL;
+    address: string;
+    department: string;
+    municipality: string;
+    neighborhood: string;
+    latitude: number;
+    longitude: number;
 
     constructor(point: TUserPointSaleDAL) {
         this.id = point.id;
         this.name = point.name;
         this.address = point.address;
         this.budget = point.budget;
-        this.city = point.city;
+        this.department = point.department;
+        this.municipality = point.municipality;
+        this.neighborhood = point.neighborhood;
+        this.latitude = point.latitude;
+        this.longitude = point.longitude;
     }
 }

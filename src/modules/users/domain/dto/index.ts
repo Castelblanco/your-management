@@ -29,18 +29,11 @@ export type TUserPointSaleAPI = {
     name: string;
     address: string;
     budget: number;
-    city?: TUserPointSaleCityAPI;
-};
-
-export type TUserPointSaleCityAPI = {
-    _id: string;
-    name: string;
-    department?: TUserPointSaleDepartmentAPI;
-};
-
-export type TUserPointSaleDepartmentAPI = {
-    _id: string;
-    name: string;
+    department: string;
+    municipality: string;
+    neighborhood: string;
+    latitude: number;
+    longitude: number;
 };
 
 export type TUserLoginAPI = {
@@ -96,14 +89,22 @@ export class UserPointSaleAPI implements TUserPointSaleAPI {
     name: string;
     address: string;
     budget: number;
-    city?: TUserPointSaleCityAPI;
+    department: string;
+    municipality: string;
+    neighborhood: string;
+    latitude: number;
+    longitude: number;
 
     constructor(point: TUserPointSaleAPI) {
         this._id = point._id;
         this.name = point.name;
         this.address = point.address;
         this.budget = point.budget;
-        this.city = point.city;
+        this.department = point.department;
+        this.municipality = point.municipality;
+        this.neighborhood = point.neighborhood;
+        this.latitude = point.latitude;
+        this.longitude = point.longitude;
     }
 }
 
@@ -117,9 +118,9 @@ export class UserLoginAPI implements TUserLoginAPI {
     address: string;
     created_at: Date;
     updated_at: Date;
+    token: string;
     status?: TUserStatusAPI;
     role?: TUserRoleAPI;
-    token: string;
     point_sale?: TUserPointSaleAPI;
 
     constructor(login: TUserLoginAPI) {

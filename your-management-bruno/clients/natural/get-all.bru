@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: {{HOST}}/v1/clients/naturals/get-all
+  url: {{HOST}}/v1/clients/naturals/get-all?status=true
   body: none
   auth: none
+}
+
+query {
+  status: true
 }
