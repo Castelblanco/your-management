@@ -5,14 +5,14 @@ import { type TUserRoleDOM, UserRoleDOM } from '@user_roles/domain/entities';
 export class UserRolesMappers implements TMappers<TUserRoleDOM, TUserRoleAPI> {
     apiToDom = (item: TUserRoleAPI): TUserRoleDOM => {
         return new UserRoleDOM({
-            id: item.id,
+            id: item._id,
             name: item.name,
         });
     };
 
     domToApi = (item: TUserRoleDOM): TUserRoleAPI => {
         return new UserRoleApi({
-            id: item.id,
+            _id: item.id,
             name: item.name,
         });
     };

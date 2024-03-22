@@ -1,14 +1,14 @@
 export type TUserRoleAPI = {
-    id: string;
+    _id: string;
     name: string;
 };
 
 export class UserRoleApi implements TUserRoleAPI {
-    id: string;
+    _id: string;
     name: string;
 
     constructor(role: TUserRoleAPI) {
-        this.id = role.id;
+        this._id = role._id;
         this.name = role.name;
     }
 }
