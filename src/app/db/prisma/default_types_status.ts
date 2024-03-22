@@ -82,5 +82,36 @@ export const createDefaultAllStatus = async () => {
         }
     } catch (e) {
         console.log(e);
+        console.log('Error create default status');
+    }
+};
+
+export const createDefaultAllUserRoles = async () => {
+    try {
+        const count = await prisma.users_Roles.count();
+
+        if (count > 0) return;
+
+        await prisma.users_Roles.createMany({
+            data: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Admin',
+                },
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Coordinador',
+                },
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Colaborador',
+                },
+            ],
+        });
+
+        console.log('Create Default User Roles');
+    } catch (e) {
+        console.log({ e });
+        console.log('Error create default user roles');
     }
 };
