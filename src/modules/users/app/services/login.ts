@@ -17,6 +17,7 @@ export const buildLogin = ({ repository, singToken }: Dependecies) => {
                 offset: 0,
                 pointSale: true,
                 role: true,
+                status: true,
             },
         );
 
@@ -25,8 +26,6 @@ export const buildLogin = ({ repository, singToken }: Dependecies) => {
         return new UserLoginDOM({
             ...userFind,
             token,
-            role: userFind.role,
-            pointSale: userFind.pointSale,
         });
     };
 
