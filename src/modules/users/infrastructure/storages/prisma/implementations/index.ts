@@ -40,6 +40,7 @@ export class UsersPrismaRepository implements TUsersRepository {
                         contains: filter.address,
                         mode: 'insensitive',
                     },
+                    status_id: filter.statusId,
                     point_sale_id: filter.pointSaleId,
                     role_id: filter.roleId,
                     created_at: {

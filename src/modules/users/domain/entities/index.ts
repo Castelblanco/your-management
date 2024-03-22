@@ -42,6 +42,7 @@ export type TUserFilterDOM = {
     documentId?: string;
     email?: string;
     address?: string;
+    statusId?: string;
     pointSaleId?: string;
     roleId?: string;
     startTime?: string;

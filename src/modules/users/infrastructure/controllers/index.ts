@@ -50,6 +50,7 @@ export class UsersControllers {
                     address: query.address,
                     pointSaleId: query.pointSaleId,
                     roleId: query.roleId,
+                    statusId: query.statusId,
                     startTime: query.startTime,
                     endTime: query.endTime,
                 },
