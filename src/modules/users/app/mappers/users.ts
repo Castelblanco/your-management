@@ -77,10 +77,10 @@ export class UsersMappers implements TMappers<TUserDOM, TUserAPI> {
             const { pointSale: pointSaleDom } = item;
 
             pointSale = new UserPointSaleAPI({
-                _id: item.pointSale.id,
-                name: item.pointSale.name,
-                address: item.pointSale.address,
-                budget: item.pointSale.budget,
+                _id: pointSaleDom.id,
+                name: pointSaleDom.name,
+                address: pointSaleDom.address,
+                budget: pointSaleDom.budget,
                 department: pointSaleDom.department,
                 latitude: pointSaleDom.latitude,
                 longitude: pointSaleDom.longitude,
