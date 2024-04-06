@@ -16,7 +16,11 @@ import {
     type TUserStatusDOM,
 } from '@users/domain/entities';
 
-export class UsersMappers implements TMappers<TUserDOM, TUserAPI> {
+export type TUserMappersOpts = {
+    password: boolean;
+};
+
+export class UsersMappers implements TMappers<TUserDOM, TUserAPI, TUserMappersOpts> {
     apiToDom = (item: TUserAPI): TUserDOM => {
         let pointSale: TUserPointSaleDOM | undefined;
 
@@ -70,7 +74,7 @@ export class UsersMappers implements TMappers<TUserDOM, TUserAPI> {
         });
     };
 
-    domToApi = (item: TUserDOM): TUserAPI => {
+    domToApi = (item: TUserDOM, opts?: TUserMappersOpts): TUserAPI => {
         let pointSale: TUserPointSaleAPI | undefined;
 
         if (item.pointSale) {
@@ -113,7 +117,7 @@ export class UsersMappers implements TMappers<TUserDOM, TUserAPI> {
             last_name: item.lastName,
             document_id: item.documentId,
             email: item.email,
-            password: item.password,
+            password: opts?.password ? item.password : (undefined as unknown as string),
             phone: item.phone,
             address: item.address,
             role,

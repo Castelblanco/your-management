@@ -1,12 +1,8 @@
 import { type TUserDOM, type TUserLoginDOM, UserLoginDOM } from '@users/domain/entities';
-import type { TUsersRepository } from '@users/domain/repository';
+import { type Dependencies } from '.';
+import { ErrorAuth } from '@common/response/errors/auth_error';
 
-type Dependecies = {
-    repository: TUsersRepository;
-    singToken: (payload: string | object | Buffer, expiresIn: string) => string;
-};
-
-export const buildLogin = ({ repository, singToken }: Dependecies) => {
+export const buildLogin = ({ repository, singToken, encryptPassword }: Dependencies) => {
     const service = async (user: TUserDOM): Promise<TUserLoginDOM> => {
         const [userFind] = await repository.findAll(
             {
@@ -15,12 +11,15 @@ export const buildLogin = ({ repository, singToken }: Dependecies) => {
             {
                 limit: 1,
                 offset: 0,
-                pointSale: true,
-                role: true,
-                status: true,
             },
         );
 
+        if (!userFind)
+            throw new ErrorAuth(`this user with email ${user.email}, not exist`);
+
+        const checkPassword = encryptPassword.verify(user.password, userFind.password);
+
+        if (!checkPassword) throw new ErrorAuth('password incorrect');
         const token = singToken(userFind, '1h');
 
         return new UserLoginDOM({

@@ -1,9 +1,5 @@
 import type { TUserDOM } from '@users/domain/entities';
-import type { TUsersRepository } from '@users/domain/repository';
-
-type Dependencies = {
-    repository: TUsersRepository;
-};
+import { type Dependencies } from '.';
 
 export const buildUpdateOne = ({ repository }: Dependencies) => {
     const service = async (user: TUserDOM): Promise<TUserDOM> => {

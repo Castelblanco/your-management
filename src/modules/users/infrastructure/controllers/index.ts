@@ -7,7 +7,11 @@ import type { Context } from 'elysia';
 import { HttpSuccessCode } from '@common/enums/success_enum';
 import { ApiReponse } from '@common/response/success/api_responses';
 import { ListResponse } from '@common/response/success/list_responses';
-import { UsersLoginMappers, UsersMappers } from '@users/app/mappers';
+import {
+    type TUserMappersOpts,
+    UsersLoginMappers,
+    UsersMappers,
+} from '@users/app/mappers';
 
 type TContext = Context<{
     params: Record<string, string>;
@@ -15,7 +19,7 @@ type TContext = Context<{
 
 export class UsersControllers {
     services: UsersServices;
-    mappers: TMappers<TUserDOM, TUserAPI>;
+    mappers: TMappers<TUserDOM, TUserAPI, TUserMappersOpts>;
     mappersLogin: TMappers<TUserLoginDOM, TUserLoginAPI>;
 
     constructor(services: UsersServices) {
@@ -64,7 +68,7 @@ export class UsersControllers {
             );
 
             return new ListResponse(
-                users.map(this.mappers.domToApi),
+                users.map((user) => this.mappers.domToApi(user, { password: false })),
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {
@@ -82,7 +86,7 @@ export class UsersControllers {
             );
 
             return new ApiReponse(
-                this.mappers.domToApi(user),
+                this.mappers.domToApi(user, { password: false }),
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {
@@ -98,7 +102,7 @@ export class UsersControllers {
 
             set.status = HttpSuccessCode.CREATED;
             return new ApiReponse(
-                this.mappers.domToApi(newUser),
+                this.mappers.domToApi(newUser, { password: false }),
                 HttpSuccessCode.CREATED,
             );
         } catch (e) {
@@ -109,7 +113,7 @@ export class UsersControllers {
     createMany = async ({ body, set }: TContext): Promise<ApiReponse<number>> => {
         try {
             const count = await this.services.createMany(
-                (body as TUserAPI[]).map(this.mappers.apiToDom),
+                (body as TUserAPI[]).map((user) => this.mappers.apiToDom(user)),
             );
 
             set.status = HttpSuccessCode.CREATED;
@@ -129,7 +133,7 @@ export class UsersControllers {
             );
 
             return new ApiReponse(
-                this.mappers.domToApi(updatetUser),
+                this.mappers.domToApi(updatetUser, { password: false }),
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {

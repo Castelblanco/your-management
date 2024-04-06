@@ -1,10 +1,5 @@
 import type { TUserDOM } from '@users/domain/entities';
-import type { TUsersRepository } from '@users/domain/repository';
-
-type Dependencies = {
-    repository: TUsersRepository;
-    createId: () => string;
-};
+import { type Dependencies } from '.';
 
 export const buildCreateMany = ({ repository, createId }: Dependencies) => {
     const service = async (users: TUserDOM[]): Promise<number> => {

@@ -1,14 +1,14 @@
 import type { TUserDOM } from '@users/domain/entities';
-import type { TUsersRepository } from '@users/domain/repository';
+import { type Dependencies } from '.';
 
-type Dependencies = {
-    repository: TUsersRepository;
-    createId: () => string;
-};
-
-export const buildCreateOne = ({ repository, createId }: Dependencies) => {
+export const buildCreateOne = ({
+    repository,
+    createId,
+    encryptPassword,
+}: Dependencies) => {
     const service = async (user: TUserDOM): Promise<TUserDOM> => {
         user.id = createId();
+        user.password = encryptPassword.encrypt(user.password);
         return await repository.createOne(user);
     };
 

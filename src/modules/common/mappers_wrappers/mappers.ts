@@ -1,4 +1,4 @@
-export type TMappers<TDom, TApi> = {
-    apiToDom: (item: TApi) => TDom;
-    domToApi: (item: TDom) => TApi;
+export type TMappers<TDom, TApi, TOpts = unknown> = {
+    apiToDom: (item: TApi, opts?: TOpts) => TDom;
+    domToApi: (item: TDom, opts?: TOpts) => TApi;
 };

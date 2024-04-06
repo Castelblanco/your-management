@@ -4,7 +4,7 @@ import type {
     TUserLoginDOM,
     TUserOPT,
 } from '@users/domain/entities';
-import { type TDateFormat, buildFindAll } from './find_all';
+import { buildFindAll } from './find_all';
 import type { TUsersRepository } from '@users/domain/repository';
 import { buildFindOne } from './find_one';
 import { buildCreateOne } from './create_one';
@@ -13,8 +13,25 @@ import { buildDeleteOne } from './delete_one';
 import { buildCreateMany } from './create_many';
 import { buildLogin } from './login';
 
+type TDateFormatDay = 'dd/mm/yy' | 'dd/yy/mm';
+type TDateFormatMonth = 'mm/dd/yy' | 'mm/yy/dd';
+type TDateFormatYear = 'yy/mm/dd' | 'yy/dd/mm';
+type TDateFormat = TDateFormatDay | TDateFormatMonth | TDateFormatYear | 'iso';
+
 type TGetDateFormat = (date: string | number, format?: TDateFormat) => string;
 type TSingToken = (payload: string | object | Buffer, expiresIn: string) => string;
+type TEncryptPassword = {
+    encrypt: (password: string) => string;
+    verify: (password: string, savePassword: string) => boolean;
+};
+
+export type Dependencies = {
+    repository: TUsersRepository;
+    createId: () => string;
+    encryptPassword: TEncryptPassword;
+    singToken: TSingToken;
+    getDateFormat: TGetDateFormat;
+};
 
 export class UsersServices {
     login: (user: TUserDOM) => Promise<TUserLoginDOM>;
@@ -31,18 +48,13 @@ export class UsersServices {
     deleteOne: (id: string) => Promise<void>;
     createMany: (users: TUserDOM[]) => Promise<number>;
 
-    constructor(
-        repository: TUsersRepository,
-        createId: () => string,
-        getDateFormat: TGetDateFormat,
-        singToken: TSingToken,
-    ) {
-        this.login = buildLogin({ repository, singToken });
-        this.findAll = buildFindAll({ repository, getDateFormat });
-        this.findOne = buildFindOne({ repository });
-        this.createOne = buildCreateOne({ repository, createId });
-        this.updateOne = buildUpdateOne({ repository });
-        this.deleteOne = buildDeleteOne({ repository });
-        this.createMany = buildCreateMany({ repository, createId });
+    constructor(dependencies: Dependencies) {
+        this.login = buildLogin(dependencies);
+        this.findAll = buildFindAll(dependencies);
+        this.findOne = buildFindOne(dependencies);
+        this.createOne = buildCreateOne(dependencies);
+        this.updateOne = buildUpdateOne(dependencies);
+        this.deleteOne = buildDeleteOne(dependencies);
+        this.createMany = buildCreateMany(dependencies);
     }
 }

@@ -52,9 +52,9 @@ export type TUserFilterDOM = {
 export type TUserOPT = {
     limit: number;
     offset: number;
-    pointSale: boolean;
-    role: boolean;
-    status: boolean;
+    pointSale?: boolean;
+    role?: boolean;
+    status?: boolean;
 };
 
 export type TUserLoginDOM = {

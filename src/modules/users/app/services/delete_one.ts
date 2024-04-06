@@ -1,8 +1,4 @@
-import type { TUsersRepository } from '@users/domain/repository';
-
-type Dependencies = {
-    repository: TUsersRepository;
-};
+import { type Dependencies } from '.';
 
 export const buildDeleteOne = ({ repository }: Dependencies) => {
     const service = async (id: string): Promise<void> => {
