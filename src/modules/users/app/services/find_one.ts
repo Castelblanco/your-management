@@ -8,7 +8,7 @@ export const buildFindOne = ({ repository }: Dependencies) => {
         role?: boolean,
         status?: boolean,
     ): Promise<TUserDOM> => {
-        return await repository.findOne(id, pointSale, role, status);
+        return await repository.findById(id, pointSale, role, status);
     };
 
     return service;

@@ -66,21 +66,37 @@ export class UsersPrismaRepository implements TUsersRepository {
         }
     };
 
-    findOne = async (
-        id: string,
-        pointSale?: boolean,
-        role?: boolean,
-        status?: boolean,
-    ): Promise<TUserDOM> => {
+    findOne = async (filter: TUserFilterDOM, options: TUserOPT): Promise<TUserDOM> => {
         try {
             const user = await this.db.findFirst({
                 where: {
-                    id,
+                    first_name: {
+                        equals: filter.firstName,
+                    },
+                    last_name: {
+                        equals: filter.lastName,
+                    },
+                    document_id: {
+                        equals: filter.documentId,
+                    },
+                    email: {
+                        equals: filter.email,
+                    },
+                    address: {
+                        equals: filter.address,
+                    },
+                    status_id: filter.statusId,
+                    point_sale_id: filter.pointSaleId,
+                    role_id: filter.roleId,
+                    created_at: {
+                        gte: filter.startTime,
+                        lte: filter.endTime,
+                    },
                 },
                 include: {
-                    point_sale: pointSale,
-                    role,
-                    status,
+                    point_sale: options.pointSale,
+                    role: options.role,
+                    status: options.status,
                 },
             });
 

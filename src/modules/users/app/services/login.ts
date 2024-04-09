@@ -4,13 +4,16 @@ import { ErrorAuth } from '@common/response/errors/auth_error';
 
 export const buildLogin = ({ repository, singToken, encryptPassword }: Dependencies) => {
     const service = async (user: TUserDOM): Promise<TUserLoginDOM> => {
-        const [userFind] = await repository.findAll(
+        const userFind = await repository.findOne(
             {
                 email: user.email,
             },
             {
                 limit: 1,
                 offset: 0,
+                status: true,
+                pointSale: true,
+                role: true,
             },
         );
 
@@ -20,7 +23,7 @@ export const buildLogin = ({ repository, singToken, encryptPassword }: Dependenc
         const checkPassword = encryptPassword.verify(user.password, userFind.password);
 
         if (!checkPassword) throw new ErrorAuth('password incorrect');
-        const token = singToken(userFind, '1h');
+        const token = singToken({ ...userFind }, '1h');
 
         return new UserLoginDOM({
             ...userFind,
