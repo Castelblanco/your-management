@@ -6,6 +6,8 @@ import {
     UserPointSaleAPI,
     type TUserRoleAPI,
     type TUserStatusAPI,
+    UserPictureAPI,
+    type TUserPictureAPI,
 } from '@users/domain/dto';
 import {
     type TUserDOM,
@@ -14,6 +16,8 @@ import {
     UserPointSaleDOM,
     type TUserRoleDOM,
     type TUserStatusDOM,
+    UserPictureDOM,
+    type TUserPictureDOM,
 } from '@users/domain/entities';
 
 export type TUserMappersOpts = {
@@ -57,6 +61,15 @@ export class UsersMappers implements TMappers<TUserDOM, TUserAPI, TUserMappersOp
             };
         }
 
+        let picture: TUserPictureDOM | undefined;
+
+        if (item.picture) {
+            picture = new UserPictureDOM({
+                id: item.picture._id,
+                url: item.picture.url,
+            });
+        }
+
         return new UserDOM({
             id: item._id,
             firstName: item.first_name,
@@ -67,6 +80,7 @@ export class UsersMappers implements TMappers<TUserDOM, TUserAPI, TUserMappersOp
             phone: item.phone,
             address: item.address,
             role,
+            picture,
             status,
             createdAt: item.created_at,
             updatedAt: item.updated_at,
@@ -111,6 +125,15 @@ export class UsersMappers implements TMappers<TUserDOM, TUserAPI, TUserMappersOp
             };
         }
 
+        let picture: TUserPictureAPI | undefined;
+
+        if (item.picture) {
+            picture = new UserPictureAPI({
+                _id: item.picture.id,
+                url: item.picture.url,
+            });
+        }
+
         return new UserAPI({
             _id: item.id,
             first_name: item.firstName,
@@ -120,6 +143,7 @@ export class UsersMappers implements TMappers<TUserDOM, TUserAPI, TUserMappersOp
             password: opts?.password ? item.password : (undefined as unknown as string),
             phone: item.phone,
             address: item.address,
+            picture,
             role,
             status,
             created_at: item.createdAt,

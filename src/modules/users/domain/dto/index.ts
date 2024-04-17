@@ -9,9 +9,15 @@ export type TUserAPI = {
     address: string;
     created_at: Date;
     updated_at: Date;
+    picture?: TUserPictureAPI;
     status?: TUserStatusAPI;
     role?: TUserRoleAPI;
     point_sale?: TUserPointSaleAPI;
+};
+
+export type TUserPictureAPI = {
+    _id: string;
+    url: string;
 };
 
 export type TUserStatusAPI = {
@@ -46,6 +52,7 @@ export type TUserLoginAPI = {
     address: string;
     created_at: Date;
     updated_at: Date;
+    picture?: TUserPictureAPI;
     status?: TUserStatusAPI;
     role?: TUserRoleAPI;
     token: string;
@@ -58,6 +65,7 @@ export class UserAPI implements TUserAPI {
     last_name: string;
     document_id: string;
     email: string;
+    picture?: TUserPictureAPI;
     password: string;
     phone: string;
     address: string;
@@ -74,6 +82,7 @@ export class UserAPI implements TUserAPI {
         this.document_id = user.document_id;
         this.password = user.password;
         this.email = user.email;
+        this.picture = user.picture;
         this.phone = user.phone;
         this.address = user.address;
         this.created_at = user.created_at;
@@ -81,6 +90,16 @@ export class UserAPI implements TUserAPI {
         this.status = user.status;
         this.role = user.role;
         this.point_sale = user.point_sale;
+    }
+}
+
+export class UserPictureAPI implements TUserPictureAPI {
+    _id: string;
+    url: string;
+
+    constructor(picture: TUserPictureAPI) {
+        this._id = picture._id;
+        this.url = picture.url;
     }
 }
 
@@ -114,6 +133,7 @@ export class UserLoginAPI implements TUserLoginAPI {
     last_name: string;
     document_id: string;
     email: string;
+    picture?: TUserPictureAPI;
     phone: string;
     address: string;
     created_at: Date;
@@ -129,6 +149,7 @@ export class UserLoginAPI implements TUserLoginAPI {
         this.last_name = login.last_name;
         this.document_id = login.document_id;
         this.email = login.email;
+        this.picture = login.picture;
         this.phone = login.phone;
         this.address = login.address;
         this.role = login.role;

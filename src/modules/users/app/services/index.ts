@@ -3,6 +3,7 @@ import type {
     TUserFilterDOM,
     TUserLoginDOM,
     TUserOPT,
+    TUserPictureDOM,
 } from '@users/domain/entities';
 import { buildFindAll } from './find_all';
 import type { TUsersRepository } from '@users/domain/repository';
@@ -12,6 +13,7 @@ import { buildUpdateOne } from './update_one';
 import { buildDeleteOne } from './delete_one';
 import { buildCreateMany } from './create_many';
 import { buildLogin } from './login';
+import { buildUpdateOnePicture } from './update_one_picture';
 
 type TDateFormatDay = 'dd/mm/yy' | 'dd/yy/mm';
 type TDateFormatMonth = 'mm/dd/yy' | 'mm/yy/dd';
@@ -31,6 +33,8 @@ export type Dependencies = {
     encryptPassword: TEncryptPassword;
     singToken: TSingToken;
     getDateFormat: TGetDateFormat;
+    saveStorageImage: (imagePath: string) => Promise<TUserPictureDOM>;
+    updateStorageImage: (picture: TUserPictureDOM) => Promise<TUserPictureDOM>;
 };
 
 export class UsersServices {
@@ -45,6 +49,7 @@ export class UsersServices {
 
     createOne: (user: TUserDOM) => Promise<TUserDOM>;
     updateOne: (user: TUserDOM) => Promise<TUserDOM>;
+    updateOnePicture: (id: string, picture: TUserPictureDOM) => Promise<TUserPictureDOM>;
     deleteOne: (id: string) => Promise<void>;
     createMany: (users: TUserDOM[]) => Promise<number>;
 
@@ -54,6 +59,7 @@ export class UsersServices {
         this.findOne = buildFindOne(dependencies);
         this.createOne = buildCreateOne(dependencies);
         this.updateOne = buildUpdateOne(dependencies);
+        this.updateOnePicture = buildUpdateOnePicture(dependencies);
         this.deleteOne = buildDeleteOne(dependencies);
         this.createMany = buildCreateMany(dependencies);
     }

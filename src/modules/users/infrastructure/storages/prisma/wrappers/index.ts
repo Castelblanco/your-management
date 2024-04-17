@@ -6,6 +6,8 @@ import {
     UserPointSaleDOM,
     type TUserRoleDOM,
     type TUserStatusDOM,
+    type TUserPictureDOM,
+    UserPictureDOM,
 } from '@users/domain/entities';
 import { type TUserDAL, UserDAL } from '../models';
 
@@ -47,6 +49,15 @@ export class UsersWrappers implements TWrappers<TUserDOM, TUserDAL> {
             };
         }
 
+        let picture: TUserPictureDOM | undefined;
+
+        if (item.picture_id && item.picture_url) {
+            picture = new UserPictureDOM({
+                id: item.picture_id,
+                url: item.picture_url,
+            });
+        }
+
         return new UserDOM({
             id: item.id,
             firstName: item.first_name,
@@ -56,6 +67,7 @@ export class UsersWrappers implements TWrappers<TUserDOM, TUserDAL> {
             password: item.password,
             phone: item.phone,
             address: item.address,
+            picture,
             role,
             status,
             pointSale,
@@ -71,6 +83,8 @@ export class UsersWrappers implements TWrappers<TUserDOM, TUserDAL> {
             last_name: item.lastName,
             document_id: item.documentId,
             email: item.email,
+            picture_id: item.picture ? item.picture.id : null,
+            picture_url: item.picture ? item.picture.url : null,
             password: item.password,
             phone: item.phone,
             point_sale_id: item.pointSale?.id || '',

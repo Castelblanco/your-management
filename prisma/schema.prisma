@@ -102,6 +102,8 @@ model Users {
   phone         String          @unique
   password      String
   address       String
+  picture_url   String?
+  picture_id    String?
   created_at    DateTime
   updated_at    DateTime
   status_id     String

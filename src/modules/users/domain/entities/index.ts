@@ -9,9 +9,15 @@ export type TUserDOM = {
     address: string;
     createdAt: Date;
     updatedAt: Date;
+    picture?: TUserPictureDOM;
     status?: TUserStatusDOM;
     role?: TUserRoleDOM;
     pointSale?: TUserPointSaleDOM;
+};
+
+export type TUserPictureDOM = {
+    id: string;
+    url: string;
 };
 
 export type TUserStatusDOM = {
@@ -67,6 +73,7 @@ export type TUserLoginDOM = {
     address: string;
     createdAt: Date;
     updatedAt: Date;
+    picture?: TUserPictureDOM;
     status?: TUserStatusDOM;
     role?: TUserRoleDOM;
     token: string;
@@ -79,6 +86,7 @@ export class UserDOM implements TUserDOM {
     lastName: string;
     documentId: string;
     email: string;
+    picture?: TUserPictureDOM;
     password: string;
     phone: string;
     address: string;
@@ -95,6 +103,7 @@ export class UserDOM implements TUserDOM {
         this.documentId = user.documentId;
         this.password = user.password;
         this.email = user.email;
+        this.picture = user.picture;
         this.phone = user.phone;
         this.address = user.address;
         this.createdAt = user.createdAt;
@@ -102,6 +111,16 @@ export class UserDOM implements TUserDOM {
         this.status = user.status;
         this.role = user.role;
         this.pointSale = user.pointSale;
+    }
+}
+
+export class UserPictureDOM implements TUserPictureDOM {
+    id: string;
+    url: string;
+
+    constructor(picture: TUserPictureDOM) {
+        this.id = picture.id;
+        this.url = picture.url;
     }
 }
 
@@ -135,6 +154,7 @@ export class UserLoginDOM implements TUserLoginDOM {
     lastName: string;
     documentId: string;
     email: string;
+    picture?: TUserPictureDOM;
     phone: string;
     address: string;
     createdAt: Date;
@@ -150,6 +170,7 @@ export class UserLoginDOM implements TUserLoginDOM {
         this.lastName = login.lastName;
         this.documentId = login.documentId;
         this.email = login.email;
+        this.picture = login.picture;
         this.phone = login.phone;
         this.address = login.address;
         this.role = login.role;

@@ -61,6 +61,7 @@ node_modules/
 jspm_packages/
 .vscode
 prisma/migrations
+public/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 

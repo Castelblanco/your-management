@@ -4,8 +4,19 @@ meta {
   seq: 1
 }
 
-get {
+post {
   url: {{HOST}}/v1/users/create-one
-  body: json
+  body: multipartForm
   auth: none
+}
+
+body:form-urlencoded {
+  : 
+}
+
+body:multipart-form {
+  first_name: castel
+  file: @file(/Users/trespimedios/Downloads/fondo_pantalla.jpg)
+  file: @file(/Users/trespimedios/Downloads/fondo_pantalla.jpg)
+  password: 1234
 }

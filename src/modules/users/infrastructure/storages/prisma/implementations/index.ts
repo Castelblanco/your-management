@@ -114,8 +114,9 @@ export class UsersPrismaRepository implements TUsersRepository {
 
     findById = async (
         id: string,
-        pointSale?: boolean | undefined,
+        pointSale?: boolean,
         role?: boolean,
+        status?: boolean,
     ): Promise<TUserDOM> => {
         try {
             const user = await this.db.findFirst({
@@ -125,6 +126,7 @@ export class UsersPrismaRepository implements TUsersRepository {
                 include: {
                     point_sale: pointSale,
                     role,
+                    status,
                 },
             });
 

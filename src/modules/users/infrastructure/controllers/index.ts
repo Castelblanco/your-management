@@ -1,7 +1,16 @@
 import type { TMappers } from '@common/mappers_wrappers/mappers';
 import type { UsersServices } from '@users/app/services';
-import type { TUserAPI, TUserLoginAPI } from '@users/domain/dto';
-import type { TUserDOM, TUserLoginDOM } from '@users/domain/entities';
+import {
+    UserPictureAPI,
+    type TUserAPI,
+    type TUserLoginAPI,
+    type TUserPictureAPI,
+} from '@users/domain/dto';
+import {
+    UserPictureDOM,
+    type TUserDOM,
+    type TUserLoginDOM,
+} from '@users/domain/entities';
 import type { Context } from 'elysia';
 
 import { HttpSuccessCode } from '@common/enums/success_enum';
@@ -96,10 +105,11 @@ export class UsersControllers {
 
     createOne = async ({ body, set }: TContext): Promise<ApiReponse<TUserAPI>> => {
         try {
+            console.log({ body });
+
             const newUser = await this.services.createOne(
                 this.mappers.apiToDom(body as TUserAPI),
             );
-
             set.status = HttpSuccessCode.CREATED;
             return new ApiReponse(
                 this.mappers.domToApi(newUser, { password: false }),
@@ -125,6 +135,8 @@ export class UsersControllers {
 
     updateOne = async ({ body, params }: TContext): Promise<ApiReponse<TUserAPI>> => {
         try {
+            console.log({ body });
+
             const user = body as TUserAPI;
             if (!user._id) user._id = params.id;
 
@@ -134,6 +146,32 @@ export class UsersControllers {
 
             return new ApiReponse(
                 this.mappers.domToApi(updatetUser, { password: false }),
+                HttpSuccessCode.SUCCESSFUL,
+            );
+        } catch (e) {
+            throw e;
+        }
+    };
+
+    updateOnePicture = async ({
+        body,
+        params,
+    }: TContext): Promise<ApiReponse<TUserPictureAPI>> => {
+        try {
+            const picture = body as TUserPictureAPI;
+            const updatePicture = await this.services.updateOnePicture(
+                params.id,
+                new UserPictureDOM({
+                    id: picture._id,
+                    url: picture.url,
+                }),
+            );
+
+            return new ApiReponse(
+                new UserPictureAPI({
+                    _id: updatePicture.id,
+                    url: updatePicture.url,
+                }),
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {

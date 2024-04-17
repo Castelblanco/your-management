@@ -6,6 +6,11 @@ export type TUserDAL = Users & {
     point_sale?: TUserPointSaleDAL;
 };
 
+export type TUserPictureDAL = {
+    _id: string;
+    url: string;
+};
+
 export type TUserRoleDAL = Users_Roles;
 export type TUserStatusDAL = Users_Status;
 
@@ -27,6 +32,8 @@ export class UserDAL implements TUserDAL {
     last_name: string;
     document_id: string;
     email: string;
+    picture_url: string | null;
+    picture_id: string | null;
     password: string;
     phone: string;
     address: string;
@@ -45,6 +52,8 @@ export class UserDAL implements TUserDAL {
         this.last_name = user.last_name;
         this.document_id = user.document_id;
         this.email = user.email;
+        this.picture_url = user.picture_url;
+        this.picture_id = user.picture_id;
         this.password = user.password;
         this.phone = user.phone;
         this.address = user.address;
