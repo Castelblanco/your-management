@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@elysiajs/cors": "0.8.0",
+    "@otherguy/elysia-logging": "0.0.17",
     "@prisma/client": "5.9.1",
     "cloudinary": "2.1.0",
     "elysia": "0.8.15",

@@ -1,9 +1,9 @@
 import Elysia from 'elysia';
 import { cors } from '@elysiajs/cors';
 import { handleError } from './handle_error';
+import { ElysiaLogging } from '@otherguy/elysia-logging';
 
 const PORT = Bun.env.PORT ?? 5000;
-
 const app = new Elysia();
 
 const routers = async (): Promise<void> => {
@@ -17,6 +17,7 @@ const middleware = (): void => {
             methods: '*',
         }),
     );
+    app.use(ElysiaLogging());
 };
 
 const initHandleError = (): void => {
