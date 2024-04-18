@@ -23,7 +23,7 @@ export const buildLogin = ({ repository, singToken, encryptPassword }: Dependenc
         const checkPassword = encryptPassword.verify(user.password, userFind.password);
 
         if (!checkPassword) throw new ErrorAuth('password incorrect');
-        const token = singToken({ ...userFind }, '1h');
+        const token = singToken({ userFind }, '1h');
 
         return new UserLoginDOM({
             ...userFind,
