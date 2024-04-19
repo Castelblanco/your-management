@@ -15,7 +15,6 @@ import {
     type TGuideServiceLegalClientAPI,
     type TGuideServiceNaturalClientAPI,
     GuideServiceLegalClientAPI,
-    type TGuideServiceClientTypeAPI,
     GuideServiceNaturalClientAPI,
 } from '@guides_service/domain/dto';
 import {
@@ -33,7 +32,6 @@ import {
     type TGuideServiceLegalClientDOM,
     type TGuideServiceNaturalClientDOM,
     GuideServiceLegalClientDOM,
-    type TGuideServiceClientTypeDOM,
     GuideServiceNaturalClientDOM,
 } from '@guides_service/domain/entities';
 
@@ -228,11 +226,6 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
     clientApiToDom = (
         client: TGuideServiceLegalClientAPI | TGuideServiceNaturalClientAPI,
     ): TGuideServiceLegalClientDOM | TGuideServiceNaturalClientDOM => {
-        const type: TGuideServiceClientTypeDOM = {
-            id: client.type._id,
-            name: client.type.name,
-        };
-
         if (client instanceof GuideServiceLegalClientAPI) {
             return new GuideServiceLegalClientDOM({
                 id: client._id,
@@ -240,7 +233,6 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
                 address: client.address,
                 nit: client.nit,
                 businessName: client.business_name,
-                type,
             });
         }
 
@@ -253,18 +245,12 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
             documentId: defaultClient.document_id,
             firstName: defaultClient.first_name,
             lastName: defaultClient.last_name,
-            type,
         });
     };
 
     clientDomToApi = (
         client: TGuideServiceLegalClientDOM | TGuideServiceNaturalClientDOM,
     ): TGuideServiceLegalClientAPI | TGuideServiceNaturalClientAPI => {
-        const type: TGuideServiceClientTypeAPI = {
-            _id: client.type.id,
-            name: client.type.name,
-        };
-
         if (client instanceof GuideServiceLegalClientDOM) {
             return new GuideServiceLegalClientAPI({
                 _id: client.id,
@@ -272,7 +258,6 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
                 address: client.address,
                 nit: client.nit,
                 business_name: client.businessName,
-                type,
             });
         }
 
@@ -285,7 +270,6 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
             document_id: defaultClient.documentId,
             first_name: defaultClient.firstName,
             last_name: defaultClient.lastName,
-            type,
         });
     };
 }

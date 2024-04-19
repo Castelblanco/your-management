@@ -1,6 +1,6 @@
 import { HttpErrorCode } from '../../enums/errors_enum';
 import { BaseError } from './base_error';
-class ApiError {
+export class ApiError {
     code: number;
     message: string;
     metadata: unknown;
@@ -23,5 +23,3 @@ class ApiError {
         this.message = 'Unknow error';
     }
 }
-
-export { ApiError };

@@ -70,7 +70,6 @@ export type TGuideServiceLegalClientAPI = {
     address: string;
     nit: string;
     business_name: string;
-    type: TGuideServiceClientTypeAPI;
 };
 
 export type TGuideServiceNaturalClientAPI = {
@@ -80,12 +79,6 @@ export type TGuideServiceNaturalClientAPI = {
     document_id: string;
     first_name: string;
     last_name: string;
-    type: TGuideServiceClientTypeAPI;
-};
-
-export type TGuideServiceClientTypeAPI = {
-    _id: string;
-    name: string;
 };
 
 export class GuideServiceAPI implements TGuideServiceAPI {
@@ -172,7 +165,6 @@ export class GuideServiceLegalClientAPI implements TGuideServiceLegalClientAPI {
     address: string;
     nit: string;
     business_name: string;
-    type: TGuideServiceClientTypeAPI;
 
     constructor(client: TGuideServiceLegalClientAPI) {
         this._id = client._id;
@@ -180,7 +172,6 @@ export class GuideServiceLegalClientAPI implements TGuideServiceLegalClientAPI {
         this.address = client.address;
         this.nit = client.nit;
         this.business_name = client.business_name;
-        this.type = client.type;
     }
 }
 
@@ -191,7 +182,6 @@ export class GuideServiceNaturalClientAPI implements TGuideServiceNaturalClientA
     document_id: string;
     first_name: string;
     last_name: string;
-    type: TGuideServiceClientTypeAPI;
 
     constructor(client: TGuideServiceNaturalClientAPI) {
         this._id = client._id;
@@ -200,6 +190,5 @@ export class GuideServiceNaturalClientAPI implements TGuideServiceNaturalClientA
         this.document_id = client.document_id;
         this.first_name = client.first_name;
         this.last_name = client.last_name;
-        this.type = client.type;
     }
 }

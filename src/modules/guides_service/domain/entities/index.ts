@@ -92,7 +92,6 @@ export type TGuideServiceLegalClientDOM = {
     address: string;
     nit: string;
     businessName: string;
-    type: TGuideServiceClientTypeDOM;
 };
 
 export type TGuideServiceNaturalClientDOM = {
@@ -102,12 +101,6 @@ export type TGuideServiceNaturalClientDOM = {
     documentId: string;
     firstName: string;
     lastName: string;
-    type: TGuideServiceClientTypeDOM;
-};
-
-export type TGuideServiceClientTypeDOM = {
-    id: string;
-    name: string;
 };
 
 // Implementations
@@ -195,7 +188,6 @@ export class GuideServiceLegalClientDOM implements TGuideServiceLegalClientDOM {
     address: string;
     nit: string;
     businessName: string;
-    type: TGuideServiceClientTypeDOM;
 
     constructor(client: TGuideServiceLegalClientDOM) {
         this.id = client.id;
@@ -203,7 +195,6 @@ export class GuideServiceLegalClientDOM implements TGuideServiceLegalClientDOM {
         this.address = client.address;
         this.nit = client.nit;
         this.businessName = client.businessName;
-        this.type = client.type;
     }
 }
 
@@ -214,7 +205,6 @@ export class GuideServiceNaturalClientDOM implements TGuideServiceNaturalClientD
     documentId: string;
     firstName: string;
     lastName: string;
-    type: TGuideServiceClientTypeDOM;
 
     constructor(client: TGuideServiceNaturalClientDOM) {
         this.id = client.id;
@@ -223,6 +213,5 @@ export class GuideServiceNaturalClientDOM implements TGuideServiceNaturalClientD
         this.documentId = client.documentId;
         this.firstName = client.firstName;
         this.lastName = client.lastName;
-        this.type = client.type;
     }
 }

@@ -1,6 +1,5 @@
 import {
     type Prisma,
-    type Client_Type,
     type Guide_Service,
     type Guide_Service_Novelty,
     type Guide_Service_Status,
@@ -64,7 +63,6 @@ export type TGuideServiceLegalClientDAL = {
     address: string;
     nit: string;
     business_name: string;
-    type: TGuideServiceClientTypeDAL;
 };
 
 export type TGuideServiceNaturalClientDAL = {
@@ -74,10 +72,7 @@ export type TGuideServiceNaturalClientDAL = {
     document_id: string;
     first_name: string;
     last_name: string;
-    type: TGuideServiceClientTypeDAL;
 };
-
-export type TGuideServiceClientTypeDAL = Client_Type;
 
 export class GuideServiceDAL implements TGuideServiceDAL {
     id: string;
@@ -189,7 +184,6 @@ export class GuideServiceLegalClientDAL implements TGuideServiceLegalClientDAL {
     address: string;
     nit: string;
     business_name: string;
-    type: TGuideServiceClientTypeDAL;
 
     constructor(client: TGuideServiceLegalClientDAL) {
         this.id = client.id;
@@ -197,7 +191,6 @@ export class GuideServiceLegalClientDAL implements TGuideServiceLegalClientDAL {
         this.address = client.address;
         this.nit = client.nit;
         this.business_name = client.business_name;
-        this.type = client.type;
     }
 }
 
@@ -208,7 +201,6 @@ export class GuideServiceNaturalClientDAL implements TGuideServiceNaturalClientD
     document_id: string;
     first_name: string;
     last_name: string;
-    type: TGuideServiceClientTypeDAL;
 
     constructor(client: TGuideServiceNaturalClientDAL) {
         this.id = client.id;
@@ -217,6 +209,5 @@ export class GuideServiceNaturalClientDAL implements TGuideServiceNaturalClientD
         this.document_id = client.document_id;
         this.first_name = client.first_name;
         this.last_name = client.last_name;
-        this.type = client.type;
     }
 }

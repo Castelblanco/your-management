@@ -41,25 +41,21 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
                     client_legal_destination: (options.clientDestination as true) && {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_legal_origin: (options.clientOrigin as true) && {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_natural_destination: (options.clientDestination as true) && {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_natural_origin: (options.clientOrigin as true) && {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     novelty: options.novelty,
@@ -98,25 +94,21 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
                     client_legal_destination: (relations.clientDestination as true) && {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_legal_origin: (relations.clientOrigin as true) && {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_natural_destination: (relations.clientDestination as true) && {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_natural_origin: (relations.clientOrigin as true) && {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     novelty: relations.novelty,
@@ -162,25 +154,21 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
                     client_legal_destination: {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_legal_origin: {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_natural_destination: {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_natural_origin: {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                 },
@@ -244,25 +232,21 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
                     client_legal_destination: {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_legal_origin: {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_natural_destination: {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                     client_natural_origin: {
                         include: {
                             status: true,
-                            type: true,
                         },
                     },
                 },

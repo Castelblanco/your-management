@@ -184,7 +184,6 @@ export class GuideServiceWrappers
                 address: legalClient.address,
                 nit: legalClient.nit,
                 businessName: legalClient.business_name,
-                type: legalClient.type,
             });
         }
 
@@ -196,7 +195,6 @@ export class GuideServiceWrappers
                 documentId: naturalClient.document_id,
                 firstName: naturalClient.first_name,
                 lastName: naturalClient.last_name,
-                type: naturalClient.type,
             });
         }
     };
