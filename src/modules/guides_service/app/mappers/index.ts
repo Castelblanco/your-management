@@ -73,8 +73,7 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
 
         return new GuideServiceDOM({
             id: item._id,
-            units: item.units,
-            weight: item.weight,
+            commodity: item.commodity,
             price: item.price,
             collection: item.collection,
             createdAt: item.created_at,
@@ -126,8 +125,7 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
 
         return new GuideServiceAPI({
             _id: item.id,
-            units: item.units,
-            weight: item.weight,
+            commodity: item.commodity,
             price: item.price,
             collection: item.collection,
             created_at: item.createdAt,

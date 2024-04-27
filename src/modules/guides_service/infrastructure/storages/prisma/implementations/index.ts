@@ -71,7 +71,6 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
                     },
                 },
             });
-
             return guides.map(this.wrappers.dalToDom);
         } catch (e) {
             if (e instanceof PrismaRequestError)
@@ -139,6 +138,7 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
             const newGuide = await this.db.create({
                 data: {
                     ...this.wrappers.domToDal(guide),
+                    commodity: guide.commodity,
                     status: undefined,
                     novelty: undefined,
                     service: undefined,
@@ -188,6 +188,7 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
             const { count } = await this.db.createMany({
                 data: guides.map((guide) => ({
                     ...this.wrappers.domToDal(guide),
+                    commodity: guide.commodity,
                     status: undefined,
                     novelty: undefined,
                     service: undefined,
@@ -216,6 +217,7 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
                 where: { id: guide.id },
                 data: {
                     ...this.wrappers.domToDal(guide),
+                    commodity: guide.commodity,
                     status: undefined,
                     novelty: undefined,
                     collection: undefined,

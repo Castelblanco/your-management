@@ -7,6 +7,7 @@ import {
     type Users_Roles,
     type Users_Status,
 } from '@prisma/client';
+import { type JsonValue } from '@prisma/client/runtime/library';
 
 export type TGuideServiceDAL = Guide_Service & {
     status?: TGuideServiceStatusDAL;
@@ -76,8 +77,7 @@ export type TGuideServiceNaturalClientDAL = {
 
 export class GuideServiceDAL implements TGuideServiceDAL {
     id: string;
-    units: number;
-    weight: number;
+    commodity: JsonValue[];
     price: number;
     collection: boolean;
     created_at: Date;
@@ -105,8 +105,7 @@ export class GuideServiceDAL implements TGuideServiceDAL {
 
     constructor(guide: TGuideServiceDAL) {
         this.id = guide.id;
-        this.units = guide.units;
-        this.weight = guide.weight;
+        this.commodity = guide.commodity;
         this.price = guide.price;
         this.created_at = guide.created_at;
         this.updated_at = guide.updated_at;

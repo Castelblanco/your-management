@@ -1,7 +1,6 @@
 export type TGuideServiceAPI = {
     _id: string;
-    units: number;
-    weight: number;
+    commodity: TGuideServiceCommodityAPI[];
     price: number;
     collection: boolean;
     created_at: Date;
@@ -14,6 +13,11 @@ export type TGuideServiceAPI = {
     point_sale_destination?: TGuideServicePointSaleAPI;
     client_origin?: TGuideServiceLegalClientAPI | TGuideServiceNaturalClientAPI;
     client_destination?: TGuideServiceLegalClientAPI | TGuideServiceNaturalClientAPI;
+};
+
+export type TGuideServiceCommodityAPI = {
+    units: number;
+    weight: number;
 };
 
 export type TGuideServicePointSaleAPI = {
@@ -83,8 +87,7 @@ export type TGuideServiceNaturalClientAPI = {
 
 export class GuideServiceAPI implements TGuideServiceAPI {
     _id: string;
-    units: number;
-    weight: number;
+    commodity: TGuideServiceCommodityAPI[];
     price: number;
     collection: boolean;
     created_at: Date;
@@ -100,8 +103,7 @@ export class GuideServiceAPI implements TGuideServiceAPI {
 
     constructor(guide: TGuideServiceAPI) {
         this._id = guide._id;
-        this.units = guide.units;
-        this.weight = guide.weight;
+        this.commodity = guide.commodity;
         this.price = guide.price;
         this.created_at = guide.created_at;
         this.updated_at = guide.updated_at;

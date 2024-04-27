@@ -1,7 +1,6 @@
 export type TGuideServiceDOM = {
     id: string;
-    units: number;
-    weight: number;
+    commodity: TGuideServiceCommodityDOM[];
     price: number;
     collection: boolean;
     createdAt: Date;
@@ -14,6 +13,11 @@ export type TGuideServiceDOM = {
     pointSaleDestination?: TGuideServicePointSaleDOM;
     clientOrigin?: TGuideServiceLegalClientDOM | TGuideServiceNaturalClientDOM;
     clientDestination?: TGuideServiceLegalClientDOM | TGuideServiceNaturalClientDOM;
+};
+
+export type TGuideServiceCommodityDOM = {
+    units: number;
+    weight: number;
 };
 
 export type TGuideServicePointSaleDOM = {
@@ -106,8 +110,7 @@ export type TGuideServiceNaturalClientDOM = {
 // Implementations
 export class GuideServiceDOM implements TGuideServiceDOM {
     id: string;
-    units: number;
-    weight: number;
+    commodity: TGuideServiceCommodityDOM[];
     price: number;
     collection: boolean;
     createdAt: Date;
@@ -123,8 +126,7 @@ export class GuideServiceDOM implements TGuideServiceDOM {
 
     constructor(guide: TGuideServiceDOM) {
         this.id = guide.id;
-        this.units = guide.units;
-        this.weight = guide.weight;
+        this.commodity = guide.commodity;
         this.price = guide.price;
         this.createdAt = guide.createdAt;
         this.updatedAt = guide.updatedAt;

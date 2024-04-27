@@ -25,6 +25,7 @@ import {
     type TGuideServiceUserRoleDOM,
     type TGuideServiceUserStatusDOM,
     type TGuideServiceNaturalClientDOM,
+    type TGuideServiceCommodityDOM,
 } from '@guides_service/domain/entities';
 
 export class GuideServiceWrappers
@@ -35,8 +36,7 @@ export class GuideServiceWrappers
 
         return new GuideServiceDOM({
             id: item.id,
-            units: item.units,
-            weight: item.weight,
+            commodity: item.commodity as TGuideServiceCommodityDOM[],
             price: item.price,
             createdAt: item.created_at,
             updatedAt: item.updated_at,
@@ -78,8 +78,7 @@ export class GuideServiceWrappers
 
         return new GuideServiceDAL({
             id: item.id,
-            units: item.units,
-            weight: item.weight,
+            commodity: item.commodity,
             price: item.price,
             created_at: item.createdAt,
             updated_at: item.updatedAt,

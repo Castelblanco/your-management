@@ -13,8 +13,7 @@ datasource db {
 
 model Guide_Service {
   id                            String                @id @unique
-  units                         Int
-  weight                        Float
+  commodity                     Json[]
   price                         Float
   created_at                    DateTime
   updated_at                    DateTime
