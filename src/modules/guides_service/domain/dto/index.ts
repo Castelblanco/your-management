@@ -24,6 +24,9 @@ export type TGuideServicePointSaleAPI = {
     _id: string;
     name: string;
     address: string;
+    department: string;
+    municipality: string;
+    neighborhood: string;
     latitude: number;
     longitude: number;
     budget: number;
@@ -124,6 +127,9 @@ export class GuideServicePointSaleAPI implements TGuideServicePointSaleAPI {
     _id: string;
     name: string;
     address: string;
+    department: string;
+    municipality: string;
+    neighborhood: string;
     latitude: number;
     longitude: number;
     budget: number;
@@ -132,6 +138,9 @@ export class GuideServicePointSaleAPI implements TGuideServicePointSaleAPI {
         this._id = pointSale._id;
         this.name = pointSale.name;
         this.address = pointSale.address;
+        this.department = pointSale.department;
+        this.municipality = pointSale.municipality;
+        this.neighborhood = pointSale.neighborhood;
         this.latitude = pointSale.latitude;
         this.longitude = pointSale.longitude;
         this.budget = pointSale.budget;

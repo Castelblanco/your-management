@@ -109,27 +109,13 @@ export class GuideServiceWrappers
     pointSaleDomToDal = (
         pointSale: TGuideServicePointSaleDOM,
     ): TGuideServicePointSaleDAL => {
-        return new GuideServicePointSaleDAL({
-            id: pointSale.id,
-            name: pointSale.name,
-            address: pointSale.address,
-            latitude: pointSale.latitude,
-            longitude: pointSale.longitude,
-            budget: pointSale.budget,
-        });
+        return new GuideServicePointSaleDAL(pointSale);
     };
 
     pointSaleDalToDom = (
         pointSale: TGuideServicePointSaleDAL,
     ): TGuideServicePointSaleDOM => {
-        return new GuideServicePointSaleDOM({
-            id: pointSale.id,
-            name: pointSale.name,
-            address: pointSale.address,
-            latitude: pointSale.latitude,
-            longitude: pointSale.longitude,
-            budget: pointSale.budget,
-        });
+        return new GuideServicePointSaleDOM(pointSale);
     };
 
     userDomToDal = (user?: TGuideServiceUserDOM): TGuideServiceUserDAL | undefined => {

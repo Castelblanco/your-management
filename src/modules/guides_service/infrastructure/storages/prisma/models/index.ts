@@ -34,6 +34,9 @@ export type TGuideServicePointSaleDAL = {
     id: string;
     name: string;
     address: string;
+    department: string;
+    municipality: string;
+    neighborhood: string;
     latitude: number;
     longitude: number;
     budget: number;
@@ -135,6 +138,9 @@ export class GuideServicePointSaleDAL implements TGuideServicePointSaleDAL {
     id: string;
     name: string;
     address: string;
+    department: string;
+    municipality: string;
+    neighborhood: string;
     latitude: number;
     longitude: number;
     budget: number;
@@ -143,6 +149,9 @@ export class GuideServicePointSaleDAL implements TGuideServicePointSaleDAL {
         this.id = pointSale.id;
         this.name = pointSale.name;
         this.address = pointSale.address;
+        this.department = pointSale.department;
+        this.municipality = pointSale.municipality;
+        this.neighborhood = pointSale.neighborhood;
         this.latitude = pointSale.latitude;
         this.longitude = pointSale.longitude;
         this.budget = pointSale.budget;
