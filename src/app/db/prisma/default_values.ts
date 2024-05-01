@@ -128,6 +128,10 @@ export const createDefaultGuideServicesAndNovelty = async () => {
                 data: [
                     {
                         id: crypto.randomUUID(),
+                        name: 'N/A',
+                    },
+                    {
+                        id: crypto.randomUUID(),
                         name: 'Direccion no existe',
                     },
                     {
