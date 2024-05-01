@@ -4,7 +4,11 @@ import { ApiReponse } from '@common/response/success/api_responses';
 import { ListResponse } from '@common/response/success/list_responses';
 import { GuideServiceMappers } from '@guides_service/app/mappers';
 import { type GuideServiceServices } from '@guides_service/app/services';
-import { type TGuideServiceAPI } from '@guides_service/domain/dto';
+import type {
+    TGuideServiceNoveltyAPI,
+    TGuideServiceTypeServiceAPI,
+    TGuideServiceAPI,
+} from '@guides_service/domain/dto';
 import { type TGuideServiceDOM } from '@guides_service/domain/entities';
 import { type Context } from 'elysia';
 
@@ -68,6 +72,39 @@ export class GuideServiceControllers {
 
             return new ApiReponse(
                 this.mappers.domToApi(guide),
+                HttpSuccessCode.SUCCESSFUL,
+            );
+        } catch (e) {
+            throw e;
+        }
+    };
+
+    findNovelties = async (): Promise<ListResponse<TGuideServiceNoveltyAPI>> => {
+        try {
+            const novelties = await this.service.findNovelties();
+
+            return new ListResponse(
+                novelties.map((nov) => ({
+                    _id: nov.id,
+                    name: nov.name,
+                })),
+                HttpSuccessCode.SUCCESSFUL,
+            );
+        } catch (e) {
+            throw e;
+        }
+    };
+
+    findServicesType = async (): Promise<ListResponse<TGuideServiceTypeServiceAPI>> => {
+        try {
+            const types = await this.service.findServicesType();
+
+            return new ListResponse(
+                types.map((type) => ({
+                    _id: type.id,
+                    name: type.name,
+                    tab: type.tab,
+                })),
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {

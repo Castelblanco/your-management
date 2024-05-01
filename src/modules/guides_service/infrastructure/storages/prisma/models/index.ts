@@ -48,8 +48,6 @@ export type TGuideServiceUserDAL = {
     email: string;
     phone: string;
     address: string;
-    // status_id: string;
-    // role_id: string;
     status: TGuideServiceUserStatusDAL;
     role: TGuideServiceUserRoleDAL;
 };

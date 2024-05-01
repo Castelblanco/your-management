@@ -42,6 +42,7 @@ export type TGuideServiceNoveltyDOM = {
 export type TGuideServiceTypeServiceDOM = {
     id: string;
     name: string;
+    tab: string;
 };
 
 export type TGuideServiceFilterDOM = {

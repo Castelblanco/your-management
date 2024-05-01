@@ -68,6 +68,7 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
             service = {
                 id: item.service._id,
                 name: item.service.name,
+                tab: item.service.tab,
             };
         }
 
@@ -120,6 +121,7 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
             service = {
                 _id: item.service.id,
                 name: item.service.name,
+                tab: item.service.tab,
             };
         }
 

@@ -26,6 +26,8 @@ guideServiceRouter.group('/guides_service', (app) => {
         },
     );
     app.get('get-one/:id', controller.findOne);
+    app.get('get-novelties', controller.findNovelties);
+    app.get('get-services-type', controller.findServicesType);
     app.post('create-one', controller.createOne);
     app.post('create-many', controller.createMany);
     app.put('update-one/:id', controller.updateOne);

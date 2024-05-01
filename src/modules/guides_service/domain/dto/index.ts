@@ -42,6 +42,7 @@ export type TGuideServiceNoveltyAPI = {
 export type TGuideServiceTypeServiceAPI = {
     _id: string;
     name: string;
+    tab: string;
 };
 
 // User in Guide

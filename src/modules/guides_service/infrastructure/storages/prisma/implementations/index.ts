@@ -1,10 +1,12 @@
 import { type TWrappers } from '@common/mappers_wrappers/wrappers';
 import { PrismaError, PrismaRequestError, prisma } from '@db/prisma';
-import {
-    type TGuideServiceFilterDOM,
-    type TGuideServiceDOM,
-    type TGuideServiceRelations,
-    type TGuideServiceOPT,
+import type {
+    TGuideServiceFilterDOM,
+    TGuideServiceDOM,
+    TGuideServiceRelations,
+    TGuideServiceOPT,
+    TGuideServiceNoveltyDOM,
+    TGuideServiceTypeServiceDOM,
 } from '@guides_service/domain/entities';
 import { type TGuideServiceRepository } from '@guides_service/domain/repository';
 import { type TGuideServiceFilterDAL, type TGuideServiceDAL } from '../models';
@@ -125,6 +127,28 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
             });
 
             return this.wrappers.dalToDom(guide);
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
+
+            throw new StorageError(e);
+        }
+    };
+
+    findNovelties = async (): Promise<TGuideServiceNoveltyDOM[]> => {
+        try {
+            return await prisma.guide_Service_Novelty.findMany();
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
+
+            throw new StorageError(e);
+        }
+    };
+
+    findServicesType = async (): Promise<TGuideServiceTypeServiceDOM[]> => {
+        try {
+            return await prisma.guide_Service_Type.findMany();
         } catch (e) {
             if (e instanceof PrismaRequestError)
                 throw new StorageError(new PrismaError(e));

@@ -1,8 +1,10 @@
-import {
-    type TGuideServiceRelations,
-    type TGuideServiceDOM,
-    type TGuideServiceFilterDOM,
-    type TGuideServiceOPT,
+import type {
+    TGuideServiceRelations,
+    TGuideServiceDOM,
+    TGuideServiceFilterDOM,
+    TGuideServiceOPT,
+    TGuideServiceNoveltyDOM,
+    TGuideServiceTypeServiceDOM,
 } from '../entities';
 
 export type TGuideServiceRepository = {
@@ -11,6 +13,8 @@ export type TGuideServiceRepository = {
         options: TGuideServiceOPT,
     ) => Promise<TGuideServiceDOM[]>;
     findOne: (id: string, relations: TGuideServiceRelations) => Promise<TGuideServiceDOM>;
+    findNovelties: () => Promise<TGuideServiceNoveltyDOM[]>;
+    findServicesType: () => Promise<TGuideServiceTypeServiceDOM[]>;
     createOne: (guide: TGuideServiceDOM) => Promise<TGuideServiceDOM>;
     createMany: (guides: TGuideServiceDOM[]) => Promise<number>;
     updateOne: (guide: TGuideServiceDOM) => Promise<TGuideServiceDOM>;
