@@ -56,6 +56,10 @@ export const createDefaultAllStatus = async () => {
                         id: crypto.randomUUID(),
                         name: 'Inactivo',
                     },
+                    {
+                        id: crypto.randomUUID(),
+                        name: 'Anulada',
+                    },
                 ],
                 skipDuplicates: true,
             });
