@@ -49,6 +49,7 @@ model Guide_Service_Novelty {
 model Guide_Service_Type {
   id            String         @id @unique
   name          String         @unique
+  tab           String
   guide_service Guide_Service?
 }
 
