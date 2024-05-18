@@ -74,6 +74,7 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
 
         return new GuideServiceDOM({
             id: item._id,
+            number: item.number,
             commodity: item.commodity,
             price: item.price,
             collection: item.collection,
@@ -127,6 +128,7 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
 
         return new GuideServiceAPI({
             _id: item.id,
+            number: item.number,
             commodity: item.commodity,
             price: item.price,
             collection: item.collection,

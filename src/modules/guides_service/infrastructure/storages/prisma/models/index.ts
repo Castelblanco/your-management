@@ -78,6 +78,7 @@ export type TGuideServiceNaturalClientDAL = {
 
 export class GuideServiceDAL implements TGuideServiceDAL {
     id: string;
+    number: bigint;
     commodity: JsonValue[];
     price: number;
     collection: boolean;
@@ -106,6 +107,7 @@ export class GuideServiceDAL implements TGuideServiceDAL {
 
     constructor(guide: TGuideServiceDAL) {
         this.id = guide.id;
+        this.number = guide.number;
         this.commodity = guide.commodity;
         this.price = guide.price;
         this.created_at = guide.created_at;

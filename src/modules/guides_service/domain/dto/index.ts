@@ -1,5 +1,6 @@
 export type TGuideServiceAPI = {
     _id: string;
+    number: bigint;
     commodity: TGuideServiceCommodityAPI[];
     price: number;
     collection: boolean;
@@ -91,6 +92,7 @@ export type TGuideServiceNaturalClientAPI = {
 
 export class GuideServiceAPI implements TGuideServiceAPI {
     _id: string;
+    number: bigint;
     commodity: TGuideServiceCommodityAPI[];
     price: number;
     collection: boolean;
@@ -107,6 +109,7 @@ export class GuideServiceAPI implements TGuideServiceAPI {
 
     constructor(guide: TGuideServiceAPI) {
         this._id = guide._id;
+        this.number = guide.number;
         this.commodity = guide.commodity;
         this.price = guide.price;
         this.created_at = guide.created_at;

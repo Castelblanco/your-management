@@ -13,6 +13,7 @@ datasource db {
 
 model Guide_Service {
   id                            String                @id @unique
+  number                        BigInt                @unique @default(autoincrement())
   commodity                     Json[]
   price                         Float
   created_at                    DateTime
