@@ -79,13 +79,7 @@ export type TGuideServiceUserDOM = {
     email: string;
     phone: string;
     address: string;
-    status: TGuideServiceUserStatusDOM;
     role: TGuideServiceUserRoleDOM;
-};
-
-export type TGuideServiceUserStatusDOM = {
-    id: string;
-    name: string;
 };
 
 export type TGuideServiceUserRoleDOM = {
@@ -101,6 +95,7 @@ export type TGuideServiceLegalClientDOM = {
     address: string;
     nit: string;
     businessName: string;
+    natural: false;
 };
 
 export type TGuideServiceNaturalClientDOM = {
@@ -110,6 +105,7 @@ export type TGuideServiceNaturalClientDOM = {
     documentId: string;
     firstName: string;
     lastName: string;
+    natural: true;
 };
 
 // Implementations
@@ -181,7 +177,6 @@ export class GuideServiceUserDOM implements TGuideServiceUserDOM {
     email: string;
     phone: string;
     address: string;
-    status: TGuideServiceUserStatusDOM;
     role: TGuideServiceUserRoleDOM;
 
     constructor(user: TGuideServiceUserDOM) {
@@ -192,7 +187,6 @@ export class GuideServiceUserDOM implements TGuideServiceUserDOM {
         this.email = user.email;
         this.phone = user.phone;
         this.address = user.address;
-        this.status = user.status;
         this.role = user.role;
     }
 }
@@ -203,6 +197,7 @@ export class GuideServiceLegalClientDOM implements TGuideServiceLegalClientDOM {
     address: string;
     nit: string;
     businessName: string;
+    natural: false;
 
     constructor(client: TGuideServiceLegalClientDOM) {
         this.id = client.id;
@@ -210,6 +205,7 @@ export class GuideServiceLegalClientDOM implements TGuideServiceLegalClientDOM {
         this.address = client.address;
         this.nit = client.nit;
         this.businessName = client.businessName;
+        this.natural = false;
     }
 }
 
@@ -220,6 +216,7 @@ export class GuideServiceNaturalClientDOM implements TGuideServiceNaturalClientD
     documentId: string;
     firstName: string;
     lastName: string;
+    natural: true;
 
     constructor(client: TGuideServiceNaturalClientDOM) {
         this.id = client.id;
@@ -228,5 +225,6 @@ export class GuideServiceNaturalClientDOM implements TGuideServiceNaturalClientD
         this.documentId = client.documentId;
         this.firstName = client.firstName;
         this.lastName = client.lastName;
+        this.natural = true;
     }
 }

@@ -5,7 +5,6 @@ import {
     type Guide_Service_Status,
     type Guide_Service_Type,
     type Users_Roles,
-    type Users_Status,
 } from '@prisma/client';
 import { type JsonValue } from '@prisma/client/runtime/library';
 
@@ -51,11 +50,8 @@ export type TGuideServiceUserDAL = {
     email: string;
     phone: string;
     address: string;
-    status: TGuideServiceUserStatusDAL;
     role: TGuideServiceUserRoleDAL;
 };
-
-export type TGuideServiceUserStatusDAL = Users_Status;
 
 export type TGuideServiceUserRoleDAL = Users_Roles;
 // Client in Guide
@@ -168,9 +164,6 @@ export class GuideServiceUserDAL implements TGuideServiceUserDAL {
     email: string;
     phone: string;
     address: string;
-    // status_id: string;
-    // role_id: string;
-    status: TGuideServiceUserStatusDAL;
     role: TGuideServiceUserRoleDAL;
 
     constructor(user: TGuideServiceUserDAL) {
@@ -181,7 +174,6 @@ export class GuideServiceUserDAL implements TGuideServiceUserDAL {
         this.email = user.email;
         this.phone = user.phone;
         this.address = user.address;
-        this.status = user.status;
         this.role = user.role;
     }
 }

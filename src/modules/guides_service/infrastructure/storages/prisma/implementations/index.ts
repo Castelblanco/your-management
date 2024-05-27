@@ -159,6 +159,10 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
 
     createOne = async (guide: TGuideServiceDOM): Promise<TGuideServiceDOM> => {
         try {
+            console.log({ guide });
+
+            console.log(this.wrappers.domToDal(guide));
+
             const newGuide = await this.db.create({
                 data: {
                     ...this.wrappers.domToDal(guide),

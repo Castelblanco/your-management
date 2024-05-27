@@ -7,7 +7,6 @@ import {
     GuideServicePointSaleAPI,
     type TGuideServiceUserAPI,
     GuideServiceUserAPI,
-    type TGuideServiceUserStatusAPI,
     type TGuideServiceUserRoleAPI,
     type TGuideServiceStatusAPI,
     type TGuideServiceNoveltyAPI,
@@ -25,7 +24,6 @@ import {
     type TGuideServiceUserDOM,
     GuideServiceUserDOM,
     type TGuideServiceUserRoleDOM,
-    type TGuideServiceUserStatusDOM,
     type TGuideServiceStatusDOM,
     type TGuideServiceNoveltyDOM,
     type TGuideServiceTypeServiceDOM,
@@ -182,11 +180,6 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
     userDomToApi = (user?: TGuideServiceUserDOM): TGuideServiceUserAPI | undefined => {
         if (!user) return;
 
-        const status: TGuideServiceUserStatusAPI = {
-            _id: user.status.id,
-            name: user.status.name,
-        };
-
         const role: TGuideServiceUserRoleAPI = {
             _id: user.role.id,
             name: user.role.name,
@@ -200,18 +193,12 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
             email: user.email,
             phone: user.phone,
             address: user.address,
-            status,
             role,
         });
     };
 
     userApiToDom = (user?: TGuideServiceUserAPI): TGuideServiceUserDOM | undefined => {
         if (!user) return;
-
-        const status: TGuideServiceUserStatusDOM = {
-            id: user.status._id,
-            name: user.status.name,
-        };
 
         const role: TGuideServiceUserRoleDOM = {
             id: user.role._id,
@@ -226,7 +213,6 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
             email: user.email,
             phone: user.phone,
             address: user.address,
-            status,
             role,
         });
     };
@@ -234,50 +220,52 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
     clientApiToDom = (
         client: TGuideServiceLegalClientAPI | TGuideServiceNaturalClientAPI,
     ): TGuideServiceLegalClientDOM | TGuideServiceNaturalClientDOM => {
-        if (client instanceof GuideServiceLegalClientAPI) {
+        console.log({ client });
+
+        if (!client.natural) {
             return new GuideServiceLegalClientDOM({
                 id: client._id,
                 numberMovil: client.number_movil,
                 address: client.address,
                 nit: client.nit,
                 businessName: client.business_name,
+                natural: client.natural,
             });
         }
 
-        const defaultClient = client as TGuideServiceNaturalClientAPI;
-
         return new GuideServiceNaturalClientDOM({
-            id: defaultClient._id,
-            numberMovil: defaultClient.number_movil,
-            address: defaultClient.address,
-            documentId: defaultClient.document_id,
-            firstName: defaultClient.first_name,
-            lastName: defaultClient.last_name,
+            id: client._id,
+            numberMovil: client.number_movil,
+            address: client.address,
+            documentId: client.document_id,
+            firstName: client.first_name,
+            lastName: client.last_name,
+            natural: client.natural,
         });
     };
 
     clientDomToApi = (
         client: TGuideServiceLegalClientDOM | TGuideServiceNaturalClientDOM,
     ): TGuideServiceLegalClientAPI | TGuideServiceNaturalClientAPI => {
-        if (client instanceof GuideServiceLegalClientDOM) {
+        if (!client.natural) {
             return new GuideServiceLegalClientAPI({
                 _id: client.id,
                 number_movil: client.numberMovil,
                 address: client.address,
                 nit: client.nit,
                 business_name: client.businessName,
+                natural: client.natural,
             });
         }
 
-        const defaultClient = client as TGuideServiceNaturalClientDOM;
-
         return new GuideServiceNaturalClientAPI({
-            _id: defaultClient.id,
-            number_movil: defaultClient.numberMovil,
-            address: defaultClient.address,
-            document_id: defaultClient.documentId,
-            first_name: defaultClient.firstName,
-            last_name: defaultClient.lastName,
+            _id: client.id,
+            number_movil: client.numberMovil,
+            address: client.address,
+            document_id: client.documentId,
+            first_name: client.firstName,
+            last_name: client.lastName,
+            natural: client.natural,
         });
     };
 }

@@ -9,7 +9,6 @@ import {
     type TGuideServicePointSaleDAL,
     type TGuideServiceUserDAL,
     type TGuideServiceUserRoleDAL,
-    type TGuideServiceUserStatusDAL,
     type TGuideServiceNaturalClientDAL,
 } from '../models';
 import {
@@ -23,7 +22,6 @@ import {
     type TGuideServicePointSaleDOM,
     type TGuideServiceUserDOM,
     type TGuideServiceUserRoleDOM,
-    type TGuideServiceUserStatusDOM,
     type TGuideServiceNaturalClientDOM,
     type TGuideServiceCommodityDOM,
 } from '@guides_service/domain/entities';
@@ -64,17 +62,22 @@ export class GuideServiceWrappers
     domToDal = (item: TGuideServiceDOM): TGuideServiceDAL => {
         const { clientOrigin, clientDestination } = item;
 
+        console.log({
+            clientOrigin,
+            clientDestination,
+        });
+
         let clientNaturalOriginId: string | null = null;
         let clientNaturalDestinationId: string | null = null;
         let clientLegalOriginId: string | null = null;
         let clientLegalDestinationId: string | null = null;
 
-        if (clientOrigin instanceof GuideServiceLegalClientDOM) {
-            clientLegalOriginId = clientOrigin.id;
+        if (!clientOrigin?.natural) {
+            clientLegalOriginId = clientOrigin?.id || null;
         } else clientNaturalOriginId = clientOrigin?.id || null;
 
-        if (clientDestination instanceof GuideServiceLegalClientDOM) {
-            clientLegalDestinationId = clientDestination.id;
+        if (!clientDestination?.natural) {
+            clientLegalDestinationId = clientDestination?.id || null;
         } else clientNaturalDestinationId = clientDestination?.id || null;
 
         return new GuideServiceDAL({
@@ -123,9 +126,7 @@ export class GuideServiceWrappers
     userDomToDal = (user?: TGuideServiceUserDOM): TGuideServiceUserDAL | undefined => {
         if (!user) return;
 
-        const status: TGuideServiceUserStatusDAL = user.status;
         const role: TGuideServiceUserRoleDAL = user.role;
-
         return new GuideServiceUserDAL({
             id: user.id,
             first_name: user.firstName,
@@ -134,7 +135,6 @@ export class GuideServiceWrappers
             email: user.email,
             phone: user.phone,
             address: user.address,
-            status,
             role,
         });
     };
@@ -142,9 +142,7 @@ export class GuideServiceWrappers
     userDalToDom = (user?: TGuideServiceUserDAL): TGuideServiceUserDOM | undefined => {
         if (!user) return;
 
-        const status: TGuideServiceUserStatusDOM = user.status;
         const role: TGuideServiceUserRoleDOM = user.role;
-
         return new GuideServiceUserDOM({
             id: user.id,
             firstName: user.first_name,
@@ -153,7 +151,6 @@ export class GuideServiceWrappers
             email: user.email,
             phone: user.phone,
             address: user.address,
-            status,
             role,
         });
     };
@@ -171,6 +168,7 @@ export class GuideServiceWrappers
                 address: legalClient.address,
                 nit: legalClient.nit,
                 businessName: legalClient.business_name,
+                natural: false,
             });
         }
 
@@ -182,6 +180,7 @@ export class GuideServiceWrappers
                 documentId: naturalClient.document_id,
                 firstName: naturalClient.first_name,
                 lastName: naturalClient.last_name,
+                natural: true,
             });
         }
     };
