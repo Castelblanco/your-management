@@ -1,5 +1,5 @@
 import { connectPrisma } from '@db/prisma';
-import { server } from './server';
+import { server } from './app/server/server';
 
 const initServer = async (): Promise<void> => {
     try {
