@@ -159,10 +159,6 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
 
     createOne = async (guide: TGuideServiceDOM): Promise<TGuideServiceDOM> => {
         try {
-            console.log({ guide });
-
-            console.log(this.wrappers.domToDal(guide));
-
             const newGuide = await this.db.create({
                 data: {
                     ...this.wrappers.domToDal(guide),
@@ -199,11 +195,15 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
                             status: true,
                         },
                     },
+                    point_sale_origin: true,
+                    point_sale_destination: true,
                 },
             });
 
             return this.wrappers.dalToDom(newGuide);
         } catch (e) {
+            console.log({ e });
+
             if (e instanceof PrismaRequestError)
                 throw new StorageError(new PrismaError(e));
 
@@ -279,6 +279,8 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
                             status: true,
                         },
                     },
+                    point_sale_origin: true,
+                    point_sale_destination: true,
                 },
             });
 
