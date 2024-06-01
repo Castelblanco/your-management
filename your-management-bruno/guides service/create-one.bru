@@ -1,0 +1,32 @@
+meta {
+  name: create-one
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{HOST}}/v1/guides_service/create-one
+  body: json
+  auth: none
+}
+
+headers {
+  accept: application/json, text/plain, */*
+  accept-language: es-419,es
+  content-type: application/json
+  origin: http://localhost:5173
+  priority: u=1, i
+  referer: http://localhost:5173/
+  sec-ch-ua: "Brave";v="125", "Chromium";v="125", "Not.A/Brand";v="24"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+  sec-fetch-dest: empty
+  sec-fetch-mode: cors
+  sec-fetch-site: cross-site
+  sec-gpc: 1
+  user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36
+}
+
+body:json {
+  {"_id":"","commodity":[{"units":5,"weight":5}],"price":50000,"collection":false,"created_at":"2024-06-01T01:34:42.185Z","updated_at":"2024-06-01T01:34:42.185Z","status":{"_id":"80bb14ec-b311-428e-9835-994a2a83c340","name":""},"novelty":{"_id":"20966147-06f9-414d-aada-14aa64e6de62","name":""},"service":{"_id":"25c335a8-7567-4723-b1ac-d427c709c3d0","name":""},"user":{"_id":"c0f61588-7aa7-472d-a680-ab1b788ac3d2","first_name":"Esteban","last_name":"Castel","document_id":"1030708715","email":"e@gmail.com","phone":"3219301799","address":"cra 00 #00 a-00","role":{"_id":"4741bd54-ddd1-42f5-b536-bcddceb2d127","name":"Admin"}},"point_sale_origin":{"_id":"5d4966aa-3af8-4142-83aa-f6fde67511f7","name":"punto 1, Alamos Bogota","address":"Carrera 96 65A-11, Los Ángeles Bogotá","department":"Distrito Capital","municipality":"Bogotá","neighborhood":"Los Ángeles","latitude":4.694065,"longitude":-74.118872,"budget":10000000},"point_sale_destination":{"_id":"0f6d0af3-7164-47ab-b3b2-8cf6593a969a","name":"Punto 1, La Faena Bogota","address":"Carrera 117A 69A-51, La Faena Bogotá","department":"Distrito Capital","municipality":"Bogotá","neighborhood":"La Faena","latitude":4.714368,"longitude":-74.136505,"budget":10000000000},"client_origin":{"_id":"a2b1407b-1e46-4c27-9c11-cf2d6a81ddd7","number_movil":"1234567890","address":"cra 00 #00 a-00","document_id":"1234567890","first_name":"Pepe","last_name":"Momasoz"},"client_destination":{"_id":"2050d654-1c9f-422a-a990-b5bd4f5a1c1c","number_movil":"1234567890","address":"cra 00 #00 a-01"}}
+}
