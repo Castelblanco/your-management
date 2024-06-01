@@ -21,23 +21,23 @@ model Guide_Service {
   collection                    Boolean
   status_id                     String
   status                        Guide_Service_Status  @relation(fields: [status_id], references: [id])
-  novelty_id                    String                @unique
+  novelty_id                    String
   novelty                       Guide_Service_Novelty @relation(fields: [novelty_id], references: [id])
-  service_id                    String                @unique
+  service_id                    String
   service                       Guide_Service_Type    @relation(fields: [service_id], references: [id])
-  user_id                       String                @unique
+  user_id                       String
   user                          Users                 @relation(fields: [user_id], references: [id])
-  point_sale_origin_id          String                @unique
+  point_sale_origin_id          String
   point_sale_origin             Point_Sales           @relation("origin", fields: [point_sale_origin_id], references: [id])
-  point_sale_destination_id     String                @unique
+  point_sale_destination_id     String
   point_sale_destination        Point_Sales           @relation("destination", fields: [point_sale_destination_id], references: [id])
-  client_natural_origin_id      String?               @unique
+  client_natural_origin_id      String?
   client_natural_origin         Natural_Client?       @relation("origin", fields: [client_natural_origin_id], references: [id])
-  client_natural_destination_id String?               @unique
+  client_natural_destination_id String?
   client_natural_destination    Natural_Client?       @relation("destination", fields: [client_natural_destination_id], references: [id])
-  client_legal_origin_id        String?               @unique
+  client_legal_origin_id        String?
   client_legal_origin           Legal_Client?         @relation("origin", fields: [client_legal_origin_id], references: [id])
-  client_legal_destination_id   String?               @unique
+  client_legal_destination_id   String?
   client_legal_destination      Legal_Client?         @relation("destination", fields: [client_legal_destination_id], references: [id])
 }
 
@@ -48,10 +48,10 @@ model Guide_Service_Novelty {
 }
 
 model Guide_Service_Type {
-  id            String         @id @unique
-  name          String         @unique
+  id            String          @id @unique
+  name          String          @unique
   tab           String
-  guide_service Guide_Service?
+  guide_service Guide_Service[]
 }
 
 model Guide_Service_Status {
