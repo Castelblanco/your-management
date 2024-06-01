@@ -34,7 +34,7 @@ export class GuideServiceWrappers
 
         return new GuideServiceDOM({
             id: item.id,
-            number: item.number,
+            number: Number(item.number),
             commodity: item.commodity as TGuideServiceCommodityDOM[],
             price: item.price,
             createdAt: item.created_at,
@@ -82,7 +82,7 @@ export class GuideServiceWrappers
 
         return new GuideServiceDAL({
             id: item.id,
-            number: item.number,
+            number: item.number ? BigInt(item.number) : (undefined as any),
             commodity: item.commodity,
             price: item.price,
             created_at: item.createdAt,

@@ -1,6 +1,6 @@
 export type TGuideServiceDOM = {
     id: string;
-    number: bigint;
+    number: number;
     commodity: TGuideServiceCommodityDOM[];
     price: number;
     collection: boolean;
@@ -111,7 +111,7 @@ export type TGuideServiceNaturalClientDOM = {
 // Implementations
 export class GuideServiceDOM implements TGuideServiceDOM {
     id: string;
-    number: bigint;
+    number: number;
     commodity: TGuideServiceCommodityDOM[];
     price: number;
     collection: boolean;
