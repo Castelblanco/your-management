@@ -68,6 +68,8 @@ export class GuideServiceControllers {
                 user: !!query.user,
                 pointSaleOrigin: !!query.pointSaleOrigin,
                 pointSaleDestination: !!query.pointSaleDestination,
+                clientDestination: !!query.clientDestination,
+                clientOrigin: !!query.clientOrigin,
             });
 
             return new ApiReponse(
