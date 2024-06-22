@@ -87,7 +87,6 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
         relations: TGuideServiceRelations,
     ): Promise<TGuideServiceDOM> => {
         try {
-            console.log({ relations });
             const guide = await this.db.findFirstOrThrow({
                 where: {
                     id,
