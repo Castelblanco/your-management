@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: {{HOST}}/v1/guides_service/get-all
+  url: {{HOST}}/v1/guides_service/get-all?userId=07554c43-781d-4038-bcbd-16e99060370c
   body: none
   auth: none
+}
+
+query {
+  userId: 07554c43-781d-4038-bcbd-16e99060370c
 }
