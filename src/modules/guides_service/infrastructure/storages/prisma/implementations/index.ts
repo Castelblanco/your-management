@@ -4,7 +4,6 @@ import type {
     TGuideServiceFilterDOM,
     TGuideServiceDOM,
     TGuideServiceRelations,
-    TGuideServiceOPT,
     TGuideServiceNoveltyDOM,
     TGuideServiceTypeServiceDOM,
 } from '@guides_service/domain/entities';
@@ -18,7 +17,7 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
     wrappers: TWrappers<TGuideServiceDOM, TGuideServiceDAL>;
     ifFilterDal: Record<
         keyof TGuideServiceFilterDOM,
-        (v: string, o: TGuideServiceFilterDAL) => void
+        (v: string | Date | number, o: TGuideServiceFilterDAL) => void
     >;
 
     constructor() {
@@ -27,14 +26,27 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
 
         this.ifFilterDal = {
             userId: (v, o) => {
-                o.user_id = { equals: v };
+                o.user_id = { equals: v as string };
             },
+            startDate: (v, o) => {
+                o.created_at = {
+                    gte: v as Date,
+                };
+            },
+            endDate: (v, o) => {
+                o.created_at = {
+                    ...o.created_at,
+                    lt: v as Date,
+                };
+            },
+            limit: () => {},
+            offset: () => {},
         };
     }
 
     findAll = async (
         filter: TGuideServiceFilterDOM,
-        options: TGuideServiceOPT,
+        options: TGuideServiceRelations,
     ): Promise<TGuideServiceDOM[]> => {
         try {
             const guides = await this.db.findMany({

@@ -1,8 +1,7 @@
 import type {
     TGuideServiceFilterDOM,
-    TGuideServiceDOM,
     TGuideServiceRelations,
-    TGuideServiceOPT,
+    TGuideServiceDOM,
     TGuideServiceNoveltyDOM,
     TGuideServiceTypeServiceDOM,
 } from '@guides_service/domain/entities';
@@ -24,7 +23,7 @@ export type Dependencies = {
 export class GuideServiceServices {
     findAll: (
         filter: TGuideServiceFilterDOM,
-        options: TGuideServiceOPT,
+        options: TGuideServiceRelations,
     ) => Promise<TGuideServiceDOM[]>;
 
     findOne: (id: string, relations: TGuideServiceRelations) => Promise<TGuideServiceDOM>;

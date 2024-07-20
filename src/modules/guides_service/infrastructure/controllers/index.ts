@@ -30,10 +30,12 @@ export class GuideServiceControllers {
             const guides = await this.service.findAll(
                 {
                     userId: query.userId || '',
-                },
-                {
                     limit: query.limit ? +query.limit : 50,
                     offset: query.offset ? +query.offset : 0,
+                    startDate: query.startDate ? new Date(+query.startDate) : undefined,
+                    endDate: query.endDate ? new Date(+query.endDate) : undefined,
+                },
+                {
                     status: !!query.status,
                     novelty: !!query.novelty,
                     collection: !!query.collection,

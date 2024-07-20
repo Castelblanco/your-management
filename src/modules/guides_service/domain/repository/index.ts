@@ -1,8 +1,7 @@
 import type {
+    TGuideServiceFilterDOM,
     TGuideServiceRelations,
     TGuideServiceDOM,
-    TGuideServiceFilterDOM,
-    TGuideServiceOPT,
     TGuideServiceNoveltyDOM,
     TGuideServiceTypeServiceDOM,
 } from '../entities';
@@ -10,7 +9,7 @@ import type {
 export type TGuideServiceRepository = {
     findAll: (
         filter: TGuideServiceFilterDOM,
-        options: TGuideServiceOPT,
+        options: TGuideServiceRelations,
     ) => Promise<TGuideServiceDOM[]>;
     findOne: (id: string, relations: TGuideServiceRelations) => Promise<TGuideServiceDOM>;
     findNovelties: () => Promise<TGuideServiceNoveltyDOM[]>;

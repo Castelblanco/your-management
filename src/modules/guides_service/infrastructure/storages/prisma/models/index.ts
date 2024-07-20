@@ -27,6 +27,8 @@ export type TGuideServiceTypeServiceDAL = Guide_Service_Type;
 
 export type TGuideServiceFilterDAL = {
     user_id?: Prisma.StringFilter;
+    created_at?: Prisma.DateTimeFilter;
+    updated_at?: Prisma.DateTimeFilter;
 };
 
 export type TGuideServicePointSaleDAL = {

@@ -50,7 +50,11 @@ export type TGuideServiceTypeServiceDOM = {
 };
 
 export type TGuideServiceFilterDOM = {
-    userId: string;
+    limit?: number;
+    offset?: number;
+    userId?: string;
+    startDate?: Date;
+    endDate?: Date;
 };
 
 export type TGuideServiceRelations = {
@@ -63,11 +67,6 @@ export type TGuideServiceRelations = {
     pointSaleDestination?: boolean;
     clientOrigin?: boolean;
     clientDestination?: boolean;
-};
-
-export type TGuideServiceOPT = TGuideServiceRelations & {
-    limit: number;
-    offset: number;
 };
 
 // User in Guide
