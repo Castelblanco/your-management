@@ -1,10 +1,11 @@
 import Elysia from 'elysia';
 import { cors } from '@elysiajs/cors';
-import { handleError } from './handle_error';
-import { ElysiaLogging } from '@otherguy/elysia-logging';
+import { ApiError } from '@common/response/errors/api_error';
+import pino from 'pino';
 
 const PORT = Bun.env.PORT ?? 5000;
 const app = new Elysia();
+const logger = pino();
 
 const routers = async (): Promise<void> => {
     const { routers } = await import('../routers');
@@ -17,11 +18,30 @@ const middleware = (): void => {
             methods: '*',
         }),
     );
-    app.use(ElysiaLogging());
+    app.use((req) => {
+        const initTime = Date.now();
+        req.onResponse(({ request, path, set }) => {
+            const { method } = request;
+            const statusCode = +`${set.status}`;
+            const now = Date.now() - initTime;
+
+            if (statusCode >= 400) {
+                logger.error(`${method} ${path} ${statusCode} ${now}ms`);
+            } else {
+                logger.info(`${method} ${path} ${statusCode} ${now}ms`);
+            }
+        });
+
+        return req;
+    });
 };
 
 const initHandleError = (): void => {
-    app.onError(handleError);
+    app.onError(({ error, set }) => {
+        const err = new ApiError(error);
+        set.status = err.code;
+        return err;
+    });
 };
 
 export const server = async (): Promise<void> => {
