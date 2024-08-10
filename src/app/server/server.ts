@@ -2,6 +2,8 @@ import Elysia from 'elysia';
 import { cors } from '@elysiajs/cors';
 import { ApiError } from '@common/response/errors/api_error';
 import pino from 'pino';
+import { ErrorBadRequest } from '@common/response/errors/bad_request';
+import { BaseError } from '@common/response/errors/base_error';
 
 const PORT = Bun.env.PORT ?? 5000;
 const app = new Elysia();
@@ -37,7 +39,13 @@ const middleware = (): void => {
 };
 
 const initHandleError = (): void => {
-    app.onError(({ error, set }) => {
+    app.onError(({ error, set, code }) => {
+        if (code === 'VALIDATION') {
+            const err = new ErrorBadRequest(code, JSON.parse(error.message));
+            set.status = err.code;
+            return new ApiError(err);
+        }
+
         const err = new ApiError(error);
         set.status = err.code;
         return err;
