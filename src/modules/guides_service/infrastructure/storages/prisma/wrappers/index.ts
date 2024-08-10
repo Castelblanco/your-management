@@ -62,11 +62,6 @@ export class GuideServiceWrappers
     domToDal = (item: TGuideServiceDOM): TGuideServiceDAL => {
         const { clientOrigin, clientDestination } = item;
 
-        console.log({
-            clientOrigin,
-            clientDestination,
-        });
-
         let clientNaturalOriginId: string | null = null;
         let clientNaturalDestinationId: string | null = null;
         let clientLegalOriginId: string | null = null;

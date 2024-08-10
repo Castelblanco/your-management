@@ -105,8 +105,6 @@ export class UsersControllers {
 
     createOne = async ({ body, set }: TContext): Promise<ApiReponse<TUserAPI>> => {
         try {
-            console.log({ body });
-
             const newUser = await this.services.createOne(
                 this.mappers.apiToDom(body as TUserAPI),
             );
@@ -135,8 +133,6 @@ export class UsersControllers {
 
     updateOne = async ({ body, params }: TContext): Promise<ApiReponse<TUserAPI>> => {
         try {
-            console.log({ body });
-
             const user = body as TUserAPI;
             if (!user._id) user._id = params.id;
 

@@ -220,8 +220,6 @@ export class GuideServiceMappers implements TMappers<TGuideServiceDOM, TGuideSer
     clientApiToDom = (
         client: TGuideServiceLegalClientAPI | TGuideServiceNaturalClientAPI,
     ): TGuideServiceLegalClientDOM | TGuideServiceNaturalClientDOM => {
-        console.log({ client });
-
         if (!client.natural) {
             return new GuideServiceLegalClientDOM({
                 id: client._id,
