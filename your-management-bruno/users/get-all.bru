@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: {{HOST}}/v1/users/get-all
+  url: {{HOST}}/v1/users/get-all?limit=10
   body: none
   auth: none
+}
+
+query {
+  limit: 10
 }

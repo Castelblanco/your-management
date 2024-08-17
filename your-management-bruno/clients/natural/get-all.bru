@@ -5,11 +5,13 @@ meta {
 }
 
 get {
-  url: {{HOST}}/v1/clients/naturals/get-all?status=true
+  url: {{HOST}}/v1/clients/naturals/get-all?status=true&limit=10&offset=20
   body: none
   auth: none
 }
 
 query {
   status: true
+  limit: 10
+  offset: 20
 }
