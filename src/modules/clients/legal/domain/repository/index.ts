@@ -1,15 +1,9 @@
-import type {
-    TLegalClientDOM,
-    TLegalClientFilterDOM,
-    TLegalClientOPT,
-} from '../entities';
+import type { TLegalClientDOM, TLegalClientFilterDOM } from '../entities';
 
 export type TLegalClientRepository = {
-    findAll: (
-        filter: TLegalClientFilterDOM,
-        option: TLegalClientOPT,
-    ) => Promise<TLegalClientDOM[]>;
-    findOne: (id: string, status?: boolean) => Promise<TLegalClientDOM>;
+    findAll: (filter: TLegalClientFilterDOM) => Promise<TLegalClientDOM[]>;
+    findOne: (id: string) => Promise<TLegalClientDOM>;
+    count: (filter: TLegalClientFilterDOM) => Promise<number>;
     createOne: (client: TLegalClientDOM) => Promise<TLegalClientDOM>;
     createMany: (clients: TLegalClientDOM[]) => Promise<number>;
     updateOne: (client: TLegalClientDOM) => Promise<TLegalClientDOM>;

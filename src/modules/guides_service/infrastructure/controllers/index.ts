@@ -27,15 +27,16 @@ export class GuideServiceControllers {
 
     findAll = async ({ query }: TContext): Promise<ListResponse<TGuideServiceAPI>> => {
         try {
-            const guides = await this.service.findAll(
-                {
-                    userId: query.userId || '',
-                    limit: query.limit ? +query.limit : 50,
-                    offset: query.offset ? +query.offset : 0,
-                    startDate: query.startDate ? new Date(+query.startDate) : undefined,
-                    endDate: query.endDate ? new Date(+query.endDate) : undefined,
-                },
-                {
+            const qr = {
+                userId: query.userId || '',
+                limit: query.limit ? +query.limit : 50,
+                offset: query.offset ? +query.offset : 0,
+                startDate: query.startDate ? new Date(+query.startDate) : undefined,
+                endDate: query.endDate ? new Date(+query.endDate) : undefined,
+            };
+
+            const [guides, count] = await Promise.all([
+                this.service.findAll(qr, {
                     status: !!query.status,
                     novelty: !!query.novelty,
                     collection: !!query.collection,
@@ -45,11 +46,13 @@ export class GuideServiceControllers {
                     pointSaleDestination: !!query.pointSaleDestination,
                     clientOrigin: !!query.clientOrigin,
                     clientDestination: !!query.clientDestination,
-                },
-            );
+                }),
+                this.service.count(qr),
+            ]);
 
             return new ListResponse(
                 guides.map(this.mappers.domToApi),
+                count,
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {
@@ -92,6 +95,7 @@ export class GuideServiceControllers {
                     _id: nov.id,
                     name: nov.name,
                 })),
+                novelties.length,
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {
@@ -109,6 +113,7 @@ export class GuideServiceControllers {
                     name: type.name,
                     tab: type.tab,
                 })),
+                types.length,
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {
@@ -168,7 +173,6 @@ export class GuideServiceControllers {
     deleteOne = async ({ set, params }: TContext): Promise<void> => {
         try {
             await this.service.deleteOne(params.id);
-
             set.status = HttpSuccessCode.NOT_CONTENT;
         } catch (e) {
             throw e;

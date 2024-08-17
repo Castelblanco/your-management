@@ -1,7 +1,6 @@
 import {
     type TNaturalClientDOM,
     type TNaturalClientFilterDOM,
-    type TNaturalClientOPT,
 } from '@clients_natural/domain/entities';
 import { type TNaturalClientRepository } from '@clients_natural/domain/repository';
 import { buildFindAll } from './find_all';
@@ -10,6 +9,7 @@ import { buildCreateOne } from './create_one';
 import { buildCreateMany } from './create_many';
 import { buildUpdateOne } from './update_one';
 import { buildDeleteOne } from './delete_one';
+import { buildCount } from './count';
 
 export type Dependencies = {
     repository: TNaturalClientRepository;
@@ -17,12 +17,9 @@ export type Dependencies = {
 };
 
 export class NaturalClientServices {
-    findAll: (
-        filter: TNaturalClientFilterDOM,
-        options: TNaturalClientOPT,
-    ) => Promise<TNaturalClientDOM[]>;
-
-    findOne: (id: string, status?: boolean) => Promise<TNaturalClientDOM>;
+    findAll: (filter: TNaturalClientFilterDOM) => Promise<TNaturalClientDOM[]>;
+    findOne: (id: string) => Promise<TNaturalClientDOM>;
+    count: (filter: TNaturalClientFilterDOM) => Promise<number>;
     createOne: (client: TNaturalClientDOM) => Promise<TNaturalClientDOM>;
     createMany: (clients: TNaturalClientDOM[]) => Promise<number>;
     updateOne: (client: TNaturalClientDOM) => Promise<TNaturalClientDOM>;
@@ -31,6 +28,7 @@ export class NaturalClientServices {
     constructor(dependencies: Dependencies) {
         this.findAll = buildFindAll(dependencies);
         this.findOne = buildFindOne(dependencies);
+        this.count = buildCount(dependencies);
         this.createOne = buildCreateOne(dependencies);
         this.createMany = buildCreateMany(dependencies);
         this.updateOne = buildUpdateOne(dependencies);

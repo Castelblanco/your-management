@@ -54,30 +54,31 @@ export class UsersControllers {
 
     findAll = async ({ query }: TContext): Promise<ListResponse<TUserAPI>> => {
         try {
-            const users = await this.services.findAll(
-                {
-                    firstName: query.firstName,
-                    lastName: query.lastName,
-                    documentId: query.documentId,
-                    email: query.email,
-                    address: query.address,
-                    pointSaleId: query.pointSaleId,
-                    roleId: query.roleId,
-                    statusId: query.statusId,
-                    startTime: query.startTime,
-                    endTime: query.endTime,
-                },
-                {
-                    limit: query.limit ? +query.limit : 50,
-                    offset: query.offset ? +query.offset : 0,
-                    pointSale: !!query.pointSale,
-                    role: !!query.role,
-                    status: !!query.status,
-                },
-            );
+            const qr = {
+                limit: query.limit ? +query.limit : 50,
+                offset: query.offset ? +query.offset : 0,
+                pointSale: !!query.pointSale,
+                role: !!query.role,
+                status: !!query.status,
+                firstName: query.firstName,
+                lastName: query.lastName,
+                documentId: query.documentId,
+                email: query.email,
+                address: query.address,
+                pointSaleId: query.pointSaleId,
+                roleId: query.roleId,
+                statusId: query.statusId,
+                startTime: query.startTime,
+                endTime: query.endTime,
+            };
+            const [users, count] = await Promise.all([
+                this.services.findAll(qr),
+                this.services.count(qr),
+            ]);
 
             return new ListResponse(
                 users.map((user) => this.mappers.domToApi(user, { password: false })),
+                count,
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {

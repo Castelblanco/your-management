@@ -1,10 +1,6 @@
-import type { TPointSaleRepository } from 'modules/points_sale/domain/repository';
+import { TDependencies } from '.';
 
-type Dependencies = {
-    repository: TPointSaleRepository;
-};
-
-export const buildDeleteOne = ({ repository }: Dependencies) => {
+export const buildDeleteOne = ({ repository }: TDependencies) => {
     const service = async (id: string): Promise<void> => {
         await repository.deleteOne(id);
     };

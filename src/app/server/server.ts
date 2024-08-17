@@ -21,16 +21,18 @@ const middleware = (): void => {
         }),
     );
     app.use((req) => {
-        const initTime = Date.now();
+        req.onRequest(({ request }) => {
+            (request as any).startTime = Date.now();
+        });
         req.onResponse(({ request, path, set }) => {
             const { method } = request;
             const statusCode = +`${set.status}`;
-            const now = Date.now() - initTime;
+            const now = (Date.now() - (request as any).startTime) / 1000;
 
             if (statusCode >= 400) {
-                logger.error(`${method} ${path} ${statusCode} ${now}ms`);
+                logger.error(`${method} ${path} ${statusCode} ${now}s`);
             } else {
-                logger.info(`${method} ${path} ${statusCode} ${now}ms`);
+                logger.info(`${method} ${path} ${statusCode} ${now}s`);
             }
         });
 

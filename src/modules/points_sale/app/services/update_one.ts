@@ -1,11 +1,7 @@
 import type { TPointSaleDOM } from 'modules/points_sale/domain/entities';
-import type { TPointSaleRepository } from 'modules/points_sale/domain/repository';
+import { TDependencies } from '.';
 
-type Dependencies = {
-    repository: TPointSaleRepository;
-};
-
-export const buildUpdateOne = ({ repository }: Dependencies) => {
+export const buildUpdateOne = ({ repository }: TDependencies) => {
     const service = async (pointSale: TPointSaleDOM): Promise<TPointSaleDOM> => {
         return await repository.updateOne(pointSale);
     };

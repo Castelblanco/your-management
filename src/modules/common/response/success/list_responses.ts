@@ -3,9 +3,9 @@ export class ListResponse<T> {
     total: number;
     status: number;
 
-    constructor(items: T[], status: number) {
+    constructor(items: T[], total: number, status: number) {
         this.items = items;
-        this.total = items.length;
+        this.total = total;
         this.status = status;
     }
 }

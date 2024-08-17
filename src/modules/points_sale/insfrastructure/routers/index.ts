@@ -5,7 +5,10 @@ import { PointsSalePrismaRepository } from '../storages/prisma/implementations';
 import { createId } from '../tools';
 
 const controllers = new PointsSaleControllers(
-    new PointsSaleServices(new PointsSalePrismaRepository(), createId),
+    new PointsSaleServices({
+        repository: new PointsSalePrismaRepository(),
+        createId,
+    }),
 );
 
 export const pointsSaleRouters = new Elysia();

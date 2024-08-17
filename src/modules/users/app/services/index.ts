@@ -2,7 +2,6 @@ import type {
     TUserDOM,
     TUserFilterDOM,
     TUserLoginDOM,
-    TUserOPT,
     TUserPictureDOM,
 } from '@users/domain/entities';
 import { buildFindAll } from './find_all';
@@ -14,6 +13,7 @@ import { buildDeleteOne } from './delete_one';
 import { buildCreateMany } from './create_many';
 import { buildLogin } from './login';
 import { buildUpdateOnePicture } from './update_one_picture';
+import { buildCount } from './count';
 
 type TDateFormatDay = 'dd/mm/yy' | 'dd/yy/mm';
 type TDateFormatMonth = 'mm/dd/yy' | 'mm/yy/dd';
@@ -38,15 +38,16 @@ export type Dependencies = {
 };
 
 export class UsersServices {
-    login: (user: TUserDOM) => Promise<TUserLoginDOM>;
-    findAll: (filter: TUserFilterDOM, options: TUserOPT) => Promise<TUserDOM[]>;
+    findAll: (filter: TUserFilterDOM) => Promise<TUserDOM[]>;
     findOne: (
         id: string,
         pointSale?: boolean,
         role?: boolean,
         status?: boolean,
     ) => Promise<TUserDOM>;
+    count: (filter: TUserFilterDOM) => Promise<number>;
 
+    login: (user: TUserDOM) => Promise<TUserLoginDOM>;
     createOne: (user: TUserDOM) => Promise<TUserDOM>;
     updateOne: (user: TUserDOM) => Promise<TUserDOM>;
     updateOnePicture: (id: string, picture: TUserPictureDOM) => Promise<TUserPictureDOM>;
@@ -57,6 +58,7 @@ export class UsersServices {
         this.login = buildLogin(dependencies);
         this.findAll = buildFindAll(dependencies);
         this.findOne = buildFindOne(dependencies);
+        this.count = buildCount(dependencies);
         this.createOne = buildCreateOne(dependencies);
         this.updateOne = buildUpdateOne(dependencies);
         this.updateOnePicture = buildUpdateOnePicture(dependencies);

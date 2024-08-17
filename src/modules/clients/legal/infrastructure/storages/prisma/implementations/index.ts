@@ -1,6 +1,5 @@
 import type {
     TLegalClientFilterDOM,
-    TLegalClientOPT,
     TLegalClientDOM,
 } from '@clients_legal/domain/entities';
 import type { TLegalClientRepository } from '@clients_legal/domain/repository';
@@ -16,52 +15,57 @@ export class LegalClientPrismaRepository implements TLegalClientRepository {
     wrappers: TWrappers<TLegalClientDOM, TLegalClientDAL>;
     ifFilterDal: Record<
         keyof TLegalClientFilterDOM,
-        (v: string, o: TLegalClientFilterDAL) => void
+        (v: any, o: TLegalClientFilterDAL) => void
     >;
 
     constructor() {
         this.db = prisma.legal_Client;
         this.wrappers = new LegalClientWrappers();
         this.ifFilterDal = {
-            numberMovil: (v, o) =>
-                (o.number_movil = {
+            numberMovil: (v, o) => {
+                o.number_movil = {
                     contains: v,
                     mode: 'insensitive',
-                }),
-            address: (v, o) =>
-                (o.address = {
+                };
+            },
+            address: (v, o) => {
+                o.address = {
                     contains: v,
                     mode: 'insensitive',
-                }),
-            nit: (v, o) =>
-                (o.nit = {
+                };
+            },
+            nit: (v, o) => {
+                o.nit = {
                     contains: v,
                     mode: 'insensitive',
-                }),
-            businessName: (v, o) =>
-                (o.business_name = {
+                };
+            },
+            businessName: (v, o) => {
+                o.business_name = {
                     contains: v,
                     mode: 'insensitive',
-                }),
-            statusId: (v, o) =>
-                (o.status_id = {
+                };
+            },
+            statusId: (v, o) => {
+                o.status_id = {
                     equals: v,
-                }),
+                };
+            },
+            limit: () => {},
+            offset: () => {},
+            status: () => {},
         };
     }
 
-    findAll = async (
-        filter: TLegalClientFilterDOM,
-        option: TLegalClientOPT,
-    ): Promise<TLegalClientDOM[]> => {
+    findAll = async (filter: TLegalClientFilterDOM): Promise<TLegalClientDOM[]> => {
         try {
             const clients = await this.db.findMany({
-                where: { ...this.filterDomToDal(filter) },
+                where: this.filterDomToDal(filter),
                 include: {
-                    status: option.status,
+                    status: filter?.status,
                 },
-                take: option.limit,
-                skip: option.offset,
+                take: filter?.limit,
+                skip: filter?.offset,
             });
 
             return clients.map(this.wrappers.dalToDom);
@@ -73,17 +77,14 @@ export class LegalClientPrismaRepository implements TLegalClientRepository {
         }
     };
 
-    findOne = async (
-        id: string,
-        status?: boolean | undefined,
-    ): Promise<TLegalClientDOM> => {
+    findOne = async (id: string): Promise<TLegalClientDOM> => {
         try {
             const client = await this.db.findUnique({
                 where: {
                     id,
                 },
                 include: {
-                    status,
+                    status: true,
                 },
             });
 
@@ -91,6 +92,19 @@ export class LegalClientPrismaRepository implements TLegalClientRepository {
                 throw new ErrorResourceNotFound(`this client with id ${id}, not exist`);
 
             return this.wrappers.dalToDom(client);
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
+
+            throw new StorageError(e);
+        }
+    };
+
+    count = async (filter: TLegalClientFilterDOM): Promise<number> => {
+        try {
+            return await this.db.count({
+                where: this.filterDomToDal(filter),
+            });
         } catch (e) {
             if (e instanceof PrismaRequestError)
                 throw new StorageError(new PrismaError(e));

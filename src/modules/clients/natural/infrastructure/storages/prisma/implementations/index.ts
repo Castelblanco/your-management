@@ -1,6 +1,5 @@
 import {
     type TNaturalClientFilterDOM,
-    type TNaturalClientOPT,
     type TNaturalClientDOM,
 } from '@clients_natural/domain/entities';
 import { type TNaturalClientRepository } from '@clients_natural/domain/repository';
@@ -15,7 +14,7 @@ export class NaturalClientPrismaRepository implements TNaturalClientRepository {
     wrappers: TWrappers<TNaturalClientDOM, TNaturalClientDAL>;
     ifFilterDal: Record<
         keyof TNaturalClientFilterDOM,
-        (v: string, o: TNaturalClientFilterDAL) => void
+        (v: any, o: TNaturalClientFilterDAL) => void
     >;
 
     constructor() {
@@ -58,21 +57,21 @@ export class NaturalClientPrismaRepository implements TNaturalClientRepository {
                     equals: v,
                 };
             },
+            status: () => {},
+            limit: () => {},
+            offset: () => {},
         };
     }
 
-    findAll = async (
-        filter: TNaturalClientFilterDOM,
-        options: TNaturalClientOPT,
-    ): Promise<TNaturalClientDOM[]> => {
+    findAll = async (filter: TNaturalClientFilterDOM): Promise<TNaturalClientDOM[]> => {
         try {
             const clients = await this.db.findMany({
                 where: this.filterDomToDal(filter),
                 include: {
-                    status: options.status,
+                    status: filter?.status,
                 },
-                take: options.limit,
-                skip: options.offset,
+                take: filter?.limit,
+                skip: filter?.offset,
             });
 
             return clients.map(this.wrappers.dalToDom);
@@ -84,19 +83,29 @@ export class NaturalClientPrismaRepository implements TNaturalClientRepository {
         }
     };
 
-    findOne = async (
-        id: string,
-        status?: boolean | undefined,
-    ): Promise<TNaturalClientDOM> => {
+    findOne = async (id: string): Promise<TNaturalClientDOM> => {
         try {
             const client = await this.db.findUniqueOrThrow({
                 where: { id },
                 include: {
-                    status,
+                    status: true,
                 },
             });
 
             return this.wrappers.dalToDom(client);
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
+
+            throw new StorageError(e);
+        }
+    };
+
+    count = async (filter: TNaturalClientFilterDOM): Promise<number> => {
+        try {
+            return await this.db.count({
+                where: this.filterDomToDal(filter),
+            });
         } catch (e) {
             if (e instanceof PrismaRequestError)
                 throw new StorageError(new PrismaError(e));

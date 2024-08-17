@@ -24,23 +24,24 @@ export class LegalClientControllers {
 
     findAll = async ({ query }: TContext): Promise<ListResponse<TLegalClientAPI>> => {
         try {
-            const clients = await this.services.findAll(
-                {
-                    numberMovil: query.numberMovil,
-                    address: query.address,
-                    nit: query.nit,
-                    businessName: query.businessName,
-                    statusId: query.statusId,
-                },
-                {
-                    limit: query.limit ? +query.limit : 50,
-                    offset: query.offset ? +query.offset : 0,
-                    status: !!query.status,
-                },
-            );
+            const qr = {
+                limit: query.limit ? +query.limit : 50,
+                offset: query.offset ? +query.offset : 0,
+                status: !!query.status,
+                numberMovil: query.numberMovil,
+                address: query.address,
+                nit: query.nit,
+                businessName: query.businessName,
+                statusId: query.statusId,
+            };
+            const [clients, count] = await Promise.all([
+                this.services.findAll(qr),
+                this.services.count(qr),
+            ]);
 
             return new ListResponse(
                 clients.map(this.mappers.domToApi),
+                count,
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {
@@ -48,12 +49,9 @@ export class LegalClientControllers {
         }
     };
 
-    findOne = async ({
-        query,
-        params,
-    }: TContext): Promise<ApiReponse<TLegalClientAPI>> => {
+    findOne = async ({ params }: TContext): Promise<ApiReponse<TLegalClientAPI>> => {
         try {
-            const client = await this.services.findOne(params.id, !!query.status);
+            const client = await this.services.findOne(params.id);
 
             return new ApiReponse(
                 this.mappers.domToApi(client),

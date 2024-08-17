@@ -1,15 +1,9 @@
-import type {
-    TNaturalClientDOM,
-    TNaturalClientFilterDOM,
-    TNaturalClientOPT,
-} from '../entities';
+import type { TNaturalClientDOM, TNaturalClientFilterDOM } from '../entities';
 
 export type TNaturalClientRepository = {
-    findAll: (
-        filter: TNaturalClientFilterDOM,
-        options: TNaturalClientOPT,
-    ) => Promise<TNaturalClientDOM[]>;
-    findOne: (id: string, status?: boolean) => Promise<TNaturalClientDOM>;
+    findAll: (filter: TNaturalClientFilterDOM) => Promise<TNaturalClientDOM[]>;
+    findOne: (id: string) => Promise<TNaturalClientDOM>;
+    count: (filter: TNaturalClientFilterDOM) => Promise<number>;
     createOne: (client: TNaturalClientDOM) => Promise<TNaturalClientDOM>;
     createMany: (clients: TNaturalClientDOM[]) => Promise<number>;
     updateOne: (client: TNaturalClientDOM) => Promise<TNaturalClientDOM>;

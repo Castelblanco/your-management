@@ -23,24 +23,25 @@ export class NaturalClientControllers {
 
     findAll = async ({ query }: TContext): Promise<ListResponse<TNaturalClientAPI>> => {
         try {
-            const clients = await this.services.findAll(
-                {
-                    address: query.address,
-                    documentId: query.documentId,
-                    firstName: query.firstName,
-                    lastName: query.lastName,
-                    numberMovil: query.numberMovil,
-                    statusId: query.statusId,
-                },
-                {
-                    limit: query.limit ? +query.limit : 50,
-                    offset: query.offset ? +query.offset : 0,
-                    status: !!query.status,
-                },
-            );
+            const qr = {
+                limit: query.limit ? +query.limit : 50,
+                offset: query.offset ? +query.offset : 0,
+                status: !!query.status,
+                address: query.address,
+                documentId: query.documentId,
+                firstName: query.firstName,
+                lastName: query.lastName,
+                numberMovil: query.numberMovil,
+                statusId: query.statusId,
+            };
+            const [clients, count] = await Promise.all([
+                this.services.findAll(qr),
+                this.services.count(qr),
+            ]);
 
             return new ListResponse(
                 clients.map(this.mappers.domToApi),
+                count,
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {
@@ -48,12 +49,9 @@ export class NaturalClientControllers {
         }
     };
 
-    findOne = async ({
-        query,
-        params,
-    }: TContext): Promise<ApiReponse<TNaturalClientAPI>> => {
+    findOne = async ({ params }: TContext): Promise<ApiReponse<TNaturalClientAPI>> => {
         try {
-            const client = await this.services.findOne(params.id, !!query.status);
+            const client = await this.services.findOne(params.id);
 
             return new ApiReponse(
                 this.mappers.domToApi(client),

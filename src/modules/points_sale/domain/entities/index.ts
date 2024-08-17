@@ -34,15 +34,12 @@ export type TPointSaleUserRoleDOM = {
 };
 
 export type TPointSaleFilterDOM = {
+    limit?: number;
+    offset?: number;
+    users?: boolean;
     name?: string;
     statusId?: string;
     cityId?: string;
-};
-
-export type TPointSaleOPT = {
-    limit: number;
-    offset: number;
-    users: boolean;
 };
 
 export class PointSaleDOM implements TPointSaleDOM {

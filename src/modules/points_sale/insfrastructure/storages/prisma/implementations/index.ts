@@ -1,7 +1,6 @@
 import type { TWrappers } from '@common/mappers_wrappers/wrappers';
 import type {
     TPointSaleFilterDOM,
-    TPointSaleOPT,
     TPointSaleDOM,
 } from 'modules/points_sale/domain/entities';
 import type { TPointSaleRepository } from 'modules/points_sale/domain/repository';
@@ -20,10 +19,7 @@ export class PointsSalePrismaRepository implements TPointSaleRepository {
         this.wrappers = new PointsSaleWrappers();
     }
 
-    findAll = async (
-        filter: TPointSaleFilterDOM,
-        options: TPointSaleOPT,
-    ): Promise<TPointSaleDOM[]> => {
+    findAll = async (filter: TPointSaleFilterDOM): Promise<TPointSaleDOM[]> => {
         try {
             const pointsSale = await this.db.findMany({
                 where: {
@@ -35,14 +31,14 @@ export class PointsSalePrismaRepository implements TPointSaleRepository {
                 },
                 include: {
                     status: true,
-                    users: (options.users as true) && {
+                    users: (filter?.users as true) && {
                         include: {
                             role: true,
                         },
                     },
                 },
-                take: options.limit,
-                skip: options.offset,
+                take: filter?.limit,
+                skip: filter?.offset,
                 orderBy: {
                     name: 'asc',
                 },
@@ -57,12 +53,12 @@ export class PointsSalePrismaRepository implements TPointSaleRepository {
         }
     };
 
-    findOne = async (id: string, users?: boolean): Promise<TPointSaleDOM> => {
+    findOne = async (id: string): Promise<TPointSaleDOM> => {
         try {
             const pointSale = await this.db.findFirst({
                 include: {
                     status: true,
-                    users: (users as true) && {
+                    users: {
                         include: {
                             role: true,
                         },
@@ -76,6 +72,25 @@ export class PointsSalePrismaRepository implements TPointSaleRepository {
                 );
 
             return this.wrappers.dalToDom(pointSale);
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
+
+            throw new StorageError(e);
+        }
+    };
+
+    count = async (filter: TPointSaleFilterDOM): Promise<number> => {
+        try {
+            return await this.db.count({
+                where: {
+                    name: {
+                        contains: filter.name,
+                        mode: 'insensitive',
+                    },
+                    status_id: filter.statusId,
+                },
+            });
         } catch (e) {
             if (e instanceof PrismaRequestError)
                 throw new StorageError(new PrismaError(e));

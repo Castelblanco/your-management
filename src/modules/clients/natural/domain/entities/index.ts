@@ -15,18 +15,15 @@ export type TNaturalClientStatusDOM = {
 };
 
 export type TNaturalClientFilterDOM = {
+    limit?: number;
+    offset?: number;
+    status?: boolean;
     numberMovil?: string;
     address?: string;
     documentId?: string;
     firstName?: string;
     lastName?: string;
     statusId?: string;
-};
-
-export type TNaturalClientOPT = {
-    limit: number;
-    offset: number;
-    status?: boolean;
 };
 
 export class NaturalClientDOM implements TNaturalClientDOM {

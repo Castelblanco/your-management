@@ -147,6 +147,19 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
         }
     };
 
+    count = async (filter: TGuideServiceFilterDOM): Promise<number> => {
+        try {
+            return await this.db.count({
+                where: this.filterDomToDal(filter),
+            });
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
+
+            throw new StorageError(e);
+        }
+    };
+
     findNovelties = async (): Promise<TGuideServiceNoveltyDOM[]> => {
         try {
             return await prisma.guide_Service_Novelty.findMany();

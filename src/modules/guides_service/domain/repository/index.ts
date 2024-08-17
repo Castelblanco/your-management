@@ -12,6 +12,7 @@ export type TGuideServiceRepository = {
         options: TGuideServiceRelations,
     ) => Promise<TGuideServiceDOM[]>;
     findOne: (id: string, relations: TGuideServiceRelations) => Promise<TGuideServiceDOM>;
+    count: (filter: TGuideServiceFilterDOM) => Promise<number>;
     findNovelties: () => Promise<TGuideServiceNoveltyDOM[]>;
     findServicesType: () => Promise<TGuideServiceTypeServiceDOM[]>;
     createOne: (guide: TGuideServiceDOM) => Promise<TGuideServiceDOM>;

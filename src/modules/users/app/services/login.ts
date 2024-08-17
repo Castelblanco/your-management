@@ -4,18 +4,14 @@ import { ErrorAuth } from '@common/response/errors/auth_error';
 
 export const buildLogin = ({ repository, singToken, encryptPassword }: Dependencies) => {
     const service = async (user: TUserDOM): Promise<TUserLoginDOM> => {
-        const userFind = await repository.findOne(
-            {
-                email: user.email,
-            },
-            {
-                limit: 1,
-                offset: 0,
-                status: true,
-                pointSale: true,
-                role: true,
-            },
-        );
+        const userFind = await repository.findOne({
+            email: user.email,
+            limit: 1,
+            offset: 0,
+            status: true,
+            pointSale: true,
+            role: true,
+        });
 
         if (!userFind)
             throw new ErrorAuth(`this user with email ${user.email}, not exist`);

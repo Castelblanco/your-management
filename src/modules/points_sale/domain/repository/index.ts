@@ -1,11 +1,9 @@
-import type { TPointSaleDOM, TPointSaleFilterDOM, TPointSaleOPT } from '../entities';
+import type { TPointSaleDOM, TPointSaleFilterDOM } from '../entities';
 
 export type TPointSaleRepository = {
-    findAll: (
-        filter: TPointSaleFilterDOM,
-        options: TPointSaleOPT,
-    ) => Promise<TPointSaleDOM[]>;
-    findOne: (id: string, users?: boolean) => Promise<TPointSaleDOM>;
+    findAll: (filter: TPointSaleFilterDOM) => Promise<TPointSaleDOM[]>;
+    findOne: (id: string) => Promise<TPointSaleDOM>;
+    count: (filter: TPointSaleFilterDOM) => Promise<number>;
     createOne: (pointSale: TPointSaleDOM) => Promise<TPointSaleDOM>;
     updateOne: (pointSale: TPointSaleDOM) => Promise<TPointSaleDOM>;
     deleteOne: (id: string) => Promise<void>;

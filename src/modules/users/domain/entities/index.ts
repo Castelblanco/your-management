@@ -43,6 +43,11 @@ export type TUserPointSaleDOM = {
 };
 
 export type TUserFilterDOM = {
+    limit?: number;
+    offset?: number;
+    pointSale?: boolean;
+    role?: boolean;
+    status?: boolean;
     firstName?: string;
     lastName?: string;
     documentId?: string;
@@ -53,14 +58,6 @@ export type TUserFilterDOM = {
     roleId?: string;
     startTime?: string;
     endTime?: string;
-};
-
-export type TUserOPT = {
-    limit: number;
-    offset: number;
-    pointSale?: boolean;
-    role?: boolean;
-    status?: boolean;
 };
 
 export type TUserLoginDOM = {

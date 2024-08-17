@@ -24,21 +24,22 @@ export class PointsSaleControllers {
 
     findAll = async ({ query }: Context): Promise<ListResponse<TPointSaleAPI>> => {
         try {
-            const points = await this.services.findAll(
-                {
-                    cityId: query.cityId || undefined,
-                    name: query.name || undefined,
-                    statusId: query.statusId || undefined,
-                },
-                {
-                    limit: query.limit ? +query.limit : 50,
-                    offset: query.offset ? +query.offset : 0,
-                    users: !!query.users,
-                },
-            );
+            const qr = {
+                limit: query.limit ? +query.limit : 50,
+                offset: query.offset ? +query.offset : 0,
+                users: !!query.users,
+                cityId: query.cityId || undefined,
+                name: query.name || undefined,
+                statusId: query.statusId || undefined,
+            };
+            const [points, count] = await Promise.all([
+                this.services.findAll(qr),
+                this.services.count(qr),
+            ]);
 
             return new ListResponse(
                 points.map(this.mappers.domToApi),
+                count,
                 HttpSuccessCode.SUCCESSFUL,
             );
         } catch (e) {

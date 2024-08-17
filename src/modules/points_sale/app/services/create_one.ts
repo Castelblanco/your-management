@@ -1,12 +1,7 @@
 import type { TPointSaleDOM } from 'modules/points_sale/domain/entities';
-import type { TPointSaleRepository } from 'modules/points_sale/domain/repository';
+import { TDependencies } from '.';
 
-type Dependencies = {
-    repository: TPointSaleRepository;
-    createId: () => string;
-};
-
-export const buildCreateOne = ({ createId, repository }: Dependencies) => {
+export const buildCreateOne = ({ createId, repository }: TDependencies) => {
     const service = async (pointSale: TPointSaleDOM): Promise<TPointSaleDOM> => {
         pointSale.id = createId();
         return await repository.createOne(pointSale);
