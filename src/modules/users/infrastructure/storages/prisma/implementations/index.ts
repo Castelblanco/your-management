@@ -1,5 +1,5 @@
 import { type TWrappers } from '@common/mappers_wrappers/wrappers';
-import type { TUserFilterDOM, TUserOPT, TUserDOM } from '@users/domain/entities';
+import type { TUserFilterDOM, TUserDOM } from '@users/domain/entities';
 import type { TUsersRepository } from '@users/domain/repository';
 import type { TUserDAL } from '../models';
 import { UsersWrappers } from '../wrappers';
@@ -16,7 +16,7 @@ export class UsersPrismaRepository implements TUsersRepository {
         this.wrappers = new UsersWrappers();
     }
 
-    findAll = async (filter: TUserFilterDOM, options: TUserOPT): Promise<TUserDOM[]> => {
+    findAll = async (filter: TUserFilterDOM): Promise<TUserDOM[]> => {
         try {
             const users = await this.db.findMany({
                 where: {
@@ -48,12 +48,12 @@ export class UsersPrismaRepository implements TUsersRepository {
                         lte: filter.endTime,
                     },
                 },
-                take: options.limit,
-                skip: options.offset,
+                take: filter?.limit,
+                skip: filter?.offset,
                 include: {
-                    point_sale: options.pointSale,
-                    role: options.role,
-                    status: options.status,
+                    point_sale: filter?.pointSale,
+                    role: filter?.role,
+                    status: filter?.status,
                 },
             });
 
@@ -66,7 +66,7 @@ export class UsersPrismaRepository implements TUsersRepository {
         }
     };
 
-    findOne = async (filter: TUserFilterDOM, options: TUserOPT): Promise<TUserDOM> => {
+    findOne = async (filter: TUserFilterDOM): Promise<TUserDOM> => {
         try {
             const user = await this.db.findFirst({
                 where: {
@@ -94,9 +94,9 @@ export class UsersPrismaRepository implements TUsersRepository {
                     },
                 },
                 include: {
-                    point_sale: options.pointSale,
-                    role: options.role,
-                    status: options.status,
+                    point_sale: filter?.pointSale,
+                    role: filter?.role,
+                    status: filter?.status,
                 },
             });
 
@@ -134,6 +134,42 @@ export class UsersPrismaRepository implements TUsersRepository {
                 throw new ErrorResourceNotFound(`this user with id ${id}, not exits`);
 
             return this.wrappers.dalToDom(user);
+        } catch (e) {
+            if (e instanceof PrismaRequestError)
+                throw new StorageError(new PrismaError(e));
+
+            throw new StorageError(e);
+        }
+    };
+
+    count = async (filter: TUserFilterDOM): Promise<number> => {
+        try {
+            return await this.db.count({
+                where: {
+                    first_name: {
+                        equals: filter.firstName,
+                    },
+                    last_name: {
+                        equals: filter.lastName,
+                    },
+                    document_id: {
+                        equals: filter.documentId,
+                    },
+                    email: {
+                        equals: filter.email,
+                    },
+                    address: {
+                        equals: filter.address,
+                    },
+                    status_id: filter.statusId,
+                    point_sale_id: filter.pointSaleId,
+                    role_id: filter.roleId,
+                    created_at: {
+                        gte: filter.startTime,
+                        lte: filter.endTime,
+                    },
+                },
+            });
         } catch (e) {
             if (e instanceof PrismaRequestError)
                 throw new StorageError(new PrismaError(e));
