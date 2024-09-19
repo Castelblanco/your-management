@@ -3,7 +3,11 @@ import { GuideServiceControllers } from '../controllers';
 import { GuideServiceServices } from '@guides_service/app/services';
 import { createId } from '../tools';
 import { GuideServicePrismaRepository } from '../storages/prisma/implementations';
-import { validGuideInfo, validQueryFilter } from '../middleware';
+import {
+    validGuideInfoCreate,
+    validGuideInfoUpdate,
+    validQueryFilter,
+} from '../middleware';
 
 export const guideServiceRouter = new Elysia();
 
@@ -21,22 +25,30 @@ guideServiceRouter.group('/guides_service', (app) => {
         },
         (route) => {
             route.get('get-all', controller.findAll);
-
             return route;
         },
     );
 
     app.guard(
         {
-            body: validGuideInfo,
+            body: validGuideInfoCreate,
         },
         (route) => {
             route.post('create-one', controller.createOne);
-            route.put('update-one/:id', controller.updateOne);
-
             return route;
         },
     );
+
+    app.guard(
+        {
+            body: validGuideInfoUpdate,
+        },
+        (route) => {
+            route.put('update-one/:id', controller.updateOne);
+            return route;
+        },
+    );
+
     app.get('get-one/:id', controller.findOne);
     app.get('get-novelties', controller.findNovelties);
     app.get('get-services-type', controller.findServicesType);
