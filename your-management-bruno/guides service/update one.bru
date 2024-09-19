@@ -1,0 +1,109 @@
+meta {
+  name: update one
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{HOST}}/v1/guides_service/update-one/4f8da247-1635-410b-8bf1-b84c620c15a9
+  body: json
+  auth: none
+}
+
+headers {
+  accept: application/json, text/plain, */*
+  accept-language: es-419,es
+  content-type: application/json
+  origin: http://localhost:5173
+  priority: u=1, i
+  referer: http://localhost:5173/
+  sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Brave";v="128"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+  sec-fetch-dest: empty
+  sec-fetch-mode: cors
+  sec-fetch-site: cross-site
+  sec-gpc: 1
+  user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+}
+
+body:json {
+  {
+    "_id": "4f8da247-1635-410b-8bf1-b84c620c15a9",
+    "number": 26,
+    "commodity": [
+      {
+        "units": 3,
+        "weight": 6
+      }
+    ],
+    "price": 81300,
+    "created_at": "2024-09-18T22:11:48.274Z",
+    "updated_at": "2024-09-19T21:19:06.902Z",
+    "status": {
+      "_id": "ccd05bc3-233d-4ed0-962f-38ae86d62a61",
+      "name": "Activo"
+    },
+    "novelty": {
+      "_id": "8ac18222-b183-402e-9eea-033d7ae370a6",
+      "name": ""
+    },
+    "collection": false,
+    "service": {
+      "_id": "8cfa835d-68af-4a68-8508-70e136963eba",
+      "name": "DOCUMENTO EXPRESS",
+      "tab": "DE"
+    },
+    "user": {
+      "_id": "07554c43-781d-4038-bcbd-16e99060370c",
+      "first_name": "Esteban",
+      "last_name": "Castelblanco",
+      "document_id": "1030708715",
+      "email": "e@gmail.com",
+      "phone": "3219301799",
+      "address": "Carrera 96 65A-11",
+      "role": {
+        "_id": "b19fbd15-7546-40ff-9cd7-09fe0c1b977d",
+        "name": "Admin"
+      }
+    },
+    "point_sale_origin": {
+      "_id": "4e6b8753-965d-4b1c-a4bf-81a6cd421a80",
+      "name": "Santa Marta",
+      "address": "Carrera 3 2-26, San Martín Santa Marta",
+      "department": "Magdalena",
+      "municipality": "Santa Marta",
+      "neighborhood": "San Martín",
+      "latitude": 11.253465,
+      "longitude": -74.211531,
+      "budget": 18000000
+    },
+    "point_sale_destination": {
+      "_id": "fee8fb61-2a9f-49de-95c6-c66de8aa48f0",
+      "name": "Autosur",
+      "address": "Autosur 54A-69, Venecia Occidental Bogotá",
+      "department": "Distrito Capital",
+      "municipality": "Bogotá",
+      "neighborhood": "Venecia Occidental",
+      "latitude": 4.595431,
+      "longitude": -74.142365,
+      "budget": 200000000
+    },
+    "client_origin": {
+      "_id": "9b2c63f7-9de9-464a-9d78-0956a5a0ef50",
+      "number_movil": "1234568526",
+      "address": "Cl. 21 #68d-46, Bogotá",
+      "nit": "901456852-1",
+      "business_name": "TusTelas S.A.S",
+      "natural": false
+    },
+    "client_destination": {
+      "_id": "af2f5664-d8fa-4e99-88f5-ee7e32a1e73d",
+      "number_movil": "1233212321",
+      "address": "cra 00 #01 a00",
+      "nit": "1234567890",
+      "business_name": "Momasos Diego",
+      "natural": false
+    }
+  }
+}
