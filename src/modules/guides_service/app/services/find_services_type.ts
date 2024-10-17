@@ -1,7 +1,7 @@
 import type { TGuideServiceTypeServiceDOM } from '@guides_service/domain/entities';
-import { type Dependencies } from '.';
+import { type TDependencies } from '.';
 
-export const buildFindServicesType = ({ repository }: Dependencies) => {
+export const buildFindServicesType = ({ repository }: TDependencies) => {
     const service = async (): Promise<TGuideServiceTypeServiceDOM[]> => {
         return await repository.findServicesType();
     };

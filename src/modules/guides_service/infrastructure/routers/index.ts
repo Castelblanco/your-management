@@ -8,6 +8,7 @@ import {
     validGuideInfoUpdate,
     validQueryFilter,
 } from '../middleware';
+import { GuideServiceExporter } from '../tools/exporter';
 
 export const guideServiceRouter = new Elysia();
 
@@ -15,6 +16,7 @@ const controller = new GuideServiceControllers(
     new GuideServiceServices({
         createId,
         repository: new GuideServicePrismaRepository(),
+        exporter: new GuideServiceExporter(),
     }),
 );
 
@@ -48,6 +50,11 @@ guideServiceRouter.group('/guides_service', (app) => {
             return route;
         },
     );
+
+    app.group('/reports', (route) => {
+        route.get('/router', controller.routerReport);
+        return route;
+    });
 
     app.get('get-one/:id', controller.findOne);
     app.get('get-novelties', controller.findNovelties);

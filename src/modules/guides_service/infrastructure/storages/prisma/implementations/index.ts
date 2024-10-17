@@ -17,7 +17,7 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
     wrappers: TWrappers<TGuideServiceDOM, TGuideServiceDAL>;
     ifFilterDal: Record<
         keyof TGuideServiceFilterDOM,
-        (v: string | Date | number, o: TGuideServiceFilterDAL) => void
+        (v: string | Date | number | boolean, o: TGuideServiceFilterDAL) => void
     >;
 
     constructor() {
@@ -28,6 +28,10 @@ export class GuideServicePrismaRepository implements TGuideServiceRepository {
             userId: (v, o) => {
                 o.user_id = { equals: v as string };
             },
+            pointSaleId: (v, o) => {
+                o.point_sale_origin_id = { equals: v as string };
+            },
+            collection: (v, o) => (o.collection = { equals: v as boolean }),
             startDate: (v, o) => {
                 o.created_at = {
                     gte: v as Date,

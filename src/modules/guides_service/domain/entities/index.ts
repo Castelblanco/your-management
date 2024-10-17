@@ -53,6 +53,8 @@ export type TGuideServiceFilterDOM = {
     limit?: number;
     offset?: number;
     userId?: string;
+    pointSaleId?: string;
+    collection?: boolean;
     startDate?: Date;
     endDate?: Date;
 };
@@ -60,7 +62,6 @@ export type TGuideServiceFilterDOM = {
 export type TGuideServiceRelations = {
     status?: boolean;
     novelty?: boolean;
-    collection?: boolean;
     service?: boolean;
     user?: boolean;
     pointSaleOrigin?: boolean;

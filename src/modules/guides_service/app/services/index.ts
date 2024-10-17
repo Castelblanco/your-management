@@ -15,10 +15,19 @@ import { buildDeleteOne } from './delete_one';
 import { buildFindNovelties } from './find_novelties';
 import { buildFindServicesType } from './find_services_type';
 import { buildCount } from './count';
+import { buildRouterReport } from './router_report';
 
-export type Dependencies = {
+export type TGuideServiceExporter = {
+    router: (
+        guides: TGuideServiceDOM[],
+        typeServices: TGuideServiceTypeServiceDOM[],
+    ) => Promise<Buffer>;
+};
+
+export type TDependencies = {
     repository: TGuideServiceRepository;
     createId: () => string;
+    exporter: TGuideServiceExporter;
 };
 
 export class GuideServiceServices {
@@ -35,8 +44,9 @@ export class GuideServiceServices {
     createMany: (guides: TGuideServiceDOM[]) => Promise<number>;
     updateOne: (guide: TGuideServiceDOM) => Promise<TGuideServiceDOM>;
     deleteOne: (id: string) => Promise<void>;
+    reportRouter: (filters: TGuideServiceFilterDOM) => Promise<Buffer>;
 
-    constructor(dependencies: Dependencies) {
+    constructor(dependencies: TDependencies) {
         this.findAll = buildFindAll(dependencies);
         this.findOne = buildFindOne(dependencies);
         this.count = buildCount(dependencies);
@@ -46,5 +56,6 @@ export class GuideServiceServices {
         this.createMany = buildCreateMany(dependencies);
         this.updateOne = buildUpdateOne(dependencies);
         this.deleteOne = buildDeleteOne(dependencies);
+        this.reportRouter = buildRouterReport(dependencies);
     }
 }

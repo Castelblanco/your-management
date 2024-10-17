@@ -3,9 +3,9 @@ import {
     type TGuideServiceRelations,
     type TGuideServiceDOM,
 } from '@guides_service/domain/entities';
-import { type Dependencies } from '.';
+import { type TDependencies } from '.';
 
-export const buildFindAll = ({ repository }: Dependencies) => {
+export const buildFindAll = ({ repository }: TDependencies) => {
     const service = async (
         filter: TGuideServiceFilterDOM,
         options: TGuideServiceRelations,

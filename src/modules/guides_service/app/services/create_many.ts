@@ -1,7 +1,7 @@
 import { type TGuideServiceDOM } from '@guides_service/domain/entities';
-import { type Dependencies } from '.';
+import { type TDependencies } from '.';
 
-export const buildCreateMany = ({ repository, createId }: Dependencies) => {
+export const buildCreateMany = ({ repository, createId }: TDependencies) => {
     const service = async (guides: TGuideServiceDOM[]): Promise<number> => {
         return await repository.createMany(
             guides.map((guide) => {

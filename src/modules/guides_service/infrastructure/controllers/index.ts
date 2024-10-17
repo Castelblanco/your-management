@@ -9,7 +9,10 @@ import type {
     TGuideServiceTypeServiceAPI,
     TGuideServiceAPI,
 } from '@guides_service/domain/dto';
-import { type TGuideServiceDOM } from '@guides_service/domain/entities';
+import {
+    TGuideServiceFilterDOM,
+    type TGuideServiceDOM,
+} from '@guides_service/domain/entities';
 import { type Context } from 'elysia';
 
 type TContext = Context<{
@@ -39,7 +42,6 @@ export class GuideServiceControllers {
                 this.service.findAll(qr, {
                     status: !!query.status,
                     novelty: !!query.novelty,
-                    collection: !!query.collection,
                     service: !!query.service,
                     user: !!query.user,
                     pointSaleOrigin: !!query.pointSaleOrigin,
@@ -68,7 +70,6 @@ export class GuideServiceControllers {
             const guide = await this.service.findOne(params.id, {
                 status: !!query.status,
                 novelty: !!query.novelty,
-                collection: !!query.collection,
                 service: !!query.service,
                 user: !!query.user,
                 pointSaleOrigin: !!query.pointSaleOrigin,
@@ -174,6 +175,31 @@ export class GuideServiceControllers {
         try {
             await this.service.deleteOne(params.id);
             set.status = HttpSuccessCode.NOT_CONTENT;
+        } catch (e) {
+            throw e;
+        }
+    };
+
+    // Reports
+
+    routerReport = async ({ query }: TContext) => {
+        try {
+            const qr: TGuideServiceFilterDOM = {
+                pointSaleId: query.pointSaleId,
+                userId: query.userId,
+                startDate: query.startDate ? new Date(+query.startDate) : undefined,
+                endDate: query.endDate ? new Date(+query.endDate) : undefined,
+            };
+
+            const file = await this.service.reportRouter(qr);
+            return new Response(file as any, {
+                headers: {
+                    'Content-Type':
+                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'Content-disposition': 'attachment; filename=RUTERO.xlsx',
+                    'Content-Length': `${file.length}`,
+                },
+            });
         } catch (e) {
             throw e;
         }

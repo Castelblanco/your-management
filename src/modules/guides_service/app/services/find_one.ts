@@ -2,9 +2,9 @@ import {
     type TGuideServiceRelations,
     type TGuideServiceDOM,
 } from '@guides_service/domain/entities';
-import { type Dependencies } from '.';
+import { type TDependencies } from '.';
 
-export const buildFindOne = ({ repository }: Dependencies) => {
+export const buildFindOne = ({ repository }: TDependencies) => {
     const service = async (
         id: string,
         relations: TGuideServiceRelations,
