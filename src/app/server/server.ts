@@ -3,7 +3,6 @@ import { cors } from '@elysiajs/cors';
 import { ApiError } from '@common/response/errors/api_error';
 import pino from 'pino';
 import { ErrorBadRequest } from '@common/response/errors/bad_request';
-import { BaseError } from '@common/response/errors/base_error';
 
 const PORT = Bun.env.PORT ?? 5000;
 const app = new Elysia();
@@ -18,6 +17,7 @@ const middleware = (): void => {
     app.use(
         cors({
             methods: '*',
+            exposeHeaders: ['Content-Disposition'],
         }),
     );
     app.use((req) => {
